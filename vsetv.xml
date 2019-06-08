@@ -1,0 +1,940 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tv generator-info-name="vsetv">
+<channel id="3">
+<display-name lang="ru">1+1</display-name>
+<icon src="http://www.vsetv.com/pic/channel_logos/3.gif"/>
+</channel>
+<channel id="4">
+<display-name lang="ru">Интер</display-name>
+<icon src="http://www.vsetv.com/pic/channel_logos/4.gif"/>
+</channel>
+<channel id="5">
+<display-name lang="ru">ICTV</display-name>
+<icon src="http://www.vsetv.com/pic/channel_logos/5.gif"/>
+</channel>
+<channel id="6">
+<display-name lang="ru">СТБ</display-name>
+<icon src="http://www.vsetv.com/pic/channel_logos/6.gif"/>
+</channel>
+<channel id="7">
+<display-name lang="ru">Новый канал</display-name>
+<icon src="http://www.vsetv.com/pic/channel_logos/7.gif"/>
+</channel>
+<programme channel="3" start="20190608060000 +0200" stop="20190608065000 +0200">
+<title lang="ru">"Светская жизнь".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190608065000 +0200" stop="20190608080000 +0200">
+<title lang="ru">"Деньги".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190608080000 +0200" stop="20190608100000 +0200">
+<title lang="ru">"Завтрак. Выходной".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190608100000 +0200" stop="20190608130500 +0200">
+<title lang="ru">"Мир наизнанку. Индия", 14-16 эп.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190608130500 +0200" stop="20190608163000 +0200">
+<title lang="ru">"Мир наизнанку. Камбоджа", 1-4 эп.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190608163000 +0200" stop="20190608183000 +0200">
+<title lang="ru">"Вечерний квартал".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190608183000 +0200" stop="20190608193000 +0200">
+<title lang="ru">"Рассмеши комика. Дети", 1 сезон.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190608193000 +0200" stop="20190608201500 +0200">
+<title lang="ru">Т.С.Н.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190608201500 +0200" stop="20190608202500 +0200">
+<title lang="ru">"Чистоnews".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190608202500 +0200" stop="20190608214000 +0200">
+<title lang="ru">"Украинские сенсации".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190608214000 +0200" stop="20190608233000 +0200">
+<title lang="ru">"Вечерний квартал".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190608233000 +0200" stop="20190609013000 +0200">
+<title lang="ru">"Светская жизнь".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190609013000 +0200" stop="20190609040000 +0200">
+<title lang="ru">"Лига смеха", 4 сезон.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190609040000 +0200" stop="20190609060000 +0200">
+<title lang="ru">"Киев Вечерний".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190609060000 +0200" stop="20190609063500 +0200">
+<title lang="ru">Т.С.Н.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190609063500 +0200" stop="20190609064500 +0200">
+<title lang="ru">Детский кинозал. Мультфильм.</title>
+<category lang="en">Cartoons / Puppets</category>
+<category lang="ru">Мультфильм</category>
+</programme>
+<programme channel="3" start="20190609064500 +0200" stop="20190609080000 +0200">
+<title lang="ru">"Украинские сенсации".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190609080000 +0200" stop="20190609090000 +0200">
+<title lang="ru">"Завтрак. Выходной".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190609090000 +0200" stop="20190609094500 +0200">
+<title lang="ru">Лотерея "Лото-Забава".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190609094500 +0200" stop="20190609104000 +0200">
+<title lang="ru">"Мир наизнанку. Камбоджа", 5 эп.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190609104000 +0200" stop="20190609120500 +0200">
+<title lang="ru"> Х/ф "Телефонная будка".</title>
+<desc lang="ru">США, 2002, триллер Колин Фаррелл, Кифер Сазерленд, Форест Уитэкер Один телефонный звонок может изменить всю жизнь человека или даже оборвать ее. Нью-йоркский журналист Стью Шепард становится пленником телефонной будки. На другом конце провода - серийный убийца со...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="3" start="20190609120500 +0200" stop="20190609141500 +0200">
+<title lang="ru"> Х/ф "Осада".</title>
+<desc lang="ru">США, 1998, боевик / драма Дензел Вашингтон, Аннетт Бенинг, Брюс Уиллис, Тони Шэлхауб Когда в Бруклине взлетает на воздух автобус и на улицах Нью-Йорка разворачивается кровавый террор, Хаб - Энтони Хаббард, глава Объединенного антитеррористического подразделения ФБР - получает задание...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="3" start="20190609141500 +0200" stop="20190609170500 +0200">
+<title lang="ru"> Х/ф "День независимости".</title>
+<desc lang="ru">США, 1996, боевик / фантастика Уилл Смит, Билл Пуллмэн, Джефф Голдблюм, Мэри МакДоннелл 2 июля 1996 года. На орбиту нашей планеты прибывает огромный космический корабль, диаметр которого составляет более полукилометра. Из него вылетают судна, напоминающие по форме диски. Они зависают...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="3" start="20190609170500 +0200" stop="20190609193000 +0200">
+<title lang="ru"> Х/ф "День независимости: Возрождение".</title>
+<desc lang="ru">США, 2016, боевик / фантастика / приключения Лиам Хемсуорт, Джефф Голдблюм, Джесси Т. Ашер, Билл Пуллман Прошло два десятилетия с момента инопланетного вторжения. С помощью технологий пришельцев человечество сделало огромный скачок в развитии. Чтобы не повторять ошибки прошлого, земные лидеры...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="3" start="20190609193000 +0200" stop="20190609210000 +0200">
+<title lang="ru">"ТСН-Неделя".</title>
+<category lang="en">News / Current affairs</category>
+<category lang="ru">Новости</category>
+</programme>
+<programme channel="3" start="20190609210000 +0200" stop="20190609230500 +0200">
+<title lang="ru">"Голос. Дети", 5 сезон, 3 эп.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190609230500 +0200" stop="20190610010500 +0200">
+<title lang="ru">"Лига смеха", 4 сезон.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190610010500 +0200" stop="20190610024500 +0200">
+<title lang="ru">"Киев Вечерний".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190610024500 +0200" stop="20190610050000 +0200">
+<title lang="ru">"Мир наизнанку. Камбоджа".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190610050000 +0200" stop="20190610063000 +0200">
+<title lang="ru">"ТСН-Неделя".</title>
+<category lang="en">News / Current affairs</category>
+<category lang="ru">Новости</category>
+</programme>
+<programme channel="3" start="20190610063000 +0200" stop="20190610070000 +0200">
+<title lang="ru">"Завтрак с 1+1". Информационно-развлекательная программа.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190610070000 +0200" stop="20190610071000 +0200">
+<title lang="ru">Т.С.Н.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190610071000 +0200" stop="20190610080000 +0200">
+<title lang="ru">"Завтрак с 1+1". Информационно-развлекательная программа.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190610080000 +0200" stop="20190610081000 +0200">
+<title lang="ru">Т.С.Н.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190610081000 +0200" stop="20190610090000 +0200">
+<title lang="ru">"Завтрак с 1+1". Информационно-развлекательная программа.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190610090000 +0200" stop="20190610091000 +0200">
+<title lang="ru">Т.С.Н.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190610091000 +0200" stop="20190610093000 +0200">
+<title lang="ru">"Завтрак с 1+1". Информационно-развлекательная программа.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190610093000 +0200" stop="20190610105500 +0200">
+<title lang="ru">"Свадьба вслепую", 2 сезон, 4 эп.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190610105500 +0200" stop="20190610120000 +0200">
+<title lang="ru">"Меняю жену", 8 сезон, 11 эп.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190610120000 +0200" stop="20190610122000 +0200">
+<title lang="ru">Т.С.Н.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190610122000 +0200" stop="20190610135000 +0200">
+<title lang="ru">"Меняю жену", 8 сезон, 12 эп.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190610135000 +0200" stop="20190610145000 +0200">
+<title lang="ru">"Семейные мелодрамы".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190610145000 +0200" stop="20190610164500 +0200">
+<title lang="ru">Т/с "Великолепный век".  </title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Сериал</category>
+</programme>
+<programme channel="3" start="20190610164500 +0200" stop="20190610171000 +0200">
+<title lang="ru">Т.С.Н.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190610171000 +0200" stop="20190610192000 +0200">
+<title lang="ru"> Премьера. Т/с "Моя чужая жизнь".  </title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Сериал</category>
+</programme>
+<programme channel="3" start="20190610192000 +0200" stop="20190610193000 +0200">
+<title lang="ru">"Секретные материалы".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190610193000 +0200" stop="20190610204500 +0200">
+<title lang="ru">Т.С.Н.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190610204500 +0200" stop="20190610224500 +0200">
+<title lang="ru">Т/с "Когда прошлое впереди", 1 и 2 с.</title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Сериал</category>
+</programme>
+<programme channel="3" start="20190610224500 +0200" stop="20190611000000 +0200">
+<title lang="ru">"Деньги".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190611000000 +0200" stop="20190611000500 +0200">
+<title lang="ru">Т.С.Н.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190611000500 +0200" stop="20190611020500 +0200">
+<title lang="ru">"Голос. Дети", 5 сезон, 3 эп.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="3" start="20190611020500 +0200" stop="20190611235959 +0200">
+<title lang="ru">Т/с "Снова любовь 2".</title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Сериал</category>
+</programme>
+<programme channel="4" start="20190608052500 +0200" stop="20190608070000 +0200">
+<title lang="ru"> Х/ф "Последний дюйм".</title>
+<desc lang="ru">СССР, 1958, приключения / драма Вячеслав Муратов, Николай Крюков, Михаил Глузский По одноимённому рассказу Джеймса Олдриджа. Египет. 43-летний американец Бен Энсли - бывший военный лётчик. После банкротства нефтяной компании, для которой он осуществлял воздушные перевозки, мужчина...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="4" start="20190608070000 +0200" stop="20190608071000 +0200">
+<title lang="ru">"Слово Предстоятеля".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="4" start="20190608071000 +0200" stop="20190608090000 +0200">
+<title lang="ru">"Жди меня. Украина".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="4" start="20190608090000 +0200" stop="20190608100000 +0200">
+<title lang="ru">"Шесть соток".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="4" start="20190608100000 +0200" stop="20190608110000 +0200">
+<title lang="ru">"Готовим вместе. Выпечка".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="4" start="20190608110000 +0200" stop="20190608152000 +0200">
+<title lang="ru"> Х/ф "Кортик".</title>
+<desc lang="ru">СССР, 1973, приключения Сергей Шевкуненко, Владимир Дичковский, Зоя Федорова По мотивам одноименной повести Анатолия Рыбакова. Годы гражданской войны. В небольшом городке Ревске у бабушки с дедушкой гостит мальчик из Москвы Миша. Однажды он подсматривает как их постоялец –...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="4" start="20190608152000 +0200" stop="20190608170000 +0200">
+<title lang="ru"> Х/ф "Белое солнце пустыни".</title>
+<desc lang="ru">СССР, 1969, приключения Анатолий Кузнецов, Спартак Мишулин, Кахи Кавсадзе Средняя Азия после окончания гражданской войны. В Пенджентской пустыне свирепствует шайка Абдуллы. Красноармеец Сухов, отслужив положенный срок, спешит поскорее добраться домой. Но долг красноармейца...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="4" start="20190608170000 +0200" stop="20190608200000 +0200">
+<title lang="ru"> Х/ф "Я подарю тебе рассвет", 1-3 с.</title>
+<desc lang="ru">Украина, 2018, мелодрама Алёна Коломина, Кирилл Кузнецов, Алёна Хмельницкая Жизнь Карины полностью меняется после смерти её родителей, попавших в аварию. Правоохранительные органы выясняют, что погибшие были преступниками и жили по поддельным документам. В 4-летнем возрасте...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="4" start="20190608200000 +0200" stop="20190608203000 +0200">
+<title lang="ru">"Подробности".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="4" start="20190608203000 +0200" stop="20190608221500 +0200">
+<title lang="ru"> Х/ф "Я подарю тебе рассвет", 3 и 4 с.</title>
+<desc lang="ru">Украина, 2018, мелодрама Алёна Коломина, Кирилл Кузнецов, Алёна Хмельницкая Жизнь Карины полностью меняется после смерти её родителей, попавших в аварию. Правоохранительные органы выясняют, что погибшие были преступниками и жили по поддельным документам. В 4-летнем возрасте...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="4" start="20190608221500 +0200" stop="20190609020000 +0200">
+<title lang="ru"> Х/ф "Иллюзия счастья", 1-4 с.</title>
+<desc lang="ru">Россия, 2013, мелодрама Марина Денисова, Олег Алмазов, Станислав Бондаренко Алена Кузнецова знает, что только в сказках прекрасный принц женится на Золушке, но, встретив своего "принца", Юру, не может устоять и влюбляется без памяти. После страстного романа Юра бросает...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="4" start="20190609020000 +0200" stop="20190609023000 +0200">
+<title lang="ru">"Подробности".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="4" start="20190609023000 +0200" stop="20190609044500 +0200">
+<title lang="ru"> Х/ф "Безумный день, или Женитьба Фигаро".</title>
+<desc lang="ru">Россия, 2003, мюзикл Филипп Киркоров, Борис Хвошнянский, София Ротару По одноименной комедии Пьера Огюстена Карона де Бомарше. Действие разворачивается в замке великого коррехидора Андалусии графа Альмавивы. Повеса-граф, устав от приключений на стороне, решил найти...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="4" start="20190609044500 +0200" stop="20190609061000 +0200">
+<title lang="ru"> Х/ф "Шельменко-денщик".</title>
+<desc lang="ru">СССР, 1971, комедия / музыкальный Михаил Пуговкин, Владимир Дальский, Зоя Федорова По старинному русскому водевилю. В деревню к помещику Шпаку прибыл на постой военный отряд, и молодой офицер влюбился в очаровательную дочь хозяина. Девушка отвечает ему взаимностью, но у помещика...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="4" start="20190609061000 +0200" stop="20190609080000 +0200">
+<title lang="ru"> Х/ф "Двенадцатая ночь".</title>
+<desc lang="ru">СССР, 1955, комедия Клара Лучко, Алла Ларионова, Вадим Медведев, Михаил Яншин Экранизация пьесы Уильяма Шекспира. Разлученные в детстве коварной морской стихией юные брат и сестра встречаются при довольно эксцентрических обстоятельствах. Сестра, переодевшись юношей, нанимается...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="4" start="20190609080000 +0200" stop="20190609090000 +0200">
+<title lang="ru">"Удачный проект".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="4" start="20190609090000 +0200" stop="20190609100000 +0200">
+<title lang="ru">"Готовим вместе".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="4" start="20190609100000 +0200" stop="20190609110000 +0200">
+<title lang="ru">"Орел и Решка. Мегаполисы".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="4" start="20190609110000 +0200" stop="20190609120000 +0200">
+<title lang="ru">"Орел и Решка. Морской сезон 3".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="4" start="20190609120000 +0200" stop="20190609130000 +0200">
+<title lang="ru">"Орел и Решка. Морской сезон".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="4" start="20190609130000 +0200" stop="20190609171500 +0200">
+<title lang="ru"> Х/ф "Я подарю тебе рассвет", 1-4 с.</title>
+<desc lang="ru">Украина, 2018, мелодрама Алёна Коломина, Кирилл Кузнецов, Алёна Хмельницкая Жизнь Карины полностью меняется после смерти её родителей, попавших в аварию. Правоохранительные органы выясняют, что погибшие были преступниками и жили по поддельным документам. В 4-летнем возрасте...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="4" start="20190609171500 +0200" stop="20190609200000 +0200">
+<title lang="ru">  Премьера. Х/ф "Игра Молли".</title>
+<desc lang="ru">США, 2017, драма / биографический / криминал Джессика Честейн, Идрис Эльба, Кевин Костнер, Майкл Сера По мемуарам Молли Блум. 2002 год. Перспективная лыжница Молли Блум выходит в финал национального отбора на Олимпийские игры. В решающем заезде она получает травму, перечеркнувшую её надежды на...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="4" start="20190609200000 +0200" stop="20190609203000 +0200">
+<title lang="ru">"Подробности".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="4" start="20190609203000 +0200" stop="20190609220000 +0200">
+<title lang="ru">"Правила выживания". Спецвыпуск.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="4" start="20190609220000 +0200" stop="20190610000500 +0200">
+<title lang="ru"> Х/ф "Миллионер".</title>
+<desc lang="ru">Украина, 2012, мелодрама / фантазия Андрей Кузичев, Юлия Галкина, Карина Андоленко Кирилла Макарова ждет блестящее будущее: он только что окончил архитектурный институт с красным дипломом, а в невестах у него красавица Виктория - дочь состоятельного и влиятельного человека. Есть...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="4" start="20190610000500 +0200" stop="20190610235959 +0200">
+<title lang="ru">"Вещдок".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="5" start="20190608052500 +0200" stop="20190608053500 +0200">
+<title lang="ru">Сокровище нации.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="5" start="20190608053500 +0200" stop="20190608054000 +0200">
+<title lang="ru">Эврика!</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="5" start="20190608054000 +0200" stop="20190608060500 +0200">
+<title lang="ru">Факты.</title>
+<category lang="en">News / Current affairs</category>
+<category lang="ru">Новости</category>
+</programme>
+<programme channel="5" start="20190608060500 +0200" stop="20190608075000 +0200">
+<title lang="ru">Больше чем правда.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="5" start="20190608075000 +0200" stop="20190608084500 +0200">
+<title lang="ru">Я снял!</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="5" start="20190608084500 +0200" stop="20190608094500 +0200">
+<title lang="ru"> Премьера. Я снял!</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="5" start="20190608094500 +0200" stop="20190608105000 +0200">
+<title lang="ru">Дизель-шоу. Дайджест.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="5" start="20190608105000 +0200" stop="20190608124500 +0200">
+<title lang="ru">Особенности национальной работы, 3 сезон.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="5" start="20190608124500 +0200" stop="20190608130000 +0200">
+<title lang="ru">Факты. День.</title>
+<category lang="en">News / Current affairs</category>
+<category lang="ru">Новости</category>
+</programme>
+<programme channel="5" start="20190608130000 +0200" stop="20190608145000 +0200">
+<title lang="ru">Скетч-шоу "На троих".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="5" start="20190608145000 +0200" stop="20190608165500 +0200">
+<title lang="ru">Т/с "Пес", 1 и 2 с.  </title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Сериал</category>
+</programme>
+<programme channel="5" start="20190608165500 +0200" stop="20190608184500 +0200">
+<title lang="ru"> Х/ф "Васаби".</title>
+<desc lang="ru">Франция, 2001, боевик Жан Рено, Риоко Хиросуэ, Мишель Мюллер, Кароль Буке Французский полицейский Юбер Фиорентини отличается он суровостью нрава, прямолинейностью в действиях и очень крепкими кулаками. Однако в жизни он совершенно другой человек - робкий и застенчивый....  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="5" start="20190608184500 +0200" stop="20190608191000 +0200">
+<title lang="ru">Факты. Вечер.</title>
+<category lang="en">News / Current affairs</category>
+<category lang="ru">Новости</category>
+</programme>
+<programme channel="5" start="20190608191000 +0200" stop="20190608213000 +0200">
+<title lang="ru"> Х/ф "Спасатели Малибу".</title>
+<desc lang="ru">США, 2017, комедия / боевик / криминал Дуэйн Джонсон, Зак Эфрон, Приянка Чопра Эмеральд-Бэй, Флорида. Лейтенант Митч Бьюкеннон - глава элитного подразделения спасателей, известного как "Спасатели Малибу". Многие люди обязаны ему жизнью, поэтому он очень популярен и уважаем...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="5" start="20190608213000 +0200" stop="20190608230000 +0200">
+<title lang="ru"> Х/ф "Частный курорт".</title>
+<desc lang="ru">США, 1985, комедия Джонни Депп, Роб Морроу, Эмили Лонгстрет, Кэрин О'Брайан Два молодых и веселых парня Бен и Джек попадают в роскошный отель на побережье Майами, где стараются отдохнуть "по полной программе". Главный объект их внимания – красивые загорелые девочнки. К...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="5" start="20190608230000 +0200" stop="20190609005000 +0200">
+<title lang="ru"> Х/ф "Озеро страха 3".</title>
+<desc lang="ru">США, 2010, ужастик Колин Фергюсон, Янси Батлер, Кирсти Митчелл, Кэйси Барнфилд Недалеко от маленького городка, в заповеднике - зоне обитания диких животных - расположено живописное озеро. На берегах его тишь и покой, но в его водах скрывается настоящий ужас - крокодилы-убийцы,...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="5" start="20190609005000 +0200" stop="20190609022500 +0200">
+<title lang="ru"> Х/ф "Озеро страха 4".</title>
+<desc lang="ru">США, 2012, ужастик Элизабет Рём, Янси Батлер, Пол Николлс, Поппи Ли Фрайар Реба выжила в последней схватке с крокодилами и стала помогать местному шерифу в охране озера, в том числе и чтобы не угодить в тюрьму за браконьерство. Вокруг водоёма, кишащего огромными животными,...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="5" start="20190609022500 +0200" stop="20190609033500 +0200">
+<title lang="ru">Я снял!</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="5" start="20190609033500 +0200" stop="20190609034500 +0200">
+<title lang="ru">Сокровище нации.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="5" start="20190609034500 +0200" stop="20190609035500 +0200">
+<title lang="ru">Эврика!</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="5" start="20190609035500 +0200" stop="20190609042000 +0200">
+<title lang="ru">Факты.</title>
+<category lang="en">News / Current affairs</category>
+<category lang="ru">Новости</category>
+</programme>
+<programme channel="5" start="20190609042000 +0200" stop="20190609055500 +0200">
+<title lang="ru">Гражданская оборона. Дайджест.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="5" start="20190609055500 +0200" stop="20190609065000 +0200">
+<title lang="ru">Антизомби. Дайджест.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="5" start="20190609065000 +0200" stop="20190609075000 +0200">
+<title lang="ru">Антизомби.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="5" start="20190609075000 +0200" stop="20190609123500 +0200">
+<title lang="ru">Т/с "Отдел 44", 27-31 с.  </title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Сериал</category>
+</programme>
+<programme channel="5" start="20190609123500 +0200" stop="20190609124500 +0200">
+<title lang="ru">Т/с "Пес", 3 с.  </title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Сериал</category>
+</programme>
+<programme channel="5" start="20190609124500 +0200" stop="20190609130000 +0200">
+<title lang="ru">Факты. День.</title>
+<category lang="en">News / Current affairs</category>
+<category lang="ru">Новости</category>
+</programme>
+<programme channel="5" start="20190609130000 +0200" stop="20190609145500 +0200">
+<title lang="ru">Т/с "Пес", 3 и 4 с.  </title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Сериал</category>
+</programme>
+<programme channel="5" start="20190609145500 +0200" stop="20190609162000 +0200">
+<title lang="ru"> Х/ф "Частный курорт".</title>
+<desc lang="ru">США, 1985, комедия Джонни Депп, Роб Морроу, Эмили Лонгстрет, Кэрин О'Брайан Два молодых и веселых парня Бен и Джек попадают в роскошный отель на побережье Майами, где стараются отдохнуть "по полной программе". Главный объект их внимания – красивые загорелые девочнки. К...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="5" start="20190609162000 +0200" stop="20190609184500 +0200">
+<title lang="ru"> Х/ф "Спасатели Малибу".</title>
+<desc lang="ru">США, 2017, комедия / боевик / криминал Дуэйн Джонсон, Зак Эфрон, Приянка Чопра Эмеральд-Бэй, Флорида. Лейтенант Митч Бьюкеннон - глава элитного подразделения спасателей, известного как "Спасатели Малибу". Многие люди обязаны ему жизнью, поэтому он очень популярен и уважаем...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="5" start="20190609184500 +0200" stop="20190609204000 +0200">
+<title lang="ru">Факты недели. 100 минут с Оксаной Соколовой.</title>
+<category lang="en">News / Current affairs</category>
+<category lang="ru">Новости</category>
+</programme>
+<programme channel="5" start="20190609204000 +0200" stop="20190609230000 +0200">
+<title lang="ru"> Х/ф "Пассажиры".</title>
+<desc lang="ru">США, 2016, драма / мелодрама / фантастика Дженнифер Лоуренс, Крис Прэтт, Майкл Шин, Лоуренс Фишберн Космический корабль "Авалон" совершает 120-летний перелёт с Земли на новую плодородную планету. На его борту в анабиозе находятся 500 колонистов и 258 членов экипажа. Корабль проходит сквозь...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="5" start="20190609230000 +0200" stop="20190610011000 +0200">
+<title lang="ru"> Х/ф "Прибытие".</title>
+<desc lang="ru">США, 2016, драма / триллер / фантастика Эми Адамс, Джереми Реннер, Форест Уитэкер, Майкл Стулбарг По повести "История твоей жизни" Теда Чана. Лингвист Луиза Бэнкс преподаёт в университете. Однажды в 12 различных местах планеты приземляются загадочные гигантские объекты в форме эллипса. Один из...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="5" start="20190610011000 +0200" stop="20190610024500 +0200">
+<title lang="ru"> Х/ф "Озеро страха: Анаконда".</title>
+<desc lang="ru">США, 2015, ужастик Корин Немек, Янси Батлер, Скай Лури, Роберт Энглунд Гигантские крокодилы уже несколько лет терроризируют жителей Озера страха. Но, несмотря на все меры предосторожности и попытки шерифа Ребы предостеречь людей, несчастные случаи все же происходят....  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="5" start="20190610024500 +0200" stop="20190610235959 +0200">
+<title lang="ru">Я снял!</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="6" start="20190608051500 +0200" stop="20190608055000 +0200">
+<title lang="ru">"Викна-Новости".</title>
+<category lang="en">News / Current affairs</category>
+<category lang="ru">Новости</category>
+</programme>
+<programme channel="6" start="20190608055000 +0200" stop="20190608064000 +0200">
+<title lang="ru">Т/с "Когда мы дома", 1 сезон, 19 и 20 с.  </title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Сериал</category>
+</programme>
+<programme channel="6" start="20190608064000 +0200" stop="20190608093500 +0200">
+<title lang="ru">Т/с "Когда мы дома".  </title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Сериал</category>
+</programme>
+<programme channel="6" start="20190608093500 +0200" stop="20190608103500 +0200">
+<title lang="ru">"Блюдо чести", 1 эп.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="6" start="20190608103500 +0200" stop="20190608121000 +0200">
+<title lang="ru"> Х/ф "Самая обаятельная и привлекательная".</title>
+<desc lang="ru">СССР, 1985, мелодрама / комедия Ирина Муравьева, Татьяна Васильева, Александр Абдулов У инженера Нади Клюевой максимум общественной, но минимум личной жизни. Все меняется, когда она случайно встречает в автобусе свою старую знакомую, школьную одноклассницу Сусанну, ныне работающую...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="6" start="20190608121000 +0200" stop="20190608162500 +0200">
+<title lang="ru">Т/с "Скорая помощь", 5-8 с.  </title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Сериал</category>
+</programme>
+<programme channel="6" start="20190608162500 +0200" stop="20190608190000 +0200">
+<title lang="ru"> Х/ф "Миссис Даутфайр".</title>
+<desc lang="ru">США, 1993, комедия Робин Уильямс, Салли Филд, Пирс Броснан, Харви Фирштейн По мотивам книги Энн Файн "Она же - миссис Даутфайр". Безработный актер Дэниэл Хиллард, озвучивающий мультфильмы, разводится с женой Мирандой. В результате он получает возможность встречаться с тремя...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="6" start="20190608190000 +0200" stop="20190608225000 +0200">
+<title lang="ru"> Х/ф "Снайперша", 1-4 с.</title>
+<desc lang="ru">Украина, 2017, мелодрама Виктория Литвиненко, Оксана Сташенко, Станислав Флоренцев Бывшая уличная проститутка Вера достигла пика своей "карьеры". Она работает "снайпершой" на высокопоставленную чиновницу Евгению. Суть её обязанностей заключается в обольщении предпринимателей и...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="6" start="20190608225000 +0200" stop="20190609011000 +0200">
+<title lang="ru"> Х/ф "Красотка".</title>
+<desc lang="ru">США, 1990, мелодрама Джулия Робертс, Ричард Гир, Ральф Беллами Финансовый магнат Эдвард Льюис, проезжая по ночному городу, останавливается около соблазнительной женщины. Ее зовут Вивьен, и она берет только наличными. Наутро он понимает, что не хочет расставаться...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="6" start="20190609011000 +0200" stop="20190609024000 +0200">
+<title lang="ru">Т/с "Когда мы дома".  </title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Сериал</category>
+</programme>
+<programme channel="6" start="20190609024000 +0200" stop="20190609063000 +0200">
+<title lang="ru">Ночной эфир.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="6" start="20190609063000 +0200" stop="20190609083000 +0200">
+<title lang="ru">Т/с "Когда мы дома".  </title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Сериал</category>
+</programme>
+<programme channel="6" start="20190609083000 +0200" stop="20190609090000 +0200">
+<title lang="ru">"Хата на тата".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="6" start="20190609090000 +0200" stop="20190609100000 +0200">
+<title lang="ru">"Блюдо чести", 2 эп.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="6" start="20190609100000 +0200" stop="20190609180000 +0200">
+<title lang="ru">"Хата на тата".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="6" start="20190609180000 +0200" stop="20190609210000 +0200">
+<title lang="ru">"Следствие ведут экстрасенсы".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="6" start="20190609210000 +0200" stop="20190609221500 +0200">
+<title lang="ru">"Один за всех".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="6" start="20190609221500 +0200" stop="20190610001500 +0200">
+<title lang="ru">"Я стесняюсь своего тела".</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="6" start="20190610001500 +0200" stop="20190610015000 +0200">
+<title lang="ru">"В этот момент год спустя", 2 эп.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="6" start="20190610015000 +0200" stop="20190610235959 +0200">
+<title lang="ru">Ночной эфир.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="7" start="20190608060500 +0200" stop="20190608065500 +0200">
+<title lang="ru">М/с "Лунтик и его друзья".  </title>
+<category lang="en">Cartoons / Puppets</category>
+<category lang="ru">Мультфильм</category>
+</programme>
+<programme channel="7" start="20190608065500 +0200" stop="20190608072500 +0200">
+<title lang="ru">Kids' Time. М/с "Драконы: Гонка бесстрашных".</title>
+<category lang="en">Cartoons / Puppets</category>
+<category lang="ru">Мультфильм</category>
+</programme>
+<programme channel="7" start="20190608072500 +0200" stop="20190608093500 +0200">
+<title lang="ru">Kids' Time. М/с "Шоу Тома и Джерри".</title>
+<category lang="en">Cartoons / Puppets</category>
+<category lang="ru">Мультфильм</category>
+</programme>
+<programme channel="7" start="20190608093500 +0200" stop="20190608113500 +0200">
+<title lang="ru">Ревизор, 7 сезон. Спешл.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="7" start="20190608113500 +0200" stop="20190608133000 +0200">
+<title lang="ru">Ревизор, 7 сезон. Спешл.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="7" start="20190608133000 +0200" stop="20190608153000 +0200">
+<title lang="ru">Ревизор, 7 сезон. Спешл.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="7" start="20190608153000 +0200" stop="20190608172000 +0200">
+<title lang="ru">Ревизор, 7 сезон. Спешл.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="7" start="20190608172000 +0200" stop="20190608190000 +0200">
+<title lang="ru"> М/ф "Распрекрасный принц".</title>
+<desc lang="ru">США, 2018, комедия / музыкальный / фантазия Деми Ловато, Вильмер Вальдеррама, Сиа, Ниа Вардалос Еще в детстве принц Филипп подвергся воздействию чар. Ребенок получил очаровательную внешность, но при этом злая волшебница прокляла его и тем самым сделала все возможное, чтобы в его жизни не было...  </desc>
+<category lang="en">Cartoons / Puppets</category>
+<category lang="ru">Мультфильм</category>
+</programme>
+<programme channel="7" start="20190608190000 +0200" stop="20190608210000 +0200">
+<title lang="ru"> Х/ф "50 первых поцелуев".</title>
+<desc lang="ru">США, 2004, мелодрама / комедия Адам Сэндлер, Дрю Бэрримор, Роб Шнайдер, Шон Эстин Генри Рот, ветеринар океанариума на Гавайях, ловелас и повеса, неожиданно встречает девушку своей мечты - очаровательную Люси Уитмор. Возлюбленная отвечает парню взаимностью. Но, вскоре выясняется,...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="7" start="20190608210000 +0200" stop="20190608232500 +0200">
+<title lang="ru"> Х/ф "Добро пожаловать в рай!".</title>
+<desc lang="ru">США, 2005, боевик / приключения Пол Уокер, Джессика Альба, Скотт Каан, Эшли Скотт Четверо молодых дайверов обнаруживают на дне океана затонувший корабль, на борту которого, по слухам, находится золото. Однако поблизости от этой чудесной находки, обещающей богатую и беззаботную...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="7" start="20190608232500 +0200" stop="20190609010000 +0200">
+<title lang="ru"> Х/ф "Добро пожаловать в рай 2. Риф".</title>
+<desc lang="ru">США, 2009, боевик / приключения Крис Кармак, Лаура Вандерворт, Марша Томасон Себастиана и Дэни за хорошее вознаграждение нанимают в качестве аквалангистов-проводников для погружения у красивых и полных опасностей рифов Гавайских островов с целью поиска затонувшего корабля с...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="7" start="20190609010000 +0200" stop="20190609021500 +0200">
+<title lang="ru">Т/с "Клиника", 1 сезон, 1-3 с.  </title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Сериал</category>
+</programme>
+<programme channel="7" start="20190609021500 +0200" stop="20190609052500 +0200">
+<title lang="ru">Зона ночи.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="7" start="20190609052500 +0200" stop="20190609062500 +0200">
+<title lang="ru">Стенд-ап шоу, 10 эп.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="7" start="20190609062500 +0200" stop="20190609074500 +0200">
+<title lang="ru">Kids' Time. М/с "Драконы: Гонка бесстрашных".</title>
+<category lang="en">Cartoons / Puppets</category>
+<category lang="ru">Мультфильм</category>
+</programme>
+<programme channel="7" start="20190609074500 +0200" stop="20190609095000 +0200">
+<title lang="ru">Kids' Time. М/с "Шоу Тома и Джерри".</title>
+<category lang="en">Cartoons / Puppets</category>
+<category lang="ru">Мультфильм</category>
+</programme>
+<programme channel="7" start="20190609095000 +0200" stop="20190609115000 +0200">
+<title lang="ru"> Kids' Time. М/ф "Дозор джунглей".</title>
+<desc lang="ru">Франция, 2017, приключения / комедия Филипп Бозо, Лоран Морто, Паскаль Казанова, Селин Монсарра По мотивам французского мультсериала "Отряд джунглей спешит на помощь". Коала Игорь стремится сжечь все джунгли, но встречает сопротивление в лице стражей: тигрицы Наташи, ленивца Тони, носорога...  </desc>
+<category lang="en">Cartoons / Puppets</category>
+<category lang="ru">Мультфильм</category>
+</programme>
+<programme channel="7" start="20190609115000 +0200" stop="20190609134000 +0200">
+<title lang="ru"> М/ф "Побег с планеты Земля".</title>
+<desc lang="ru">США, 2013, приключения / комедия Роб Корддрай, Брендан Фрэйзер, Сара Джессика Паркер На планете Бааб, в самом центре Вселенной, два брата делают все возможное, чтобы защитить свою галактику. Они - полные противоположности. Если девиз Гарри - "сначала подумай, потом сделай", то...  </desc>
+<category lang="en">Cartoons / Puppets</category>
+<category lang="ru">Мультфильм</category>
+</programme>
+<programme channel="7" start="20190609134000 +0200" stop="20190609151000 +0200">
+<title lang="ru"> М/ф "Распрекрасный принц".</title>
+<desc lang="ru">США, 2018, комедия / музыкальный / фантазия Деми Ловато, Вильмер Вальдеррама, Сиа, Ниа Вардалос Еще в детстве принц Филипп подвергся воздействию чар. Ребенок получил очаровательную внешность, но при этом злая волшебница прокляла его и тем самым сделала все возможное, чтобы в его жизни не было...  </desc>
+<category lang="en">Cartoons / Puppets</category>
+<category lang="ru">Мультфильм</category>
+</programme>
+<programme channel="7" start="20190609151000 +0200" stop="20190609170500 +0200">
+<title lang="ru"> Х/ф "50 первых поцелуев".</title>
+<desc lang="ru">США, 2004, мелодрама / комедия Адам Сэндлер, Дрю Бэрримор, Роб Шнайдер, Шон Эстин Генри Рот, ветеринар океанариума на Гавайях, ловелас и повеса, неожиданно встречает девушку своей мечты - очаровательную Люси Уитмор. Возлюбленная отвечает парню взаимностью. Но, вскоре выясняется,...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="7" start="20190609170500 +0200" stop="20190609191500 +0200">
+<title lang="ru"> Х/ф "Добро пожаловать в рай!".</title>
+<desc lang="ru">США, 2005, боевик / приключения Пол Уокер, Джессика Альба, Скотт Каан, Эшли Скотт Четверо молодых дайверов обнаруживают на дне океана затонувший корабль, на борту которого, по слухам, находится золото. Однако поблизости от этой чудесной находки, обещающей богатую и беззаботную...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="7" start="20190609191500 +0200" stop="20190609210000 +0200">
+<title lang="ru"> Х/ф "Отмель".</title>
+<desc lang="ru">США, 2016, триллер / драма / ужастик Блэйк Лайвли; Оскар Хаэнада, Бретт Каллен Нэнси Адамс бросает медицинский институт и приезжает в Тихуану в поисках дикого пляжа, на котором в молодости отдыхала ее покойная мать. Это место оказывается скрытым от людского взора, и лишь...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="7" start="20190609210000 +0200" stop="20190609230500 +0200">
+<title lang="ru"> Х/ф "Глубокое синее море".</title>
+<desc lang="ru">США, 1999, боевик / фантастика Томас Джейн, Саффрон Барроуз, Эл Эл Кул Джей Акула нападает на катамаран с двумя развлекающимися парочками. Спасение приходит из океанологического исследовательского центра. Эта акула, вырвавшаяся на свободу, – продукт генетической мутации. Ее...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="7" start="20190609230500 +0200" stop="20190610010500 +0200">
+<title lang="ru"> Х/ф "Подъем с глубины".</title>
+<desc lang="ru">США, 1998, ужастик / боевик / приключения Трит Уильямс, Фамке Янссен, Кевин Дж. О'Коннор "Аргонавтика" - самый дорогой и роскошный круизный лайнер в мире. Судно стоимостью почти полмиллиарда долларов построено на деньги миллиардера Саймона Кэнтона. "Аргонавтика" отправляется в свой...  </desc>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="7" start="20190610010500 +0200" stop="20190610022000 +0200">
+<title lang="ru">Т/с "Клиника", 1 сезон, 4-6 с.  </title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Сериал</category>
+</programme>
+<programme channel="7" start="20190610022000 +0200" stop="20190610041000 +0200">
+<title lang="ru">Зона ночи.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="7" start="20190610041000 +0200" stop="20190610050000 +0200">
+<title lang="ru">Абзац!</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="7" start="20190610050000 +0200" stop="20190610055000 +0200">
+<title lang="ru">Абзац!</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="7" start="20190610055000 +0200" stop="20190610071000 +0200">
+<title lang="ru">Kids' Time. М/с "Кот в сапогах".  </title>
+<category lang="en">Cartoons / Puppets</category>
+<category lang="ru">Мультфильм</category>
+</programme>
+<programme channel="7" start="20190610071000 +0200" stop="20190610090000 +0200">
+<title lang="ru"> М/ф "Побег с планеты Земля".</title>
+<category lang="en">Cartoons / Puppets</category>
+<category lang="ru">Мультфильм</category>
+</programme>
+<programme channel="7" start="20190610090000 +0200" stop="20190610111000 +0200">
+<title lang="ru"> Х/ф "С меня хватит".</title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="7" start="20190610111000 +0200" stop="20190610130000 +0200">
+<title lang="ru"> Х/ф "Добро пожаловать в рай 2. Риф".</title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="7" start="20190610130000 +0200" stop="20190610150000 +0200">
+<title lang="ru"> Х/ф "Одноклассники".</title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="7" start="20190610150000 +0200" stop="20190610170000 +0200">
+<title lang="ru"> Х/ф "Одноклассники 2".</title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="7" start="20190610170000 +0200" stop="20190610200000 +0200">
+<title lang="ru">Ревизор.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="7" start="20190610200000 +0200" stop="20190610221000 +0200">
+<title lang="ru">Страсти по Ревизору.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="7" start="20190610221000 +0200" stop="20190611004000 +0200">
+<title lang="ru"> Х/ф "Три метра над уровнем неба".</title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="7" start="20190611004000 +0200" stop="20190611025000 +0200">
+<title lang="ru"> Х/ф "Секс по дружбе".</title>
+<category lang="en">Movie / Drama</category>
+<category lang="ru">Фильм</category>
+</programme>
+<programme channel="7" start="20190611025000 +0200" stop="20190611025500 +0200">
+<title lang="ru">Служба розыска детей.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="7" start="20190611025500 +0200" stop="20190611035000 +0200">
+<title lang="ru">Зона ночи.</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="7" start="20190611035000 +0200" stop="20190611044000 +0200">
+<title lang="ru">Абзац!</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+<programme channel="7" start="20190611044000 +0200" stop="20190611235959 +0200">
+<title lang="ru">Абзац!</title>
+<category lang="en">Other</category>
+<category lang="ru">Без категории</category>
+</programme>
+</tv>
