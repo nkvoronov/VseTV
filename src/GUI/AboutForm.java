@@ -30,12 +30,9 @@ public class AboutForm extends JDialog implements ActionListener {
     }
 
     private void initComponents() {
-
         setTitle(StrActionAbout);
-        setIconImage(new ImageIcon(getImagesPatch() + "main.png").getImage());
 
         GridBagConstraints gridBagConstraints;
-
         pnClient = new JPanel();
         pnClient.setName("pnClient");
         pnClient.setLayout(new GridBagLayout());

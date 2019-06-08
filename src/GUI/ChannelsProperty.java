@@ -15,7 +15,6 @@ import static Common.Strings.*;
 
 @SuppressWarnings("serial")
 public class ChannelsProperty extends JDialog {
-
     private int ModalResult = 0;
 
     private ChannelAction acAddToUser;
@@ -72,9 +71,7 @@ public class ChannelsProperty extends JDialog {
     public ChannelsProperty(Frame owner) {
         super(owner);
         createActions();
-
         setTitle(StrTitleChannelList);
-        setIconImage(new ImageIcon(getImagesPatch() + "main.png").getImage());
 
         //Client
 

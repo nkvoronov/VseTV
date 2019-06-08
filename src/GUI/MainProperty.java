@@ -4,14 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-import static Common.Common.getImagesPatch;
 import static Common.Strings.*;
 
 @SuppressWarnings("serial")
 public class MainProperty extends JDialog implements ActionListener {
-
     private int ModalResult = 0;
-
     private JTabbedPane tpParams;
     private JPanel tabMain;
     private JPanel tabUpdate;
@@ -23,10 +20,9 @@ public class MainProperty extends JDialog implements ActionListener {
     public MainProperty(Frame owner) {
         super(owner);
         setTitle(StrActionOptions);
-        setIconImage(new ImageIcon(getImagesPatch() + "main.png").getImage());
+
 
         tpParams = new JTabbedPane();
-
         tabMain = new JPanel();
         tabMain.setLayout(new GridBagLayout());
         tpParams.addTab(StrPageMain, tabMain);

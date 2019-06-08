@@ -4,14 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-import static Common.Common.getImagesPatch;
 import static Common.Strings.*;
 
 @SuppressWarnings("serial")
 public class EdtChannel extends JDialog implements ActionListener {
-
     private int ModalResult = 0;
-
     private JPanel pnClient;
     private JLabel lbIndex;
     private JTextField tfIndex;
@@ -25,10 +22,8 @@ public class EdtChannel extends JDialog implements ActionListener {
 
     public EdtChannel(Dialog owner, String title) {
         super(owner, title);
-        setIconImage(new ImageIcon(getImagesPatch() + "main.png").getImage());
 
         GridBagConstraints gridBagConstraints;
-
         pnClient = new JPanel();
         GridBagLayout pnClientLayout = new GridBagLayout();
         pnClientLayout.columnWidths = new int[] {91, 100};

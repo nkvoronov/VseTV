@@ -8,10 +8,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Common {
-
     public static final String iconFolder = "icons";
     public static final String imageFolder = "images";
-    public static final String DBDateFormat = "yyyy-MM-dd HH:mm";
 
     public static int CountDay = 3;
     public static Boolean FullDesc = false;
@@ -144,7 +142,7 @@ public class Common {
 
     public static String DTFormat(String Value, Boolean isOnlyTime) {
         String res = "";
-        SimpleDateFormat ftdt = new SimpleDateFormat(DBDateFormat);
+        SimpleDateFormat ftdt = new SimpleDateFormat(Strings.DateFormatTime);
         Calendar dt = Calendar.getInstance();
         try {
             dt.setTime(ftdt.parse(Value));
@@ -164,7 +162,7 @@ public class Common {
 
     public static int isTimeLine(String sDate, String eDate) {
         int res = -1;
-        SimpleDateFormat ftdt = new SimpleDateFormat(DBDateFormat);
+        SimpleDateFormat ftdt = new SimpleDateFormat(Strings.DateFormatTime);
         Date cdt = new Date();
         Date sdt;
         Date edt;

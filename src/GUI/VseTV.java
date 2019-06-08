@@ -438,7 +438,7 @@ public class VseTV  extends JFrame implements ChangeListener {
         fc.setDialogTitle(StrActionSaveFile);
         fc.setDialogType(JFileChooser.SAVE_DIALOG);
         fc.setSelectedFile(new File(Common.XMLOut));
-        int returnVal = fc.showOpenDialog(this);
+        int returnVal = fc.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             Parser.setXMLOut(fc.getSelectedFile().getAbsolutePath());
             Parser.runParser();
