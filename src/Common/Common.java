@@ -136,7 +136,7 @@ public class Common {
 
     public static String DTFormat(String Value, Boolean isOnlyTime) {
         String res = "";
-        SimpleDateFormat ftdt = new SimpleDateFormat(Strings.DateFormatTime);
+        SimpleDateFormat ftdt = new SimpleDateFormat(Strings.DateFormatTime3);
         Calendar dt = Calendar.getInstance();
         try {
             dt.setTime(ftdt.parse(Value));
@@ -156,7 +156,7 @@ public class Common {
 
     public static int isTimeLine(String sDate, String eDate) {
         int res = -1;
-        SimpleDateFormat ftdt = new SimpleDateFormat(Strings.DateFormatTime);
+        SimpleDateFormat ftdt = new SimpleDateFormat(Strings.DateFormatTime3);
         Date cdt = new Date();
         Date sdt;
         Date edt;

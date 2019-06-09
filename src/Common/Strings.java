@@ -23,6 +23,7 @@ public class Strings {
     public static final String DateFormat        = "yyyy-MM-dd";    
     public static final String DateFormatTime    = DateFormat + " HH:mm:ss";
     public static final String DateFormatTime2   = "yyyyMMddHHmmss";
+    public static final String DateFormatTime3   = "yyyy-MM-dd HH:mm";
     public static final String DateFormatDot     = "dd.MM.yyyy";
         
     public static final String StrGetChannel      = " Получение канала %s за %s";
