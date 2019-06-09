@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static Common.Common.getImagesPatch;
 import static Common.Strings.*;
 
 @SuppressWarnings("serial")
@@ -38,7 +37,7 @@ public class AboutForm extends JDialog implements ActionListener {
         pnClient.setLayout(new GridBagLayout());
 
         lbImage = new JLabel();
-        lbImage.setIcon(new ImageIcon(getImagesPatch() + "main.png"));
+        lbImage.setIcon(new ImageIcon(AboutForm.class.getResource("/Resources/main.png")));
         lbImage.setName("lbImage");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -63,7 +62,7 @@ public class AboutForm extends JDialog implements ActionListener {
         gridBagConstraints.gridy = 2;
         pnClient.add(lbAuthor, gridBagConstraints);
 
-        add(pnClient, BorderLayout.CENTER);
+        getContentPane().add(pnClient, BorderLayout.CENTER);
 
         pnButtons = new JPanel();
         pnButtons.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 4));
@@ -75,7 +74,7 @@ public class AboutForm extends JDialog implements ActionListener {
         pnButtons.add(btOk);
         btOk.addActionListener(this);
 
-        add(pnButtons, BorderLayout.PAGE_END);
+        getContentPane().add(pnButtons, BorderLayout.PAGE_END);
 
         setSize(new java.awt.Dimension(263, 281));
         setModalityType(ModalityType.APPLICATION_MODAL);

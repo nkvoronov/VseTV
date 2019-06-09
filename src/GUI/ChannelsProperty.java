@@ -8,7 +8,6 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-import static Common.Common.getImagesPatch;
 import static Common.DBUtils.getExecutePreparedUpdate;
 import static Common.DBUtils.getExecuteUpdate;
 import static Common.Strings.*;
@@ -378,18 +377,18 @@ public class ChannelsProperty extends JDialog {
     }
     
     private void createActions() {
-        acAddToUser = new ChannelAction(StrTitleAdd, new ImageIcon(getImagesPatch() + "add.png"), StrTitleAdd, null, null, "cmd_Add_To_User");
-        acAddAllToUser = new ChannelAction(StrActionAddAll, new ImageIcon(getImagesPatch() + "add_all.png"), StrActionAddAll, null, null, "cmd_Add_All_To_User");
-        acAddChannel = new ChannelAction(StrActionAddChannel, new ImageIcon(getImagesPatch() + "add_channel.png"), StrActionAddChannel, null, null, "cmd_Add_Channel");
-        acEdtChannel = new ChannelAction(StrTitleEdtChannels, new ImageIcon(getImagesPatch() + "edt_channel.png"), StrTitleEdtChannels, null, null, "cmd_Edt_Channel");
-        acDelChannel = new ChannelAction(StrActionDelChannel, new ImageIcon(getImagesPatch() + "del_channel.png"), StrActionDelChannel, null, null, "cmd_Del_Channel");
-        acDelAllChannels = new ChannelAction(StrActionDelChnAll, new ImageIcon(getImagesPatch() + "del_all_channel.png"), StrActionDelChnAll, null, null, "cmd_Del_All_Channel");
-        acUpdateChannels = new ChannelAction(StrActionUpdChns, new ImageIcon(getImagesPatch() + "update_channel.png"), StrActionUpdChns, null, null, "cmd_Update_Channels");
-        acUpdateIcons = new ChannelAction(StrActionUpdIcons, new ImageIcon(getImagesPatch() + "update_icons.png"), StrActionUpdIcons, null, null, "cmd_Update_Icons");
-        acDelFromUser = new ChannelAction(StrActionDel, new ImageIcon(getImagesPatch() + "del.png"), StrActionDel, null, null, "cmd_Del_From_User");
-        acDelAllFromUser = new ChannelAction(StrActionDelAll, new ImageIcon(getImagesPatch() + "del_all.png"), StrActionDelAll, null, null, "cmd_Del_All_From_User");
-        acEdtUsrChannel = new ChannelAction(StrTitleEdt, new ImageIcon(getImagesPatch() + "usr_channel_edt.png"), StrTitleEdt, null, null, "cmd_Edt_Usr_Channel");
-        acSetCorrection = new ChannelAction(StrActionSetCorrect, new ImageIcon(getImagesPatch() + "set_correction.png"), StrActionSetCorAll, null, null, "cmd_Set_Correction");
+        acAddToUser = new ChannelAction(StrTitleAdd, new ImageIcon(ChannelsProperty.class.getResource("/Resources/add.png")), StrTitleAdd, null, null, "cmd_Add_To_User");
+        acAddAllToUser = new ChannelAction(StrActionAddAll, new ImageIcon(ChannelsProperty.class.getResource("/Resources/add_all.png")), StrActionAddAll, null, null, "cmd_Add_All_To_User");
+        acAddChannel = new ChannelAction(StrActionAddChannel, new ImageIcon(ChannelsProperty.class.getResource("/Resources/add_channel.png")), StrActionAddChannel, null, null, "cmd_Add_Channel");
+        acEdtChannel = new ChannelAction(StrTitleEdtChannels, new ImageIcon(ChannelsProperty.class.getResource("/Resources/edt_channel.png")), StrTitleEdtChannels, null, null, "cmd_Edt_Channel");
+        acDelChannel = new ChannelAction(StrActionDelChannel, new ImageIcon(ChannelsProperty.class.getResource("/Resources/del_channel.png")), StrActionDelChannel, null, null, "cmd_Del_Channel");
+        acDelAllChannels = new ChannelAction(StrActionDelChnAll, new ImageIcon(ChannelsProperty.class.getResource("/Resources/del_all_channel.png")), StrActionDelChnAll, null, null, "cmd_Del_All_Channel");
+        acUpdateChannels = new ChannelAction(StrActionUpdChns, new ImageIcon(ChannelsProperty.class.getResource("/Resources/update_channel.png")), StrActionUpdChns, null, null, "cmd_Update_Channels");
+        acUpdateIcons = new ChannelAction(StrActionUpdIcons, new ImageIcon(ChannelsProperty.class.getResource("/Resources/update_icons.png")), StrActionUpdIcons, null, null, "cmd_Update_Icons");
+        acDelFromUser = new ChannelAction(StrActionDel, new ImageIcon(ChannelsProperty.class.getResource("/Resources/del.png")), StrActionDel, null, null, "cmd_Del_From_User");
+        acDelAllFromUser = new ChannelAction(StrActionDelAll, new ImageIcon(ChannelsProperty.class.getResource("/Resources/del_all.png")), StrActionDelAll, null, null, "cmd_Del_All_From_User");
+        acEdtUsrChannel = new ChannelAction(StrTitleEdt, new ImageIcon(ChannelsProperty.class.getResource("/Resources/usr_channel_edt.png")), StrTitleEdt, null, null, "cmd_Edt_Usr_Channel");
+        acSetCorrection = new ChannelAction(StrActionSetCorrect, new ImageIcon(ChannelsProperty.class.getResource("/Resources/set_correction.png")), StrActionSetCorAll, null, null, "cmd_Set_Correction");
         acSave = new ChannelAction(StrBtSave, null, StrBtSave, null, null, "cmd_Save");
     }
 

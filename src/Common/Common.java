@@ -9,8 +9,6 @@ import java.util.Date;
 
 public class Common {
     public static final String iconFolder = "icons";
-    public static final String imageFolder = "images";
-
     public static int CountDay = 3;
     public static Boolean FullDesc = false;
     public static String XMLOut = "vsetv.xml";
@@ -23,10 +21,6 @@ public class Common {
 
     public static String getIconsPatch() {
         return getCurrentPatch() + File.separator + iconFolder + File.separator;
-    }
-
-    public static String getImagesPatch() {
-        return getCurrentPatch() + File.separator + imageFolder + File.separator;
     }
 
     public static String getCurrentPatch() {

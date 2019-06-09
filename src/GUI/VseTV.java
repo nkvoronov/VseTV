@@ -20,7 +20,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
-import static Common.Common.getImagesPatch;
 import static Common.DBUtils.getConnection;
 import static Common.DBUtils.setParams;
 import static Common.Common.loadConfigs;
@@ -79,10 +78,6 @@ public class VseTV  extends JFrame implements ChangeListener {
     private JProgressBar pbUpdate;
     private JLabel lbStatus;
     
-    
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -93,10 +88,6 @@ public class VseTV  extends JFrame implements ChangeListener {
         EventQueue.invokeLater(() -> new VseTV().setVisible(true));	
 	}
 
-	/**
-	 * Create the frame.
-	 */
-
     public VseTV() {
         Parser = new ParserVseTV(Common.XMLOut, Common.Lang, Common.CountDay, Common.FullDesc);
         Parser.getMonitor().addChangeListener(this);
@@ -104,7 +95,7 @@ public class VseTV  extends JFrame implements ChangeListener {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle(StrTitleMain);
-        setIconImage(new ImageIcon(getImagesPatch() + "main.png").getImage());
+        setIconImage(Toolkit.getDefaultToolkit().getImage(VseTV.class.getResource("/Resources/main.png")));
 
         mbMain = new JMenuBar();
 
@@ -219,7 +210,7 @@ public class VseTV  extends JFrame implements ChangeListener {
 
         tbMain.add(new JToolBar.Separator());
 
-        add(tbMain, BorderLayout.PAGE_START);
+        getContentPane().add(tbMain, BorderLayout.PAGE_START);
 
         tpMain = new JTabbedPane();
         tpMain.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
@@ -391,7 +382,7 @@ public class VseTV  extends JFrame implements ChangeListener {
         tabScheludeReminders.setLayout(new BorderLayout(4, 4));
         tpMain.addTab(StrPageReminders, tabScheludeReminders);
 
-        add(tpMain, BorderLayout.CENTER);
+        getContentPane().add(tpMain, BorderLayout.CENTER);
 
         pnStatus = new JPanel();
         pnStatus.setBorder(BorderFactory.createEtchedBorder());
@@ -408,7 +399,7 @@ public class VseTV  extends JFrame implements ChangeListener {
         lbStatus.setText(" ");
         pnStatus.add(lbStatus, BorderLayout.LINE_END);
 
-        add(pnStatus, BorderLayout.PAGE_END);
+        getContentPane().add(pnStatus, BorderLayout.PAGE_END);
 
         RefreshTableMainChannels(0);
 
@@ -423,12 +414,12 @@ public class VseTV  extends JFrame implements ChangeListener {
     }
     
     private void createActions() {
-        acSaveXmlTV = new MainAction(StrActionSaveXML, new ImageIcon(getImagesPatch() + "savexmltv.png"), StrActionSaveXML, (int) '\u0445', KeyStroke.getKeyStroke(KeyEvent.VK_M, InputEvent.ALT_MASK), "cmd_Save_XmlTV");
-        acExit = new MainAction(StrActionExit, new ImageIcon(getImagesPatch() + "exit.png"), StrActionExit, (int) '\u0412', KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_MASK), "cmd_Exit");
-        acChannelsList = new MainAction(StrActionChannels, new ImageIcon(getImagesPatch() + "channelslist.png"), StrActionChannels, (int) '\u0421', KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.ALT_MASK), "cmd_Channels_List");
-        acOptions = new MainAction(StrActionOptions, new ImageIcon(getImagesPatch() + "options.png"), StrActionOptions, (int) '\u041f', KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.ALT_MASK), "cmd_Options");
-        acAbout = new MainAction(StrActionAbout, new ImageIcon(getImagesPatch() + "about.png"), StrActionAbout, (int) '\u0440', null, "cmd_About");
-        acUpdateProgramme = new MainAction(StrActionUpdate, new ImageIcon(getImagesPatch() + "update_prg.png"), StrActionUpdate, null, null, "cmd_Update_Programme");
+        acSaveXmlTV = new MainAction(StrActionSaveXML, new ImageIcon(VseTV.class.getResource("/Resources/savexmltv.png")), StrActionSaveXML, (int) '\u0445', KeyStroke.getKeyStroke(KeyEvent.VK_M, InputEvent.ALT_MASK), "cmd_Save_XmlTV");
+        acExit = new MainAction(StrActionExit, new ImageIcon(VseTV.class.getResource("/Resources/exit.png")), StrActionExit, (int) '\u0412', KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_MASK), "cmd_Exit");
+        acChannelsList = new MainAction(StrActionChannels, new ImageIcon(VseTV.class.getResource("/Resources/channelslist.png")), StrActionChannels, (int) '\u0421', KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.ALT_MASK), "cmd_Channels_List");
+        acOptions = new MainAction(StrActionOptions, new ImageIcon(VseTV.class.getResource("/Resources/options.png")), StrActionOptions, (int) '\u041f', KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.ALT_MASK), "cmd_Options");
+        acAbout = new MainAction(StrActionAbout, new ImageIcon(VseTV.class.getResource("/Resources/about.png")), StrActionAbout, (int) '\u0440', null, "cmd_About");
+        acUpdateProgramme = new MainAction(StrActionUpdate, new ImageIcon(VseTV.class.getResource("/Resources/update_prg.png")), StrActionUpdate, null, null, "cmd_Update_Programme");
         acViewToolBar = new MainAction(StrActionTools, null, StrActionTools, null, null, "cmd_View_ToolBar");
         acViewStatuslBar = new MainAction(StrActionStatus, null, StrActionStatus, null, null, "cmd_View_StatusBar");
     }

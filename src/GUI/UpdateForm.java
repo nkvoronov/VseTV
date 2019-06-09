@@ -12,7 +12,7 @@ import java.util.Objects;
 import static Common.Strings.*;
 
 @SuppressWarnings("serial")
-public class UpdateForm extends JDialog implements WindowListener, ActionListener, ChangeListener {
+public class UpdateForm extends JDialog implements ActionListener, ChangeListener {
     private ChannelList Channels;
     private int ModalResult = 0;
     private DefaultListModel<String> listModel;
@@ -24,7 +24,7 @@ public class UpdateForm extends JDialog implements WindowListener, ActionListene
 
     public UpdateForm(Dialog owner, Boolean isUpdChannels) {
         super(owner, "Update");
-        
+       
         if (isUpdChannels) {
             this.setTitle(StrTitleUpdChannels);
         } else {
@@ -37,7 +37,7 @@ public class UpdateForm extends JDialog implements WindowListener, ActionListene
         lstLog = new JList<>(listModel);
         lstLog.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         spLog.setViewportView(lstLog);
-        add(spLog, BorderLayout.CENTER);
+        getContentPane().add(spLog, BorderLayout.CENTER);
 
         pnButtons = new JPanel();
         pnButtons.setLayout(new BorderLayout(4, 4));
@@ -55,7 +55,7 @@ public class UpdateForm extends JDialog implements WindowListener, ActionListene
         btExecute.addActionListener(this);
         pnButtons.add(btExecute, BorderLayout.LINE_END);
 
-        add(pnButtons, BorderLayout.PAGE_END);
+        getContentPane().add(pnButtons, BorderLayout.PAGE_END);
 
         setSize(new Dimension(400, 300));
         setLocationRelativeTo(null);
@@ -65,11 +65,17 @@ public class UpdateForm extends JDialog implements WindowListener, ActionListene
         setModal(true);
         setResizable(false);
         getRootPane().setDefaultButton(btExecute);
-        addWindowListener(this);
         
         Channels = new ChannelList(Common.Lang, Common.IndexSort);
         Channels.setIsUpdChannels(isUpdChannels);
         Channels.getMonitor().addChangeListener(this);
+        
+        addWindowListener(new WindowAdapter() {
+        	@Override
+        	public void windowOpened(WindowEvent e) {
+        		new Thread(Channels).start();
+        	}
+        });
     }
 
     public int getModalResult() {
@@ -115,38 +121,4 @@ public class UpdateForm extends JDialog implements WindowListener, ActionListene
         }
     }
 
-    @Override
-    public void windowOpened(WindowEvent e) {
-        new Thread(Channels).start();
-    }
-
-    @Override
-    public void windowClosing(WindowEvent e) {
-        //
-    }
-
-    @Override
-    public void windowClosed(WindowEvent e) {
-        //
-    }
-
-    @Override
-    public void windowIconified(WindowEvent e) {
-        //
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent e) {
-        //
-    }
-
-    @Override
-    public void windowActivated(WindowEvent e) {
-        //
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent e) {
-        //
-    }
 }
