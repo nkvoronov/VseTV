@@ -4,20 +4,13 @@ import Common.*;
 import Parser.ParserVseTV;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ComponentEvent;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
+import java.sql.*;
 import java.io.File;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Objects;
 
 import static Common.DBUtils.getConnection;
@@ -27,18 +20,15 @@ import static Common.Strings.*;
 
 @SuppressWarnings("serial")
 public class VseTV  extends JFrame implements ChangeListener {
-
     private ParserVseTV Parser;
-
-    private MainAction acSaveXmlTV;
-    private MainAction acExit;
-    private MainAction acViewToolBar;
-    private MainAction acViewStatuslBar;
-    private MainAction acUpdateProgramme;
-    private MainAction acChannelsList;
-    private MainAction acOptions;
-    private MainAction acAbout;
-
+    private ActionSaveXmlTV acSaveXmlTV;    
+    private ActionExit acExit;
+    private ActionChannelsList acChannelsList;
+    private ActionOptions acOptions;
+    private ActionAbout acAbout;
+    private ActionUpdateProgramme acUpdateProgramme;
+    private ActionViewToolBar acViewToolBar;
+    private ActionViewStatusBar acViewStatusBar;     
     private JMenuBar mbMain;
     private JMenu mFile;
     private JMenuItem miSaveXmlTV;
@@ -91,7 +81,15 @@ public class VseTV  extends JFrame implements ChangeListener {
     public VseTV() {
         Parser = new ParserVseTV(Common.XMLOut, Common.Lang, Common.CountDay, Common.FullDesc);
         Parser.getMonitor().addChangeListener(this);
-        createActions();
+        
+        acSaveXmlTV = new ActionSaveXmlTV("");        
+        acExit = new ActionExit("");
+        acChannelsList = new ActionChannelsList("");
+        acOptions = new ActionOptions("");
+        acAbout = new ActionAbout("");
+        acUpdateProgramme = new ActionUpdateProgramme("");
+        acViewToolBar = new ActionViewToolBar("");
+        acViewStatusBar = new ActionViewStatusBar("");
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle(StrTitleMain);
@@ -108,7 +106,7 @@ public class VseTV  extends JFrame implements ChangeListener {
         miSaveXmlTV.setAction(acSaveXmlTV);
         miSaveXmlTV.setToolTipText("");
         mFile.add(miSaveXmlTV);
-
+        
         miExit = new JMenuItem();
         miExit.setAction(acExit);
         miExit.setToolTipText("");
@@ -129,7 +127,7 @@ public class VseTV  extends JFrame implements ChangeListener {
 
         miViewStatuslBar = new JCheckBoxMenuItem();
         miViewStatuslBar.setState(true);
-        miViewStatuslBar.setAction(acViewStatuslBar);
+        miViewStatuslBar.setAction(acViewStatusBar);
         miViewStatuslBar.setToolTipText("");
         mView.add(miViewStatuslBar);
 
@@ -174,7 +172,7 @@ public class VseTV  extends JFrame implements ChangeListener {
         mHelp.add(miAbout);
 
         mbMain.add(mHelp);
-
+        
         setJMenuBar(mbMain);
 
         tbMain = new JToolBar();
@@ -413,17 +411,6 @@ public class VseTV  extends JFrame implements ChangeListener {
         });
     }
     
-    private void createActions() {
-        acSaveXmlTV = new MainAction(StrActionSaveXML, new ImageIcon(VseTV.class.getResource("/Resources/savexmltv.png")), StrActionSaveXML, (int) '\u0445', KeyStroke.getKeyStroke(KeyEvent.VK_M, InputEvent.ALT_MASK), "cmd_Save_XmlTV");
-        acExit = new MainAction(StrActionExit, new ImageIcon(VseTV.class.getResource("/Resources/exit.png")), StrActionExit, (int) '\u0412', KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_MASK), "cmd_Exit");
-        acChannelsList = new MainAction(StrActionChannels, new ImageIcon(VseTV.class.getResource("/Resources/channelslist.png")), StrActionChannels, (int) '\u0421', KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.ALT_MASK), "cmd_Channels_List");
-        acOptions = new MainAction(StrActionOptions, new ImageIcon(VseTV.class.getResource("/Resources/options.png")), StrActionOptions, (int) '\u041f', KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.ALT_MASK), "cmd_Options");
-        acAbout = new MainAction(StrActionAbout, new ImageIcon(VseTV.class.getResource("/Resources/about.png")), StrActionAbout, (int) '\u0440', null, "cmd_About");
-        acUpdateProgramme = new MainAction(StrActionUpdate, new ImageIcon(VseTV.class.getResource("/Resources/update_prg.png")), StrActionUpdate, null, null, "cmd_Update_Programme");
-        acViewToolBar = new MainAction(StrActionTools, null, StrActionTools, null, null, "cmd_View_ToolBar");
-        acViewStatuslBar = new MainAction(StrActionStatus, null, StrActionStatus, null, null, "cmd_View_StatusBar");
-    }
-
     private void onSaveXmlTV() {
         JFileChooser fc = new JFileChooser();
         fc.setDialogTitle(StrActionSaveFile);
@@ -587,46 +574,124 @@ public class VseTV  extends JFrame implements ChangeListener {
         }
 
     }
+    
+    public class ActionSaveXmlTV extends AbstractAction
+    {
+    	public ActionSaveXmlTV(String text) {
+    		putValue(NAME, StrActionSaveXML);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_M, InputEvent.ALT_MASK));
+            putValue(SHORT_DESCRIPTION, StrActionSaveXML);
+            putValue(SMALL_ICON, new ImageIcon(VseTV.class.getResource("/Resources/savexmltv.png")));		
+    	}
 
-    class MainAction extends AbstractAction {
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onSaveXmlTV();    		
+    	}
+    }
+    
+    public class ActionExit extends AbstractAction
+    {
+    	public ActionExit(String text) {
+    		putValue(NAME, StrActionExit);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_MASK));
+            putValue(SHORT_DESCRIPTION, StrActionExit);
+            putValue(SMALL_ICON, new ImageIcon(VseTV.class.getResource("/Resources/exit.png")));		
+    	}
 
-        public MainAction(String text, ImageIcon icon, String desc, Integer mnemonic, KeyStroke accelerator, String actioncommand) {
-            super(text, icon);
-            putValue(SHORT_DESCRIPTION, desc);
-            putValue(MNEMONIC_KEY, mnemonic);
-            putValue(ACCELERATOR_KEY, accelerator);
-            putValue(ACTION_COMMAND_KEY, actioncommand);
-        }
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onExit();    		
+    	}
+    }
+    
+    public class ActionChannelsList extends AbstractAction
+    {
+    	public ActionChannelsList(String text) {
+    		putValue(NAME, StrActionChannels);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.ALT_MASK));
+            putValue(SHORT_DESCRIPTION, StrActionChannels);
+            putValue(SMALL_ICON, new ImageIcon(VseTV.class.getResource("/Resources/channelslist.png")));		
+    	}
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String cmd = e.getActionCommand();
-            switch (cmd) {
-                case "cmd_Save_XmlTV":
-                    onSaveXmlTV();
-                    break;
-                case "cmd_Exit":
-                    onExit();
-                    break;
-                case "cmd_View_ToolBar":
-                    onViewToolBar();
-                    break;
-                case "cmd_View_StatusBar":
-                    onViewStatusBar();
-                    break;
-                case "cmd_Update_Programme":
-                    onUpdateProgramme();
-                    break;
-                case "cmd_Channels_List":
-                    onChannelsList();
-                    break;
-                case "cmd_Options":
-                    onOptions();
-                    break;
-                case "cmd_About":
-                    onAbout();
-                    break;
-            }
-        }
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onChannelsList();    		
+    	}
+    }
+    
+    public class ActionOptions extends AbstractAction
+    {
+    	public ActionOptions(String text) {
+    		putValue(NAME, StrActionOptions);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.ALT_MASK));
+            putValue(SHORT_DESCRIPTION, StrActionOptions);
+            putValue(SMALL_ICON, new ImageIcon(VseTV.class.getResource("/Resources/options.png")));		
+    	}
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onOptions();   		
+    	}
+    }
+    
+    public class ActionAbout extends AbstractAction
+    {
+    	public ActionAbout(String text) {
+    		putValue(NAME, StrActionAbout);
+            putValue(ACCELERATOR_KEY, null);
+            putValue(SHORT_DESCRIPTION, StrActionAbout);
+            putValue(SMALL_ICON, new ImageIcon(VseTV.class.getResource("/Resources/about.png")));		
+    	}
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onAbout();   		
+    	}
+    }
+    
+    public class ActionUpdateProgramme extends AbstractAction
+    {
+    	public ActionUpdateProgramme(String text) {
+    		putValue(NAME, StrActionUpdate);
+            putValue(ACCELERATOR_KEY, null);
+            putValue(SHORT_DESCRIPTION, StrActionUpdate);
+            putValue(SMALL_ICON, new ImageIcon(VseTV.class.getResource("/Resources/update_prg.png")));		
+    	}
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onUpdateProgramme();    		
+    	}
+    }
+    
+    public class ActionViewToolBar extends AbstractAction
+    {
+    	public ActionViewToolBar(String text) {
+    		putValue(NAME, StrActionTools);
+            putValue(ACCELERATOR_KEY, null);
+            putValue(SHORT_DESCRIPTION, StrActionTools);
+            putValue(SMALL_ICON, null);		
+    	}
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onViewToolBar();   		
+    	}
+    }
+    
+    public class ActionViewStatusBar extends AbstractAction
+    {
+    	public ActionViewStatusBar(String text) {
+    		putValue(NAME, StrActionStatus);
+            putValue(ACCELERATOR_KEY, null);
+            putValue(SHORT_DESCRIPTION, StrActionStatus);
+            putValue(SMALL_ICON, null);		
+    	}
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onViewStatusBar();   		
+    	}
     }
 }

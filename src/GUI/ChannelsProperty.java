@@ -3,10 +3,10 @@ package GUI;
 import Common.*;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
-import java.awt.*;
-import java.awt.event.ActionEvent;
 
 import static Common.DBUtils.getExecutePreparedUpdate;
 import static Common.DBUtils.getExecuteUpdate;
@@ -15,24 +15,21 @@ import static Common.Strings.*;
 @SuppressWarnings("serial")
 public class ChannelsProperty extends JDialog {
     private int ModalResult = 0;
-
-    private ChannelAction acAddToUser;
-    private ChannelAction acAddAllToUser;
-    private ChannelAction acAddChannel;
-    private ChannelAction acEdtChannel;
-    private ChannelAction acDelChannel;
-    private ChannelAction acDelAllChannels;
-    private ChannelAction acUpdateChannels;
-    private ChannelAction acUpdateIcons;
-    private ChannelAction acDelFromUser;
-    private ChannelAction acDelAllFromUser;
-    private ChannelAction acEdtUsrChannel;
-    private ChannelAction acSetCorrection;
-    private ChannelAction acSave;
-
+    private ActionAddToUser acAddToUser;    
+    private ActionAddAllToUser acAddAllToUser;    
+    private ActionAddChannel acAddChannel;    
+    private ActionEdtChannel acEdtChannel;    
+    private ActionDelChannel acDelChannel;    
+    private ActionDelAllChannels acDelAllChannels;   
+    private ActionUpdateChannels acUpdateChannels;    
+    private ActionUpdateIcons acUpdateIcons;    
+    private ActionDelFromUser acDelFromUser;    
+    private ActionDelAllFromUser acDelAllFromUser;    
+    private ActionEdtUsrChannel acEdtUsrChannel;   
+    private ActionSetCorrection acSetCorrection;    
+    private ActionSave acSave;
     private DBTableModelChannels ChannelsModel;
     private DBTableModelUserChannels UserChannelsModel;
-
     private JSplitPane spChannelsList;
     private JPanel pnLeft;
     private JToolBar tbChannels;
@@ -57,7 +54,6 @@ public class ChannelsProperty extends JDialog {
     private JTable tblUserChannels;
     private JPanel pnButtons;
     private JButton btSave;
-
     private JPopupMenu pmChannels;
     private JMenuItem miAddToUser;
     private JMenuItem miAddChannel;
@@ -69,7 +65,21 @@ public class ChannelsProperty extends JDialog {
 
     public ChannelsProperty(Frame owner) {
         super(owner);
-        createActions();
+        
+        acAddToUser = new ActionAddToUser("");
+        acAddAllToUser = new ActionAddAllToUser("");
+        acAddChannel = new ActionAddChannel("");
+        acEdtChannel = new ActionEdtChannel("");
+        acDelChannel = new ActionDelChannel("");
+        acDelAllChannels = new ActionDelAllChannels("");
+        acUpdateChannels = new ActionUpdateChannels("");
+        acUpdateIcons = new ActionUpdateIcons("");        
+        acDelFromUser = new ActionDelFromUser("");       
+        acDelAllFromUser = new ActionDelAllFromUser("");        
+        acEdtUsrChannel = new ActionEdtUsrChannel("");        
+        acSetCorrection = new ActionSetCorrection("");        
+        acSave = new ActionSave("");
+        
         setTitle(StrTitleChannelList);
 
         //Client
@@ -166,6 +176,14 @@ public class ChannelsProperty extends JDialog {
 
         scpLeft = new JScrollPane();
         tblChannels = new JTable();
+        tblChannels.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		if (e.getClickCount() == 2) {
+        			onEdtChannel();		
+        		}	
+        	}
+        });
         ChannelsModel = new DBTableModelChannels(DBUtils.sqlChannels);
         tblChannels.setModel(ChannelsModel);
 
@@ -296,6 +314,17 @@ public class ChannelsProperty extends JDialog {
 
         scpRight = new JScrollPane();
         tblUserChannels = new JTable();
+        tblUserChannels.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+                if (tblChannels.getSelectedRow() != -1) {
+                    onSelectChannelsRow();
+                }
+        		if (e.getClickCount() == 2) {
+        			onEdtUsrChannel();		
+        		}	
+        	}
+        });
         UserChannelsModel = new DBTableModelUserChannels(DBUtils.sqlUserChannels);
         tblUserChannels.setModel(UserChannelsModel);
 
@@ -350,7 +379,7 @@ public class ChannelsProperty extends JDialog {
         pnRight.add(scpRight, BorderLayout.CENTER);
         spChannelsList.setRightComponent(pnRight);
 
-        add(spChannelsList, BorderLayout.CENTER);
+        getContentPane().add(spChannelsList, BorderLayout.CENTER);
 
         //Bottom
 
@@ -362,7 +391,7 @@ public class ChannelsProperty extends JDialog {
         btSave.setAction(acSave);
         pnButtons.add(btSave);
 
-        add(pnButtons, BorderLayout.PAGE_END);
+        getContentPane().add(pnButtons, BorderLayout.PAGE_END);
 
         RefreshTableChannels(0);
         RefreshTableUserChannels(0);
@@ -374,22 +403,6 @@ public class ChannelsProperty extends JDialog {
         setModal(true);
         setResizable(false);
         getRootPane().setDefaultButton(btSave);
-    }
-    
-    private void createActions() {
-        acAddToUser = new ChannelAction(StrTitleAdd, new ImageIcon(ChannelsProperty.class.getResource("/Resources/add.png")), StrTitleAdd, null, null, "cmd_Add_To_User");
-        acAddAllToUser = new ChannelAction(StrActionAddAll, new ImageIcon(ChannelsProperty.class.getResource("/Resources/add_all.png")), StrActionAddAll, null, null, "cmd_Add_All_To_User");
-        acAddChannel = new ChannelAction(StrActionAddChannel, new ImageIcon(ChannelsProperty.class.getResource("/Resources/add_channel.png")), StrActionAddChannel, null, null, "cmd_Add_Channel");
-        acEdtChannel = new ChannelAction(StrTitleEdtChannels, new ImageIcon(ChannelsProperty.class.getResource("/Resources/edt_channel.png")), StrTitleEdtChannels, null, null, "cmd_Edt_Channel");
-        acDelChannel = new ChannelAction(StrActionDelChannel, new ImageIcon(ChannelsProperty.class.getResource("/Resources/del_channel.png")), StrActionDelChannel, null, null, "cmd_Del_Channel");
-        acDelAllChannels = new ChannelAction(StrActionDelChnAll, new ImageIcon(ChannelsProperty.class.getResource("/Resources/del_all_channel.png")), StrActionDelChnAll, null, null, "cmd_Del_All_Channel");
-        acUpdateChannels = new ChannelAction(StrActionUpdChns, new ImageIcon(ChannelsProperty.class.getResource("/Resources/update_channel.png")), StrActionUpdChns, null, null, "cmd_Update_Channels");
-        acUpdateIcons = new ChannelAction(StrActionUpdIcons, new ImageIcon(ChannelsProperty.class.getResource("/Resources/update_icons.png")), StrActionUpdIcons, null, null, "cmd_Update_Icons");
-        acDelFromUser = new ChannelAction(StrActionDel, new ImageIcon(ChannelsProperty.class.getResource("/Resources/del.png")), StrActionDel, null, null, "cmd_Del_From_User");
-        acDelAllFromUser = new ChannelAction(StrActionDelAll, new ImageIcon(ChannelsProperty.class.getResource("/Resources/del_all.png")), StrActionDelAll, null, null, "cmd_Del_All_From_User");
-        acEdtUsrChannel = new ChannelAction(StrTitleEdt, new ImageIcon(ChannelsProperty.class.getResource("/Resources/usr_channel_edt.png")), StrTitleEdt, null, null, "cmd_Edt_Usr_Channel");
-        acSetCorrection = new ChannelAction(StrActionSetCorrect, new ImageIcon(ChannelsProperty.class.getResource("/Resources/set_correction.png")), StrActionSetCorAll, null, null, "cmd_Set_Correction");
-        acSave = new ChannelAction(StrBtSave, null, StrBtSave, null, null, "cmd_Save");
     }
 
     public int getModalResult() {
@@ -474,7 +487,7 @@ public class ChannelsProperty extends JDialog {
         }
     }
 
-    private void onDelAllChannel() {
+    private void onDelAllChannels() {
         if (JOptionPane.showConfirmDialog(this, StrConfirmDelAll, StrTitleDel, JOptionPane.YES_NO_OPTION) == 0) {
             if (getExecuteUpdate(DBUtils.sqlDelAllChannels) != -1) {
                 RefreshTableChannels(0);
@@ -617,61 +630,197 @@ public class ChannelsProperty extends JDialog {
         }
     }
 
-    class ChannelAction extends AbstractAction {
+    public class ActionAddToUser extends AbstractAction
+    {
+    	public ActionAddToUser(String text) {
+    		putValue(NAME, StrTitleAdd);
+            putValue(ACCELERATOR_KEY, null);
+            putValue(SHORT_DESCRIPTION, StrTitleAdd);
+            putValue(SMALL_ICON, new ImageIcon(ChannelsProperty.class.getResource("/Resources/add.png")));		
+    	}
 
-        public ChannelAction(String text, ImageIcon icon, String desc, Integer mnemonic, KeyStroke accelerator, String actioncommand) {
-            super(text, icon);
-            putValue(SHORT_DESCRIPTION, desc);
-            putValue(MNEMONIC_KEY, mnemonic);
-            putValue(ACCELERATOR_KEY, accelerator);
-            putValue(ACTION_COMMAND_KEY, actioncommand);
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String cmd = e.getActionCommand();
-            switch (cmd) {
-                case "cmd_Add_To_User":
-                    onAddToUser();
-                    break;
-                case "cmd_Add_All_To_User":
-                    onAddAllToUser();
-                    break;
-                case "cmd_Add_Channel":
-                    onAddChannel();
-                    break;
-                case "cmd_Edt_Channel":
-                    onEdtChannel();
-                    break;
-                case "cmd_Del_Channel":
-                    onDelChannel();
-                    break;
-                case "cmd_Del_All_Channel":
-                    onDelAllChannel();
-                    break;
-                case "cmd_Update_Channels":
-                    onUpdateChannels();
-                    break;
-                case "cmd_Update_Icons":
-                    onUpdateIcons();
-                    break;
-                case "cmd_Del_From_User":
-                    onDelFromUser();
-                    break;
-                case "cmd_Del_All_From_User":
-                    onDelAllFromUser();
-                    break;
-                case "cmd_Edt_Usr_Channel":
-                    onEdtUsrChannel();
-                    break;
-                case "cmd_Set_Correction":
-                    onSetCorrection();
-                    break;
-                case "cmd_Save":
-                    onOK();
-                    break;
-            }
-        }
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onAddToUser();    		
+    	}
     }
+    
+    public class ActionAddAllToUser extends AbstractAction
+    {
+    	public ActionAddAllToUser(String text) {
+    		putValue(NAME, StrActionAddAll);
+            putValue(ACCELERATOR_KEY, null);
+            putValue(SHORT_DESCRIPTION, StrActionAddAll);
+            putValue(SMALL_ICON, new ImageIcon(ChannelsProperty.class.getResource("/Resources/add_all.png")));		
+    	}
 
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onAddAllToUser();    		
+    	}
+    }
+    
+    public class ActionAddChannel extends AbstractAction
+    {
+    	public ActionAddChannel(String text) {
+    		putValue(NAME, StrActionAddChannel);
+            putValue(ACCELERATOR_KEY, null);
+            putValue(SHORT_DESCRIPTION, StrActionAddChannel);
+            putValue(SMALL_ICON, new ImageIcon(ChannelsProperty.class.getResource("/Resources/add_channel.png")));		
+    	}
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onAddChannel();    		
+    	}
+    }
+    
+    public class ActionEdtChannel extends AbstractAction
+    {
+    	public ActionEdtChannel(String text) {
+    		putValue(NAME, StrTitleEdtChannels);
+            putValue(ACCELERATOR_KEY, null);
+            putValue(SHORT_DESCRIPTION, StrTitleEdtChannels);
+            putValue(SMALL_ICON, new ImageIcon(ChannelsProperty.class.getResource("/Resources/edt_channel.png")));		
+    	}
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onEdtChannel();   		
+    	}
+    }
+    
+    public class ActionDelChannel extends AbstractAction
+    {
+    	public ActionDelChannel(String text) {
+    		putValue(NAME, StrActionDelChannel);
+            putValue(ACCELERATOR_KEY, null);
+            putValue(SHORT_DESCRIPTION, StrActionDelChannel);
+            putValue(SMALL_ICON, new ImageIcon(ChannelsProperty.class.getResource("/Resources/del_channel.png")));		
+    	}
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onDelChannel();   		
+    	}
+    }
+    
+    public class ActionDelAllChannels extends AbstractAction
+    {
+    	public ActionDelAllChannels(String text) {
+    		putValue(NAME, StrActionDelChnAll);
+            putValue(ACCELERATOR_KEY, null);
+            putValue(SHORT_DESCRIPTION, StrActionDelChnAll);
+            putValue(SMALL_ICON, new ImageIcon(ChannelsProperty.class.getResource("/Resources/del_all_channel.png")));		
+    	}
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onDelAllChannels();    		
+    	}
+    }
+    
+    public class ActionUpdateChannels extends AbstractAction
+    {
+    	public ActionUpdateChannels(String text) {
+    		putValue(NAME, StrActionUpdChns);
+            putValue(ACCELERATOR_KEY, null);
+            putValue(SHORT_DESCRIPTION, StrActionUpdChns);
+            putValue(SMALL_ICON, new ImageIcon(ChannelsProperty.class.getResource("/Resources/update_channel.png")));		
+    	}
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onUpdateChannels();   		
+    	}
+    }
+    
+    public class ActionUpdateIcons extends AbstractAction
+    {
+    	public ActionUpdateIcons(String text) {
+    		putValue(NAME, StrActionUpdIcons);
+            putValue(ACCELERATOR_KEY, null);
+            putValue(SHORT_DESCRIPTION, StrActionUpdIcons);
+            putValue(SMALL_ICON, new ImageIcon(ChannelsProperty.class.getResource("/Resources/update_icons.png")));		
+    	}
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onUpdateIcons();   		
+    	}
+    }    
+
+    public class ActionDelFromUser extends AbstractAction
+    {
+    	public ActionDelFromUser(String text) {
+    		putValue(NAME, StrActionDel);
+            putValue(ACCELERATOR_KEY, null);
+            putValue(SHORT_DESCRIPTION, StrActionDel);
+            putValue(SMALL_ICON, new ImageIcon(ChannelsProperty.class.getResource("/Resources/del.png")));		
+    	}
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onDelFromUser();   		
+    	}
+    }
+    
+    public class ActionDelAllFromUser extends AbstractAction
+    {
+    	public ActionDelAllFromUser(String text) {
+    		putValue(NAME, StrActionDelAll);
+            putValue(ACCELERATOR_KEY, null);
+            putValue(SHORT_DESCRIPTION, StrActionDelAll);
+            putValue(SMALL_ICON, new ImageIcon(ChannelsProperty.class.getResource("/Resources/del_all.png")));		
+    	}
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onDelAllFromUser();    		
+    	}
+    }
+    
+    public class ActionEdtUsrChannel extends AbstractAction
+    {
+    	public ActionEdtUsrChannel(String text) {
+    		putValue(NAME, StrTitleEdt);
+            putValue(ACCELERATOR_KEY, null);
+            putValue(SHORT_DESCRIPTION, StrTitleEdt);
+            putValue(SMALL_ICON, new ImageIcon(ChannelsProperty.class.getResource("/Resources/usr_channel_edt.png")));		
+    	}
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onEdtUsrChannel();   		
+    	}
+    }
+    
+    public class ActionSetCorrection extends AbstractAction
+    {
+    	public ActionSetCorrection(String text) {
+    		putValue(NAME, StrActionSetCorrect);
+            putValue(ACCELERATOR_KEY, null);
+            putValue(SHORT_DESCRIPTION, StrActionSetCorrect);
+            putValue(SMALL_ICON, new ImageIcon(ChannelsProperty.class.getResource("/Resources/set_correction.png")));		
+    	}
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onSetCorrection();   		
+    	}
+    }
+    public class ActionSave extends AbstractAction
+    {
+    	public ActionSave(String text) {
+    		putValue(NAME, StrBtSave);
+            putValue(ACCELERATOR_KEY, null);
+            putValue(SHORT_DESCRIPTION, StrBtSave);
+            putValue(SMALL_ICON, new ImageIcon(ChannelsProperty.class.getResource("/Resources/savexmltv.png")));		
+    	}
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onOK();   		
+    	}
+    }
 }
