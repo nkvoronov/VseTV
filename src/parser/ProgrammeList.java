@@ -10,6 +10,7 @@ import common.DBParams;
 import common.DBUtils;
 import common.ProgressMonitor;
 import common.UtilStrings;
+import gui.Messages;
 
 public class ProgrammeList {
     private List<Programme> data;
@@ -43,7 +44,7 @@ public class ProgrammeList {
             scheduleID = getInsertScheduleID(prg);
             saveToDBDescription(scheduleID, prg);
             format = new Formatter();
-            format.format(UtilStrings.StrSaveToBD, i, this.data.size());
+            format.format(Messages.getString("StrSaveToBD"), i, this.data.size());
             monitor.setCurrent(format.toString(), i);
             i++;
         }

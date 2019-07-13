@@ -25,6 +25,7 @@ import common.DBParams;
 import common.DBUtils;
 import common.ProgressMonitor;
 import common.UtilStrings;
+import gui.Messages;
 
 public class ParserVseTV implements Runnable {
     private ChannelList channels;
@@ -218,8 +219,8 @@ public class ParserVseTV implements Runnable {
     private void getCategoryFromTitle(Programme prg) {
         try {
             String ctitle = new String(prg.getTitle().getBytes(), "UTF-8").toLowerCase();
-            prg.setCategoryLangRU(UtilStrings.StrCategoryLangRU);
-            prg.setCategoryLangEN(UtilStrings.StrCategoryLangEN);
+            prg.setCategoryLangRU(Messages.getString("StrCategoryLangRU"));
+            prg.setCategoryLangEN(Messages.getString("StrCategoryLangEN"));
             try {
             	for (CategoryProgramme cp : CommonTypes.catList.getData()) {
             		if (cp.getId() != 0) {
@@ -253,7 +254,7 @@ public class ParserVseTV implements Runnable {
     public void runParserGUI() {
         pMonitor.start("");
         pMonitor.setIndeterminate(true);
-        pMonitor.setCurrent(UtilStrings.StrLoadChanels, 0);
+        pMonitor.setCurrent(Messages.getString("StrLoadChanels"), 0);
         getChannels().loadFromDB();
         getProgrammes().clearDBSchedule();
         try {
@@ -264,7 +265,7 @@ public class ParserVseTV implements Runnable {
         pMonitor.setIndeterminate(false);
         getContent(true);
         pMonitor.setIndeterminate(true);
-        pMonitor.setCurrent(UtilStrings.StrProcessShelude, 0);
+        pMonitor.setCurrent(Messages.getString("StrProcessShelude"), 0);
         getProgrammes().setProgrammeStop();
         try {
             Thread.sleep(100);

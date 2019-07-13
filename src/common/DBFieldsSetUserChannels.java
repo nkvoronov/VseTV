@@ -1,17 +1,19 @@
 package common;
 
+import gui.Messages;
+
 public class DBFieldsSetUserChannels extends DBFieldsSet {
 
     public DBFieldsSetUserChannels() {
         super();
-        DBField fld = new DBField("sicon", UtilStrings.FIELD_SICON);
+        DBField fld = new DBField("sicon", "");
         this.getFieldSet().add(fld);
-        fld = new DBField("picon", UtilStrings.FIELD_PICON);
+        fld = new DBField("picon", "");
         fld.setType(CommonTypes.DBType.OBJECT);
         this.getFieldSet().add(fld);
-        fld = new DBField("name", UtilStrings.FIELD_NAME);
+        fld = new DBField("name", Messages.getString("FIELD_NAME"));
         this.getFieldSet().add(fld);
-        fld = new DBField("correction", UtilStrings.FIELD_CORRECTION);
+        fld = new DBField("correction", Messages.getString("FIELD_CORRECTION"));
         fld.setType(CommonTypes.DBType.INTEGER);
         this.getFieldSet().add(fld);
     }
