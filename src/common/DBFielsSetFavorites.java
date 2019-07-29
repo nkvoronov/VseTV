@@ -2,11 +2,16 @@ package common;
 
 import gui.Messages;
 
-public class DBFielsSetMainSchedule  extends DBFieldsSet {
-
-    public DBFielsSetMainSchedule() {
+public class DBFielsSetFavorites extends DBFieldsSet {
+	
+    public DBFielsSetFavorites() {
         super();
-        DBField fld = new DBField("sdate", Messages.getString("FIELD_SDATE"));
+        DBField fld = new DBField("picon", "");
+        fld.setType(CommonTypes.DBType.OBJECT);
+        this.getFieldSet().add(fld);
+        fld = new DBField("uname", Messages.getString("FIELD_NAME"));
+        this.getFieldSet().add(fld);
+        fld = new DBField("sdate", Messages.getString("FIELD_SDATE"));
         this.getFieldSet().add(fld);
         fld = new DBField("edate", "");
         this.getFieldSet().add(fld);
@@ -17,11 +22,6 @@ public class DBFielsSetMainSchedule  extends DBFieldsSet {
         this.getFieldSet().add(fld);
         fld = new DBField("isdesc", "");
         fld.setType(CommonTypes.DBType.BOOL);
-        this.getFieldSet().add(fld);
-        fld = new DBField("isfav", "");
-        fld.setType(CommonTypes.DBType.BOOL);
-        this.getFieldSet().add(fld);
-        fld = new DBField("timetype", "");
         this.getFieldSet().add(fld);
         fld = new DBField("cat_en", Messages.getString("FIELD_CANEN"));
         this.getFieldSet().add(fld);

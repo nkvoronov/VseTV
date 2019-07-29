@@ -28,15 +28,11 @@ public class DBUtils {
 
     public static final String SQL_MAINUSERCHANNELS =
             "select uchn.id as id, " +
-            "chn.cindex as idx, " +
-            "chn.icon as sicon, " +
-            "chn.name as oname, " +
-            "uchn.correction as correction, " +
-            "case when ((julianday('now')-julianday(uchn.upd_date))>" + CommonTypes.COUNT_DAY +") or (uchn.upd_date is null) then 0 else 1 end as isupd, " +
             "uchn.icon as picon, " +
-            "uchn.name as uname " +
+            "uchn.name as uname, " +
+            "case when ((julianday('now')-julianday(uchn.upd_date))>" + CommonTypes.COUNT_DAY +") or (uchn.upd_date is null) then 0 else 1 end as isupd " +            
             "from user_channels uchn " +
-            "join channels chn on (chn.id=uchn.channel)";
+            "order by uchn.id";
 
     public static final String SQL_MAINUSERCHANNELS_UPDDATE = "update user_channels set upd_date=datetime('now') where id=(select uchn.id from user_channels uchn join channels chn on (chn.id=uchn.channel) where chn.cindex=?)";
 
@@ -54,12 +50,54 @@ public class DBUtils {
             "strftime('%s', sch.ending)-strftime('%s', sch.starting) as duration, " +
             "sch.title, " +
             "case when (select sd.id from schedule_description sd where sd.schedule=sch.id) is not null then '1' else '0' end as isdesc, " +
+            "case when (select sf.id from schedule_favorites sf where sf.schedule=sch.id) is not null then '1' else '0' end as isfav, " +
+			"case when (sch.starting <= datetime('now','localtime')) and (sch.ending >= datetime('now','localtime')) then \"NOW\" when sch.starting <= datetime('now','localtime') then \"OLD\" else \"NEW\" end as timetype, " +
             "cat.name_en as cat_en, " +
             "cat.name_ru as cat_ru " +
             "from schedule sch " +
             "join categorys cat on (cat.id=sch.category) " +
-            "where sch.channel=?";
-
+            "where sch.channel=? " +
+            "order by sch.starting";
+    
+    
+    public static final String SQL_NOWSCHEDULE =
+            "select " +
+            "sch.id as id, " +
+            "usch.icon as picon, " +
+            "usch.name as uname, " +
+            "strftime('%Y-%m-%d %H:%M',sch.starting) as sdate, " +
+            "strftime('%Y-%m-%d %H:%M',sch.ending) as edate, " +
+            "strftime('%s', sch.ending)-strftime('%s', sch.starting) as duration, " +
+            "sch.title, " +
+            "case when (select sd.id from schedule_description sd where sd.schedule=sch.id) is not null then '1' else '0' end as isdesc, " +
+            "case when (select sf.id from schedule_favorites sf where sf.schedule=sch.id) is not null then '1' else '0' end as isfav, " +
+            "cat.name_en as cat_en, " +
+            "cat.name_ru as cat_ru " +
+            "from schedule sch " +
+            "join categorys cat on (cat.id=sch.category) " +
+            "join user_channels usch on (usch.id=sch.channel) " +
+            "where (sch.starting <= datetime('now','localtime')) and (sch.ending > datetime('now','localtime')) " +
+            "order by usch.id";
+    
+    public static final String SQL_NEXTSCHEDULE =
+            "select " +
+            "sch.id as id, " +
+            "usch.icon as picon, " +
+            "usch.name as uname, " +
+            "strftime('%Y-%m-%d %H:%M',sch.starting) as sdate, " +
+            "strftime('%Y-%m-%d %H:%M',sch.ending) as edate, " +
+            "strftime('%s', sch.ending)-strftime('%s', sch.starting) as duration, " +
+            "sch.title, " +
+            "case when (select sd.id from schedule_description sd where sd.schedule=sch.id) is not null then '1' else '0' end as isdesc, " +
+            "case when (select sf.id from schedule_favorites sf where sf.schedule=sch.id) is not null then '1' else '0' end as isfav, " +
+            "cat.name_en as cat_en, " +
+            "cat.name_ru as cat_ru " +
+            "from schedule sch " +
+            "join categorys cat on (cat.id=sch.category) " +
+            "join user_channels usch on (usch.id=sch.channel) " +
+            "where (sch.starting > datetime('now','localtime')) " +
+            "group by usch.id HAVING min(sch.starting)";
+    
     public static final String SQL_MAINSCHEDULE_DESCRIPTION =
             "select desc.description, desc.image, desc.country, desc.date, desc.rating from description desc " +
             "where desc.id=(select sd.description from schedule_description sd where sd.schedule=? )";
@@ -126,7 +164,8 @@ public class DBUtils {
             "uchn.icon as picon, " +
             "uchn.name as name, " +
             "uchn.correction as correction " +
-            "from user_channels uchn";
+            "from user_channels uchn " +
+            "order by uchn.id";
 
     public static final String SQL_DEL_USERCHANNELS = "delete from user_channels where id=?";
 

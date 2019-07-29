@@ -5,7 +5,6 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class CommonTypes {
     public static final String ICON_FOLDER = "icons";    
@@ -154,28 +153,6 @@ public class CommonTypes {
             if (isOnlyTime) {
                 return addZero(hour) + ":" + addZero(minute);
             } else return addZero(day) + " " + month + " (" + week + ") " + addZero(hour) + ":" + addZero(minute);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return res;
-    }
-
-    public static int isTimeLine(String sDate, String eDate) {
-        int res = -1;
-        SimpleDateFormat ftdt = new SimpleDateFormat(UtilStrings.DATE_FORMATTIME3);
-        Date cdt = new Date();
-        Date sdt;
-        Date edt;
-        try {
-            sdt = ftdt.parse(sDate);
-            edt = ftdt.parse(eDate);
-            if (cdt.after(edt)) {
-                return 0;
-            } else if (cdt.before(edt) && cdt.after(sdt)) {
-                return 1;
-            } else if (edt.after(cdt)) {
-                return 2;
-            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
