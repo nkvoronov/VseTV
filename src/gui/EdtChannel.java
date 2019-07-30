@@ -7,16 +7,9 @@ import java.awt.event.*;
 @SuppressWarnings("serial")
 public class EdtChannel extends JDialog implements ActionListener {
     private int modalResult = 0;
-    private JPanel jpnClient;
-    private JLabel jlbIndex;
     private JTextField jtfIndex;
-    private JLabel jlbName;
     private JTextField jtfName;
-    private JLabel jlbIcon;
     private JTextField jtfIcon;
-    private JPanel jpnButtons;
-    private JButton jbtOK;
-    private JButton jbtCancel;
 
     public EdtChannel(Dialog owner, String title) {
         super(owner, title);
@@ -25,12 +18,12 @@ public class EdtChannel extends JDialog implements ActionListener {
     
     private void initGUI() {		
         GridBagConstraints gridBagConstraints;
-        jpnClient = new JPanel();
+        JPanel jpnClient = new JPanel();
         GridBagLayout gblClientLayout = new GridBagLayout();
         gblClientLayout.columnWidths = new int[] {91, 100};
         jpnClient.setLayout(gblClientLayout);
 
-        jlbIndex = new JLabel();
+        JLabel jlbIndex = new JLabel();
         jlbIndex.setHorizontalAlignment(SwingConstants.RIGHT);
         jlbIndex.setLabelFor(jtfIndex);
         jlbIndex.setText(Messages.getString("StrLbIndex"));
@@ -53,7 +46,7 @@ public class EdtChannel extends JDialog implements ActionListener {
         gridBagConstraints.insets = new Insets(4, 0, 0, 4);
         jpnClient.add(jtfIndex, gridBagConstraints);
 
-        jlbName = new JLabel();
+        JLabel jlbName = new JLabel();
         jlbName.setHorizontalAlignment(SwingConstants.RIGHT);
         jlbName.setLabelFor(jtfName);
         jlbName.setText(Messages.getString("StrlbName"));
@@ -76,7 +69,7 @@ public class EdtChannel extends JDialog implements ActionListener {
         gridBagConstraints.insets = new Insets(4, 0, 0, 4);
         jpnClient.add(jtfName, gridBagConstraints);
 
-        jlbIcon = new JLabel();
+        JLabel jlbIcon = new JLabel();
         jlbIcon.setHorizontalAlignment(SwingConstants.RIGHT);
         jlbIcon.setLabelFor(jtfIcon);
         jlbIcon.setText(Messages.getString("StrlbIcon"));
@@ -101,16 +94,16 @@ public class EdtChannel extends JDialog implements ActionListener {
 
         getContentPane().add(jpnClient, BorderLayout.CENTER);
 
-        jpnButtons = new javax.swing.JPanel();
+        JPanel jpnButtons = new JPanel();
         jpnButtons.setLayout(new FlowLayout(FlowLayout.RIGHT, 4, 4));
 
-        jbtOK = new JButton();
+        JButton jbtOK = new JButton();
         jbtOK.setText(Messages.getString("StrBtExecute"));
         jbtOK.setActionCommand("cmd_OK");
         jbtOK.addActionListener(this);
         jpnButtons.add(jbtOK);
 
-        jbtCancel = new JButton();
+        JButton jbtCancel = new JButton();
         jbtCancel.setText(Messages.getString("StrBtCancel"));
         jbtCancel.setActionCommand("cmd_Cancel");
         jbtCancel.addActionListener(this);

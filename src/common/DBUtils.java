@@ -98,6 +98,33 @@ public class DBUtils {
             "where (sch.starting > datetime('now','localtime')) " +
             "group by usch.id HAVING min(sch.starting)";
     
+    public static final String SQL_FAVORITES =
+            "select " +
+            "sch.id as id, " +
+            "usch.icon as picon, " +
+            "usch.name as uname, " +
+            "strftime('%Y-%m-%d %H:%M',sch.starting) as sdate, " +
+            "strftime('%Y-%m-%d %H:%M',sch.ending) as edate, " +
+            "strftime('%s', sch.ending)-strftime('%s', sch.starting) as duration, " +
+            "sch.title, " +
+            "case when (select sd.id from schedule_description sd where sd.schedule=sch.id) is not null then '1' else '0' end as isdesc, " +
+            "case when (select sf.id from schedule_favorites sf where sf.schedule=sch.id) is not null then '1' else '0' end as isfav, " +
+            "cat.name_en as cat_en, " +
+            "cat.name_ru as cat_ru " +
+            "from schedule sch " +
+            "join categorys cat on (cat.id=sch.category) " +
+            "join user_channels usch on (usch.id=sch.channel) " +
+            "join schedule_favorites sf on (sf.schedule=sch.id)";
+    
+    public static final String SQL_SCHEDULE_FAVORITES_INSERT =
+            "insert into schedule_favorites " +
+            "(schedule) " +
+            "values (?)";
+    
+    public static final String SQL_DEL_SCHEDULE_FAVORITES = "delete from schedule_favorites where id=?";
+
+    public static final String SQL_DEL_ALL_SCHEDULE_FAVORITES = "delete from schedule_favorites";
+    
     public static final String SQL_MAINSCHEDULE_DESCRIPTION =
             "select desc.description, desc.image, desc.country, desc.date, desc.rating from description desc " +
             "where desc.id=(select sd.description from schedule_description sd where sd.schedule=? )";
@@ -106,7 +133,7 @@ public class DBUtils {
             "insert into schedule " +
             "(channel, category, starting, ending, title) " +
             "values (?, ?, ?, ?, ?)";
-
+    
     public static final String SQL_SCHEDULE_DESCRIPTION_INSERT = "insert into schedule_description (schedule, description) values (?,?)";
 
     public static final String SQL_FINDINCHANNELS_INDEX = "select * from channels where cindex=?";

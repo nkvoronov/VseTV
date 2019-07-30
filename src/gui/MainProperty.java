@@ -7,13 +7,6 @@ import java.awt.event.*;
 @SuppressWarnings("serial")
 public class MainProperty extends JDialog implements ActionListener {
     private int modalResult = 0;
-    private JTabbedPane jtpParams;
-    private JPanel jpnMain;
-    private JPanel jpnUpdate;
-    private JPanel jpnButtons;
-    private JButton jbtCancel;
-    private JButton jbtDefault;
-    private JButton jbtOK;
 
     public MainProperty(Frame owner) {
         super(owner);
@@ -23,35 +16,35 @@ public class MainProperty extends JDialog implements ActionListener {
     private void initGUI() {
 		setTitle(Messages.getString("StrActionOptions"));
 
-        jtpParams = new JTabbedPane();
-        jpnMain = new JPanel();
+		JTabbedPane jtpParams = new JTabbedPane();
+		JPanel jpnMain = new JPanel();
         jpnMain.setLayout(new GridBagLayout());
         jtpParams.addTab(Messages.getString("StrPageMain"), jpnMain);
 
-        jpnUpdate = new JPanel();
+        JPanel jpnUpdate = new JPanel();
         jpnUpdate.setLayout(new java.awt.GridBagLayout());
         jtpParams.addTab(Messages.getString("StrPageUpdate"), jpnUpdate);
 
         getContentPane().add(jtpParams, BorderLayout.CENTER);
 
-        jpnButtons = new JPanel();
+        JPanel jpnButtons = new JPanel();
         jpnButtons.setLayout(new FlowLayout(FlowLayout.RIGHT, 4, 4));
 
-        jbtDefault = new JButton();
+        JButton jbtDefault = new JButton();
         jbtDefault.setText(Messages.getString("StrBtDefault"));
         jbtDefault.setName("btDefault");
         jbtDefault.setActionCommand("cmd_Default");
         jbtDefault.addActionListener(this);
         jpnButtons.add(jbtDefault);
 
-        jbtOK = new JButton();
+        JButton jbtOK = new JButton();
         jbtOK.setText(Messages.getString("StrBtSave"));
         jbtOK.setName("btOK");
         jbtOK.setActionCommand("cmd_OK");
         jbtOK.addActionListener(this);
         jpnButtons.add(jbtOK);
 
-        jbtCancel = new JButton();
+        JButton jbtCancel = new JButton();
         jbtCancel.setText(Messages.getString("StrBtCancel"));
         jbtCancel.setName("btCancel");
         jbtCancel.setActionCommand("cmd_Cancel");

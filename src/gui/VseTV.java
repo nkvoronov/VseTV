@@ -31,53 +31,22 @@ public class VseTV  extends JFrame implements ChangeListener {
     private ActionAbout acAbout;
     private ActionUpdateProgramme acUpdateProgramme;
     private ActionViewToolBar acViewToolBar;
-    private ActionViewStatusBar acViewStatusBar;     
-    private JMenuBar jmbMain;
-    private JMenu jmnFile;
-    private JMenuItem jmiSaveXmlTV;
-    private JMenuItem jmiExit;
-    private JMenu jmnView;
-    private JCheckBoxMenuItem jcmiViewStatuslBar;
-    private JCheckBoxMenuItem jcmiViewToolBar;
-    private JMenu jmnActions;
-    private JMenuItem jmiUpdateProgramme;
-    private JMenu jmnSettings;
-    private JMenuItem jmiChannelsList;
-    private JMenuItem jmiOptions;
-    private JMenu jmnHelp;
-    private JMenuItem jmiAbout;
+    private ActionViewStatusBar acViewStatusBar; 
     private JToolBar jtbrMain;
-    private JButton jbtUpdateProgramme;
-    private JButton jbtChannelsList;
-    private JButton jbtOptions;
-    private JSplitPane jslMain;
+    private JCheckBoxMenuItem jcmiViewToolBar;
+    private JCheckBoxMenuItem jcmiViewStatuslBar;
     private JTabbedPane jtpMain;
-    private JPanel jpnScheludeAll;
     private JSplitPane jslScheludeAllMain;
-    private JScrollPane jspUserChannels;
     private JTable jtbMainChannels;
-    private DBTableModelMainChannels mainChannelsModel;
-    private DBTableModelMainSchedule scheludeAllModel;
-    private DBTableModelOtherSchedule scheludeNowModel;
-    private DBTableModelOtherSchedule scheludeNextModel;
-    private JScrollPane jspScheludeAll;
     private JTable jtbScheludeAll;
+    private JTable jtbScheludeNow;
+    private JTable jtbScheludeNext;
+    private JTable jtbScheludeReminders;    
     private JTextArea jtaDescription;
-    private JPanel jpnScheludeNext;
-    private JPanel jpnScheludeNow;
-    private JPanel jpnScheludeReminders;
     private JPanel jpnStatus;
     private JProgressBar jpbUpdate;
     private JLabel jlbStatus;
     private JSplitPane jslDescription;
-    private JPanel jpnImage;
-    private JScrollPane jspDescription;
-    private JScrollPane jspScheludeNow;
-    private JTable jtbScheludeNow;
-    private JScrollPane jspScheludeNext;
-    private JTable jtbScheludeNext;
-    private JScrollPane jspScheludeReminders;
-    private JTable jtbScheludeReminders;
     
 	public static void main(String[] args) {
         try {
@@ -113,20 +82,20 @@ public class VseTV  extends JFrame implements ChangeListener {
         setTitle(Messages.getString("StrTitleMain"));
         setIconImage(Toolkit.getDefaultToolkit().getImage(VseTV.class.getResource("/resources/main.png")));
 
-        jmbMain = new JMenuBar();
+        JMenuBar jmbMain = new JMenuBar();
 
-        jmnFile = new JMenu();
+        JMenu jmnFile = new JMenu();
         jmnFile.setMnemonic('\u0424');
         jmnFile.setText(Messages.getString("StrMenuFile"));
         jmnFile.setToolTipText("");
 
-        jmiSaveXmlTV = new JMenuItem();
+        JMenuItem jmiSaveXmlTV = new JMenuItem();
         jmiSaveXmlTV.setText(Messages.getString("StrActionSaveXML"));
         jmiSaveXmlTV.setAction(acSaveXmlTV);
         jmiSaveXmlTV.setToolTipText("");
         jmnFile.add(jmiSaveXmlTV);
         
-        jmiExit = new JMenuItem();
+        JMenuItem jmiExit = new JMenuItem();
         jmiExit.setText(Messages.getString("StrActionExit"));
         jmiExit.setAction(acExit);
         jmiExit.setToolTipText("");
@@ -134,7 +103,7 @@ public class VseTV  extends JFrame implements ChangeListener {
 
         jmbMain.add(jmnFile);
 
-        jmnView = new JMenu();
+        JMenu jmnView = new JMenu();
         jmnView.setMnemonic('\u0438');
         jmnView.setText(Messages.getString("StrMenuView"));
         jmnView.setToolTipText("");
@@ -155,12 +124,12 @@ public class VseTV  extends JFrame implements ChangeListener {
 
         jmbMain.add(jmnView);
 
-        jmnActions = new JMenu();
+        JMenu jmnActions = new JMenu();
         jmnActions.setMnemonic('\u0414');
         jmnActions.setText(Messages.getString("StrMenuExecute"));
         jmnActions.setToolTipText("");
 
-        jmiUpdateProgramme = new JMenuItem();
+        JMenuItem jmiUpdateProgramme = new JMenuItem();
         jmiUpdateProgramme.setText(Messages.getString("StrActionUpdate"));
         jmiUpdateProgramme.setAction(acUpdateProgramme);
         jmiUpdateProgramme.setToolTipText("");
@@ -168,18 +137,18 @@ public class VseTV  extends JFrame implements ChangeListener {
 
         jmbMain.add(jmnActions);
 
-        jmnSettings = new JMenu();
+        JMenu jmnSettings = new JMenu();
         jmnSettings.setMnemonic('\u041d');
         jmnSettings.setText(Messages.getString("StrMenuSettings"));
         jmnSettings.setToolTipText("");
 
-        jmiChannelsList = new JMenuItem();
+        JMenuItem jmiChannelsList = new JMenuItem();
         jmiChannelsList.setText(Messages.getString("StrActionChannels"));
         jmiChannelsList.setAction(acChannelsList);
         jmiChannelsList.setToolTipText("");
         jmnSettings.add(jmiChannelsList);
 
-        jmiOptions = new JMenuItem();
+        JMenuItem jmiOptions = new JMenuItem();
         jmiOptions.setText(Messages.getString("StrActionOptions"));
         jmiOptions.setAction(acOptions);
         jmiChannelsList.setToolTipText("");
@@ -187,11 +156,11 @@ public class VseTV  extends JFrame implements ChangeListener {
 
         jmbMain.add(jmnSettings);
 
-        jmnHelp = new JMenu();
+        JMenu jmnHelp = new JMenu();
         jmnHelp.setMnemonic('\u043e');
         jmnHelp.setText(Messages.getString("StrMenuHelp"));
 
-        jmiAbout = new JMenuItem();
+        JMenuItem jmiAbout = new JMenuItem();
         jmiAbout.setText(Messages.getString("StrActionAbout"));
         jmiAbout.setAction(acAbout);
         jmiAbout.setToolTipText("");
@@ -206,7 +175,7 @@ public class VseTV  extends JFrame implements ChangeListener {
         jtbrMain.setFloatable(false);
         jtbrMain.setRollover(true);
 
-        jbtUpdateProgramme = new JButton();
+        JButton jbtUpdateProgramme = new JButton();
         jbtUpdateProgramme.setAction(acUpdateProgramme);
         jbtUpdateProgramme.setText("");
         jbtUpdateProgramme.setFocusable(false);
@@ -216,7 +185,7 @@ public class VseTV  extends JFrame implements ChangeListener {
 
         jtbrMain.add(new JToolBar.Separator());
 
-        jbtChannelsList = new JButton();
+        JButton jbtChannelsList = new JButton();
         jbtChannelsList.setAction(acChannelsList);
         jbtChannelsList.setText("");
         jbtChannelsList.setFocusable(false);
@@ -224,7 +193,7 @@ public class VseTV  extends JFrame implements ChangeListener {
         jbtChannelsList.setVerticalTextPosition(SwingConstants.BOTTOM);
         jtbrMain.add(jbtChannelsList);
 
-        jbtOptions = new JButton();
+        JButton jbtOptions = new JButton();
         jbtOptions.setAction(acOptions);
         jbtOptions.setText("");
         jbtOptions.setFocusable(false);
@@ -236,7 +205,7 @@ public class VseTV  extends JFrame implements ChangeListener {
 
         getContentPane().add(jtbrMain, BorderLayout.PAGE_START);
         
-        jslMain = new JSplitPane();
+        JSplitPane jslMain = new JSplitPane();
         jslMain.setOrientation(JSplitPane.VERTICAL_SPLIT);
         jslMain.setBorder(null);
         jslMain.setDividerLocation(360);
@@ -245,7 +214,7 @@ public class VseTV  extends JFrame implements ChangeListener {
 
         jtpMain = new JTabbedPane();
 
-        jpnScheludeAll = new JPanel();
+        JPanel jpnScheludeAll = new JPanel();
         jpnScheludeAll.setLayout(new BorderLayout(4, 4));
         jtpMain.addTab(Messages.getString("StrPageProgramme"), jpnScheludeAll);
 
@@ -259,7 +228,7 @@ public class VseTV  extends JFrame implements ChangeListener {
         jpnScheludeAll.add(jslScheludeAllMain, BorderLayout.CENTER);
 
         jtbMainChannels = new JTable();
-        mainChannelsModel = new DBTableModelMainChannels(DBUtils.SQL_MAINUSERCHANNELS);
+        DBTableModelMainChannels mainChannelsModel = new DBTableModelMainChannels(DBUtils.SQL_MAINUSERCHANNELS);
         jtbMainChannels.setModel(mainChannelsModel);
 
         jtbMainChannels.setFillsViewportHeight(true);
@@ -293,13 +262,13 @@ public class VseTV  extends JFrame implements ChangeListener {
             }
         });
 
-        jspUserChannels = new JScrollPane();
+        JScrollPane jspUserChannels = new JScrollPane();
         jspUserChannels.setViewportView(jtbMainChannels);
         jslScheludeAllMain.setLeftComponent(jspUserChannels);
         
-        scheludeAllModel = new DBTableModelMainSchedule(DBUtils.SQL_MAINSCHEDULE);
+        DBTableModelMainSchedule scheludeAllModel = new DBTableModelMainSchedule(DBUtils.SQL_MAINSCHEDULE);
 
-        jspScheludeAll = new JScrollPane();
+        JScrollPane jspScheludeAll = new JScrollPane();
         jtbScheludeAll = new JTable();
         jtbScheludeAll.setModel(scheludeAllModel);
                 
@@ -356,16 +325,16 @@ public class VseTV  extends JFrame implements ChangeListener {
         jspScheludeAll.setViewportView(jtbScheludeAll);
         jslScheludeAllMain.setRightComponent(jspScheludeAll);
 
-        jpnScheludeNow = new JPanel();
+        JPanel jpnScheludeNow = new JPanel();
         jpnScheludeNow.setLayout(new BorderLayout(4, 4));
         jtpMain.addTab(Messages.getString("StrPageNow"), jpnScheludeNow);
         
-        jspScheludeNow = new JScrollPane();
+        JScrollPane jspScheludeNow = new JScrollPane();
         jpnScheludeNow.add(jspScheludeNow, BorderLayout.CENTER);
         
         jtbScheludeNow = new JTable();
         
-        scheludeNowModel = new DBTableModelOtherSchedule(DBUtils.SQL_NOWSCHEDULE);
+        DBTableModelOtherSchedule scheludeNowModel = new DBTableModelOtherSchedule(DBUtils.SQL_NOWSCHEDULE);
         
         jtbScheludeNow.setModel(scheludeNowModel);
                 
@@ -417,23 +386,23 @@ public class VseTV  extends JFrame implements ChangeListener {
         } 
         
         jtbScheludeNow.getSelectionModel().addListSelectionListener(e -> {
-            if (jtbScheludeAll.getSelectedRow() != -1) {
+            if (jtbScheludeNow.getSelectedRow() != -1) {
                 onSelectScheludeRow(jtbScheludeNow);
             }
         });
                
         jspScheludeNow.setViewportView(jtbScheludeNow);
 
-        jpnScheludeNext = new JPanel();
+        JPanel jpnScheludeNext = new JPanel();
         jpnScheludeNext.setLayout(new BorderLayout(4, 4));
         jtpMain.addTab(Messages.getString("StrPageNext"), jpnScheludeNext);
         
-        jspScheludeNext = new JScrollPane();
+        JScrollPane jspScheludeNext = new JScrollPane();
         jpnScheludeNext.add(jspScheludeNext, BorderLayout.CENTER);
         
         jtbScheludeNext = new JTable();
         
-        scheludeNextModel = new DBTableModelOtherSchedule(DBUtils.SQL_NEXTSCHEDULE);
+        DBTableModelOtherSchedule scheludeNextModel = new DBTableModelOtherSchedule(DBUtils.SQL_NEXTSCHEDULE);
         
         jtbScheludeNext.setModel(scheludeNextModel);
                 
@@ -485,68 +454,78 @@ public class VseTV  extends JFrame implements ChangeListener {
         } 
         
         jtbScheludeNext.getSelectionModel().addListSelectionListener(e -> {
-            if (jtbScheludeAll.getSelectedRow() != -1) {
+            if (jtbScheludeNext.getSelectedRow() != -1) {
                 onSelectScheludeRow(jtbScheludeNext);
             }
         });
         
         jspScheludeNext.setViewportView(jtbScheludeNext);
 
-        jpnScheludeReminders = new JPanel();
+        JPanel jpnScheludeReminders = new JPanel();
         jpnScheludeReminders.setLayout(new BorderLayout(4, 4));
         jtpMain.addTab(Messages.getString("StrPageReminders"), jpnScheludeReminders);
         
-        jspScheludeReminders = new JScrollPane();
+        JScrollPane jspScheludeReminders = new JScrollPane();
         jpnScheludeReminders.add(jspScheludeReminders, BorderLayout.CENTER);
         
         jtbScheludeReminders = new JTable();
         
-//        scheludeAllModel = new DBTableModelMainSchedule(DBUtils.SQL_MAINSCHEDULE);
-//        
-//        jtbScheludeReminders.setModel(scheludeAllModel);
-//        
-//        jtbScheludeReminders.setFillsViewportHeight(true);
-//        jtbScheludeReminders.setFocusable(false);
-//        jtbScheludeReminders.setRowHeight(28);
-//        jtbScheludeReminders.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        jtbScheludeReminders.setShowHorizontalLines(true);
-//        jtbScheludeReminders.setShowVerticalLines(false);
-//        jtbScheludeReminders.getTableHeader().setResizingAllowed(false);
-//        jtbScheludeReminders.getTableHeader().setReorderingAllowed(false);
-//        jtbScheludeReminders.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        jtbScheludeReminders.setDefaultRenderer(Object.class, new DBTableRenderMainSchedule());
-//        jtbScheludeReminders.setGridColor(Color.LIGHT_GRAY);
-//        jtbScheludeReminders.setIntercellSpacing(new Dimension(0, 1));
-//                
-//        if (jtbScheludeReminders.getColumnModel().getColumnCount() > 0) {
-//        	jtbScheludeReminders.getColumnModel().getColumn(0).setMinWidth(0);
-//        	jtbScheludeReminders.getColumnModel().getColumn(0).setPreferredWidth(0);
-//        	jtbScheludeReminders.getColumnModel().getColumn(0).setMaxWidth(0);
-//        	jtbScheludeReminders.getColumnModel().getColumn(1).setMinWidth(100);
-//        	jtbScheludeReminders.getColumnModel().getColumn(1).setPreferredWidth(100);
-//        	jtbScheludeReminders.getColumnModel().getColumn(1).setMaxWidth(100);
-//        	jtbScheludeReminders.getColumnModel().getColumn(2).setMinWidth(0);
-//        	jtbScheludeReminders.getColumnModel().getColumn(2).setPreferredWidth(0);
-//        	jtbScheludeReminders.getColumnModel().getColumn(2).setMaxWidth(0);
-//        	jtbScheludeReminders.getColumnModel().getColumn(3).setMinWidth(90);
-//        	jtbScheludeReminders.getColumnModel().getColumn(3).setPreferredWidth(90);
-//        	jtbScheludeReminders.getColumnModel().getColumn(3).setMaxWidth(90);
-//        	jtbScheludeReminders.getColumnModel().getColumn(5).setMinWidth(28);
-//        	jtbScheludeReminders.getColumnModel().getColumn(5).setPreferredWidth(28);
-//        	jtbScheludeReminders.getColumnModel().getColumn(5).setMaxWidth(28);
-//        	jtbScheludeReminders.getColumnModel().getColumn(6).setMinWidth(28);
-//        	jtbScheludeReminders.getColumnModel().getColumn(6).setPreferredWidth(28);
-//        	jtbScheludeReminders.getColumnModel().getColumn(6).setMaxWidth(28);
-//        	jtbScheludeReminders.getColumnModel().getColumn(7).setMinWidth(0);
-//        	jtbScheludeReminders.getColumnModel().getColumn(7).setPreferredWidth(0);
-//        	jtbScheludeReminders.getColumnModel().getColumn(7).setMaxWidth(0);
-//        	jtbScheludeReminders.getColumnModel().getColumn(8).setMinWidth(0);
-//        	jtbScheludeReminders.getColumnModel().getColumn(8).setPreferredWidth(0);
-//        	jtbScheludeReminders.getColumnModel().getColumn(8).setMaxWidth(0);
-//
-//        	jtbScheludeReminders.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-//        	jtbScheludeReminders.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-//        }
+        DBTableModelOtherSchedule scheludeRemindersModel = new DBTableModelOtherSchedule(DBUtils.SQL_FAVORITES);
+        
+        jtbScheludeReminders.setModel(scheludeRemindersModel);
+        
+        jtbScheludeReminders.setFillsViewportHeight(true);
+        jtbScheludeReminders.setFocusable(false);
+        jtbScheludeReminders.setRowHeight(28);
+        jtbScheludeReminders.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jtbScheludeReminders.setShowHorizontalLines(true);
+        jtbScheludeReminders.setShowVerticalLines(false);
+        jtbScheludeReminders.getTableHeader().setResizingAllowed(false);
+        jtbScheludeReminders.getTableHeader().setReorderingAllowed(false);
+        jtbScheludeReminders.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jtbScheludeReminders.setDefaultRenderer(String.class, new DBTableRenderOtherSchedule());
+        jtbScheludeReminders.setDefaultRenderer(Integer.class, new DBTableRenderOtherSchedule());
+        jtbScheludeReminders.setGridColor(Color.LIGHT_GRAY);
+        jtbScheludeReminders.setIntercellSpacing(new Dimension(0, 1));
+                
+        if (jtbScheludeReminders.getColumnModel().getColumnCount() > 0) {
+        	jtbScheludeReminders.getColumnModel().getColumn(0).setMinWidth(0);
+        	jtbScheludeReminders.getColumnModel().getColumn(0).setPreferredWidth(0);
+        	jtbScheludeReminders.getColumnModel().getColumn(0).setMaxWidth(0);
+        	jtbScheludeReminders.getColumnModel().getColumn(1).setMinWidth(28);
+        	jtbScheludeReminders.getColumnModel().getColumn(1).setPreferredWidth(28);
+        	jtbScheludeReminders.getColumnModel().getColumn(1).setMaxWidth(28);
+        	jtbScheludeReminders.getColumnModel().getColumn(2).setMinWidth(100);
+        	jtbScheludeReminders.getColumnModel().getColumn(2).setPreferredWidth(100);
+        	jtbScheludeReminders.getColumnModel().getColumn(2).setMaxWidth(100);
+        	jtbScheludeReminders.getColumnModel().getColumn(3).setMinWidth(100);
+        	jtbScheludeReminders.getColumnModel().getColumn(3).setPreferredWidth(100);
+        	jtbScheludeReminders.getColumnModel().getColumn(3).setMaxWidth(100);
+        	jtbScheludeReminders.getColumnModel().getColumn(4).setMinWidth(0);
+        	jtbScheludeReminders.getColumnModel().getColumn(4).setPreferredWidth(0);
+        	jtbScheludeReminders.getColumnModel().getColumn(4).setMaxWidth(0);
+        	jtbScheludeReminders.getColumnModel().getColumn(5).setMinWidth(90);
+        	jtbScheludeReminders.getColumnModel().getColumn(5).setPreferredWidth(90);
+        	jtbScheludeReminders.getColumnModel().getColumn(5).setMaxWidth(90);
+        	jtbScheludeReminders.getColumnModel().getColumn(7).setMinWidth(28);
+        	jtbScheludeReminders.getColumnModel().getColumn(7).setPreferredWidth(28);
+        	jtbScheludeReminders.getColumnModel().getColumn(7).setMaxWidth(28);
+        	jtbScheludeReminders.getColumnModel().getColumn(8).setMinWidth(0);
+        	jtbScheludeReminders.getColumnModel().getColumn(8).setPreferredWidth(0);
+        	jtbScheludeReminders.getColumnModel().getColumn(8).setMaxWidth(0);
+        	jtbScheludeReminders.getColumnModel().getColumn(9).setMinWidth(0);
+        	jtbScheludeReminders.getColumnModel().getColumn(9).setPreferredWidth(0);
+        	jtbScheludeReminders.getColumnModel().getColumn(9).setMaxWidth(0);
+        	jtbScheludeReminders.getColumnModel().getColumn(10).setMinWidth(0);
+        	jtbScheludeReminders.getColumnModel().getColumn(10).setPreferredWidth(0);
+        	jtbScheludeReminders.getColumnModel().getColumn(10).setMaxWidth(0);
+        }
+        
+        jtbScheludeReminders.getSelectionModel().addListSelectionListener(e -> {
+            if (jtbScheludeReminders.getSelectedRow() != -1) {
+                onSelectScheludeRow(jtbScheludeReminders);
+            }
+        });
         
         jspScheludeReminders.setViewportView(jtbScheludeReminders);
 
@@ -557,12 +536,12 @@ public class VseTV  extends JFrame implements ChangeListener {
         jslDescription.setDividerSize(3);
         jslDescription.setAutoscrolls(true);
         
-        jpnImage = new JPanel();
+        JPanel jpnImage = new JPanel();
         jpnImage.setBorder(null);
         jpnImage.setLayout(new BorderLayout());
         jslDescription.setLeftComponent(jpnImage);
         
-        jspDescription = new JScrollPane();
+        JScrollPane jspDescription = new JScrollPane();
         
         jtaDescription = new JTextArea();
         jtaDescription.setFont(new Font("default", 0, 14));
@@ -632,6 +611,7 @@ public class VseTV  extends JFrame implements ChangeListener {
 			refreshTable(jtbScheludeNext, 0);
 			break;
 		case 3:
+			refreshTable(jtbScheludeReminders, 0);
 			break;
 		default:
 			break;
@@ -639,13 +619,13 @@ public class VseTV  extends JFrame implements ChangeListener {
 	}
 
     private void onSelectChannelsRow() {
-        int row1 = jtbMainChannels.getSelectedRow();
+        int row = jtbMainChannels.getSelectedRow();
         TableModel tm = jtbMainChannels.getModel();
-        if (row1 != -1) {
-            Integer id = new Integer((String) tm.getValueAt(row1, 0));
+        if (row != -1) {
+            Integer id = new Integer((String) tm.getValueAt(row, 0));
             DBParams[] aParams = new DBParams[1];
             aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
-            refreshTableMainSchedule(aParams);
+            refreshTableForParams(jtbScheludeAll, aParams);
         }
     }
 
@@ -668,36 +648,40 @@ public class VseTV  extends JFrame implements ChangeListener {
     }
 
     private void onSelectScheludeRow(JTable table) {
-        int row1 = table.getSelectedRow();
+        int row = table.getSelectedRow();
         TableModel tm = table.getModel();
-        if (row1 != -1) {
-            Integer id = new Integer((String) tm.getValueAt(row1, 0));
+        if (row != -1) {
+            Integer id = new Integer((String) tm.getValueAt(row, 0));
             DBParams[] aParams = new DBParams[1];
             aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
-            Connection conn = DBUtils.getConnection(DBUtils.DB_DEST);
-            if (conn != null) {
+            updateDescription(aParams);
+        }
+    }
+    
+    private void updateDescription(DBParams[] aParams) {
+        Connection conn = DBUtils.getConnection(DBUtils.DB_DEST);
+        if (conn != null) {
+            try {
+                PreparedStatement pstmt = conn.prepareStatement(DBUtils.SQL_MAINSCHEDULE_DESCRIPTION);
+                DBUtils.setParams(pstmt, aParams);
+                ResultSet rs = pstmt.executeQuery();
                 try {
-                    PreparedStatement pstmt = conn.prepareStatement(DBUtils.SQL_MAINSCHEDULE_DESCRIPTION);
-                    DBUtils.setParams(pstmt, aParams);
-                    ResultSet rs = pstmt.executeQuery();
-                    try {
-                        if (rs.next()) {
-                            if (CommonTypes.FULL_DESC) {
-                                jtaDescription.setText(rs.getString(1));
-                            } else {
-                                jtaDescription.setText(rs.getString(1));
-                            }
-                        } else jtaDescription.setText("");
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    } finally {
-                        conn.close();
-                    }
+                    if (rs.next()) {
+                        if (CommonTypes.FULL_DESC) {
+                            jtaDescription.setText(rs.getString(1));
+                        } else {
+                            jtaDescription.setText(rs.getString(1));
+                        }
+                    } else jtaDescription.setText("");
                 } catch (SQLException e) {
                     e.printStackTrace();
+                } finally {
+                    conn.close();
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        }
+        }    	
     }
 
     private void onResize() {
@@ -742,16 +726,17 @@ public class VseTV  extends JFrame implements ChangeListener {
 
     }
 
-    private void refreshTableMainSchedule(DBParams[] aParams) {
-        scheludeAllModel.refreshContentForParams(aParams);
+    private void refreshTableForParams(JTable table, DBParams[] aParams) {
+    	DBTableModel tm = (DBTableModel) table.getModel();
+        tm.refreshContentForParams(aParams);
         try {
-            jtbScheludeAll.setVisible(false);
-            if (jtbScheludeAll.getRowCount() != 0) {
+            table.setVisible(false);
+            if (table.getRowCount() != 0) {
                 scheludeAllSelectCurTime();
-                onSelectScheludeRow(jtbScheludeAll);
+                onSelectScheludeRow(table);
             }
         } finally {
-            jtbScheludeAll.setVisible(true);
+        	table.setVisible(true);
         }
 
     }

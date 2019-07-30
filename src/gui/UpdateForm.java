@@ -15,8 +15,6 @@ public class UpdateForm extends JDialog implements ActionListener, ChangeListene
     private int modalResult = 0;
     private DefaultListModel<String> listModel;
     private JList<String> jltLog;
-    private JScrollPane jspLog;
-    private JPanel jpnButtons;
     private JProgressBar jpbUpdate;
     private JButton jbtExecute;
 
@@ -47,14 +45,14 @@ public class UpdateForm extends JDialog implements ActionListener, ChangeListene
     private void initGUI() {
 		setType(Window.Type.UTILITY);
 
-        jspLog = new JScrollPane();
+		JScrollPane jspLog = new JScrollPane();
         listModel = new DefaultListModel<>();
         jltLog = new JList<>(listModel);
         jltLog.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jspLog.setViewportView(jltLog);
         getContentPane().add(jspLog, BorderLayout.CENTER);
 
-        jpnButtons = new JPanel();
+        JPanel jpnButtons = new JPanel();
         jpnButtons.setLayout(new BorderLayout(4, 4));
 
         jpbUpdate = new JProgressBar();

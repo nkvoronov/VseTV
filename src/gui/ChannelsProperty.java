@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 
 import common.DBParams;
+import common.DBTableModel;
 import common.DBTableModelChannels;
 import common.DBTableModelUserChannels;
 import common.DBTableRender;
@@ -29,41 +30,10 @@ public class ChannelsProperty extends JDialog {
     private ActionDelAllFromUser acDelAllFromUser;    
     private ActionEdtUsrChannel acEdtUsrChannel;   
     private ActionSetCorrection acSetCorrection;    
-    private ActionSave acSave;
-    private DBTableModelChannels channelsModel;
-    private DBTableModelUserChannels userChannelsModel;
-    private JSplitPane jslChannelsList;
-    private JPanel jpnLeft;
-    private JToolBar jtbrChannels;
-    private JButton jbtAddToUser;
-    private JButton jbtAddAllToUser;
-    private JButton jbtAddChannel;
-    private JButton jbtEdtChannel;
-    private JButton jbtDelChannel;
-    private JButton jbtDelAllChannels;
-    private JButton jbtUpdateChannels;
-    private JButton jbtUpdateIcons;
-    private JScrollPane jspLeft;
+    private ActionSave acSave;   
     private JTable jtbChannels;
-    private JPanel jpnRight;
-    private JToolBar jtbrUserChannels;
-    private JButton jbtDelFromUser;
-    private JButton jbtDelAllFromUser;
-    private JButton jbtEdtUsrChannel;
-    private JTextField jtfCorrection;
-    private JButton jbtSetCorrection;
-    private JScrollPane jspRight;
     private JTable jtbUserChannels;
-    private JPanel jpnButtons;
-    private JButton jbtSave;
-    private JPopupMenu jpmChannels;
-    private JMenuItem jmiAddToUser;
-    private JMenuItem jmiAddChannel;
-    private JMenuItem jmiEdtChannel;
-    private JMenuItem jmiDelChannel;
-    private JPopupMenu jpmUserChannels;
-    private JMenuItem jmiDelFromUser;
-    private JMenuItem jmiEdtUsrChannel;
+    private JTextField jtfCorrection;
 
     public ChannelsProperty(Frame owner) {
         super(owner);        
@@ -92,7 +62,7 @@ public class ChannelsProperty extends JDialog {
 
         //Client
 
-        jslChannelsList = new JSplitPane();
+        JSplitPane jslChannelsList = new JSplitPane();
         jslChannelsList.setBorder(null);
         jslChannelsList.setDividerLocation(360);
         jslChannelsList.setDividerSize(3);
@@ -100,15 +70,15 @@ public class ChannelsProperty extends JDialog {
 
         //Left
 
-        jpnLeft = new JPanel();
+        JPanel jpnLeft = new JPanel();
         jpnLeft.setBorder(null);
         jpnLeft.setLayout(new BorderLayout());
 
-        jtbrChannels = new JToolBar();
+        JToolBar jtbrChannels = new JToolBar();
         jtbrChannels.setBorder(BorderFactory.createEtchedBorder());
         jtbrChannels.setFloatable(false);
 
-        jbtAddToUser = new JButton();
+        JButton jbtAddToUser = new JButton();
         jbtAddToUser.setAction(acAddToUser);
         jbtAddToUser.setText("");
         jbtAddToUser.setFocusable(false);
@@ -116,7 +86,7 @@ public class ChannelsProperty extends JDialog {
         jbtAddToUser.setVerticalTextPosition(SwingConstants.BOTTOM);
         jtbrChannels.add(jbtAddToUser);
 
-        jbtAddAllToUser = new JButton();
+        JButton jbtAddAllToUser = new JButton();
         jbtAddAllToUser.setAction(acAddAllToUser);
         jbtAddAllToUser.setText("");
         jbtAddAllToUser.setFocusable(false);
@@ -126,7 +96,7 @@ public class ChannelsProperty extends JDialog {
 
         jtbrChannels.add(new JToolBar.Separator());
 
-        jbtAddChannel = new JButton();
+        JButton jbtAddChannel = new JButton();
         jbtAddChannel.setAction(acAddChannel);
         jbtAddChannel.setText("");
         jbtAddChannel.setFocusable(false);
@@ -134,7 +104,7 @@ public class ChannelsProperty extends JDialog {
         jbtAddChannel.setVerticalTextPosition(SwingConstants.BOTTOM);
         jtbrChannels.add(jbtAddChannel);
 
-        jbtEdtChannel = new JButton();
+        JButton jbtEdtChannel = new JButton();
         jbtEdtChannel.setAction(acEdtChannel);
         jbtEdtChannel.setText("");
         jbtEdtChannel.setFocusable(false);
@@ -142,7 +112,7 @@ public class ChannelsProperty extends JDialog {
         jbtEdtChannel.setVerticalTextPosition(SwingConstants.BOTTOM);
         jtbrChannels.add(jbtEdtChannel);
 
-        jbtDelChannel = new JButton();
+        JButton jbtDelChannel = new JButton();
         jbtDelChannel.setAction(acDelChannel);
         jbtDelChannel.setText("");
         jbtDelChannel.setFocusable(false);
@@ -150,7 +120,7 @@ public class ChannelsProperty extends JDialog {
         jbtDelChannel.setVerticalTextPosition(SwingConstants.BOTTOM);
         jtbrChannels.add(jbtDelChannel);
 
-        jbtDelAllChannels = new JButton();
+        JButton jbtDelAllChannels = new JButton();
         jbtDelAllChannels.setAction(acDelAllChannels);
         jbtDelAllChannels.setText("");
         jbtDelAllChannels.setFocusable(false);
@@ -160,7 +130,7 @@ public class ChannelsProperty extends JDialog {
 
         jtbrChannels.add(new JToolBar.Separator());
 
-        jbtUpdateChannels = new JButton();
+        JButton jbtUpdateChannels = new JButton();
         jbtUpdateChannels.setAction(acUpdateChannels);
         jbtUpdateChannels.setText("");
         jbtUpdateChannels.setFocusable(false);
@@ -168,7 +138,7 @@ public class ChannelsProperty extends JDialog {
         jbtUpdateChannels.setVerticalTextPosition(SwingConstants.BOTTOM);
         jtbrChannels.add(jbtUpdateChannels);
 
-        jbtUpdateIcons = new JButton();
+        JButton jbtUpdateIcons = new JButton();
         jbtUpdateIcons.setAction(acUpdateIcons);
         jbtUpdateIcons.setText("");
         jbtUpdateIcons.setFocusable(false);
@@ -182,7 +152,7 @@ public class ChannelsProperty extends JDialog {
 
         //Left table
 
-        jspLeft = new JScrollPane();
+        JScrollPane jspLeft = new JScrollPane();
         jtbChannels = new JTable();
         jtbChannels.addMouseListener(new MouseAdapter() {
         	@Override
@@ -192,7 +162,8 @@ public class ChannelsProperty extends JDialog {
         		}	
         	}
         });
-        channelsModel = new DBTableModelChannels(DBUtils.SQL_CHANNELS);
+        
+        DBTableModelChannels channelsModel = new DBTableModelChannels(DBUtils.SQL_CHANNELS);
         jtbChannels.setModel(channelsModel);
 
         jtbChannels.setFillsViewportHeight(true);
@@ -232,23 +203,23 @@ public class ChannelsProperty extends JDialog {
             }
         });
 
-        jpmChannels = new JPopupMenu();
+        JPopupMenu jpmChannels = new JPopupMenu();
 
-        jmiAddToUser = new JMenuItem(acAddToUser);
+        JMenuItem jmiAddToUser = new JMenuItem(acAddToUser);
         jmiAddToUser.setToolTipText("");
         jpmChannels.add(jmiAddToUser);
 
         jpmChannels.add(new JSeparator());
 
-        jmiAddChannel = new JMenuItem(acAddChannel);
+        JMenuItem jmiAddChannel = new JMenuItem(acAddChannel);
         jmiAddChannel.setToolTipText("");
         jpmChannels.add(jmiAddChannel);
 
-        jmiEdtChannel = new JMenuItem(acEdtChannel);
+        JMenuItem jmiEdtChannel = new JMenuItem(acEdtChannel);
         jmiEdtChannel.setToolTipText("");
         jpmChannels.add(jmiEdtChannel);
 
-        jmiDelChannel = new JMenuItem(acDelChannel);
+        JMenuItem jmiDelChannel = new JMenuItem(acDelChannel);
         jmiDelChannel.setToolTipText("");
         jpmChannels.add(jmiDelChannel);
 
@@ -260,15 +231,15 @@ public class ChannelsProperty extends JDialog {
 
         //Right
 
-        jpnRight = new JPanel();
+        JPanel jpnRight = new JPanel();
         jpnRight.setBorder(null);
         jpnRight.setLayout(new BorderLayout());
 
-        jtbrUserChannels = new JToolBar();
+        JToolBar jtbrUserChannels = new JToolBar();
         jtbrUserChannels.setBorder(BorderFactory.createEtchedBorder());
         jtbrUserChannels.setFloatable(false);
 
-        jbtDelFromUser = new JButton();
+        JButton jbtDelFromUser = new JButton();
         jbtDelFromUser.setAction(acDelFromUser);
         jbtDelFromUser.setText("");
         jbtDelFromUser.setFocusable(false);
@@ -276,7 +247,7 @@ public class ChannelsProperty extends JDialog {
         jbtDelFromUser.setVerticalTextPosition(SwingConstants.BOTTOM);
         jtbrUserChannels.add(jbtDelFromUser);
 
-        jbtDelAllFromUser = new JButton();
+        JButton jbtDelAllFromUser = new JButton();
         jbtDelAllFromUser.setAction(acDelAllFromUser);
         jbtDelAllFromUser.setText("");
         jbtDelAllFromUser.setFocusable(false);
@@ -286,7 +257,7 @@ public class ChannelsProperty extends JDialog {
 
         jtbrUserChannels.add(new JToolBar.Separator());
 
-        jbtEdtUsrChannel = new JButton();
+        JButton jbtEdtUsrChannel = new JButton();
         jbtEdtUsrChannel.setAction(acEdtUsrChannel);
         jbtEdtUsrChannel.setText("");
         jbtEdtUsrChannel.setFocusable(false);
@@ -306,7 +277,7 @@ public class ChannelsProperty extends JDialog {
         jtfCorrection.setMinimumSize(new Dimension(60, 28));
         jtbrUserChannels.add(jtfCorrection);
 
-        jbtSetCorrection = new JButton();
+        JButton jbtSetCorrection = new JButton();
         jbtSetCorrection.setAction(acSetCorrection);
         jbtSetCorrection.setText("");
         jbtSetCorrection.setFocusable(false);
@@ -320,7 +291,7 @@ public class ChannelsProperty extends JDialog {
 
         //Right table
 
-        jspRight = new JScrollPane();
+        JScrollPane jspRight = new JScrollPane();
         jtbUserChannels = new JTable();
         jtbUserChannels.addMouseListener(new MouseAdapter() {
         	@Override
@@ -333,7 +304,9 @@ public class ChannelsProperty extends JDialog {
         		}	
         	}
         });
-        userChannelsModel = new DBTableModelUserChannels(DBUtils.SQL_USERCHANNELS);
+        
+        DBTableModelUserChannels userChannelsModel = new DBTableModelUserChannels(DBUtils.SQL_USERCHANNELS);
+        
         jtbUserChannels.setModel(userChannelsModel);
 
         jtbUserChannels.setFillsViewportHeight(true);
@@ -369,15 +342,15 @@ public class ChannelsProperty extends JDialog {
         	jtbUserChannels.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
         }
 
-        jpmUserChannels = new JPopupMenu();
+        JPopupMenu jpmUserChannels = new JPopupMenu();
 
-        jmiDelFromUser = new JMenuItem(acDelFromUser);
+        JMenuItem jmiDelFromUser = new JMenuItem(acDelFromUser);
         jmiDelFromUser.setToolTipText("");
         jpmUserChannels.add(jmiDelFromUser);
 
         jpmUserChannels.add(new JSeparator());
 
-        jmiEdtUsrChannel = new JMenuItem(acEdtUsrChannel);
+        JMenuItem jmiEdtUsrChannel = new JMenuItem(acEdtUsrChannel);
         jmiEdtUsrChannel.setToolTipText("");
         jpmUserChannels.add(jmiEdtUsrChannel);
 
@@ -391,11 +364,11 @@ public class ChannelsProperty extends JDialog {
 
         //Bottom
 
-        jpnButtons = new JPanel();
+        JPanel jpnButtons = new JPanel();
         jpnButtons.setBorder(null);
         jpnButtons.setLayout(new FlowLayout(FlowLayout.RIGHT, 4, 4));
 
-        jbtSave = new JButton();
+        JButton jbtSave = new JButton();
         jbtSave.setAction(acSave);
         jpnButtons.add(jbtSave);
 
@@ -428,7 +401,8 @@ public class ChannelsProperty extends JDialog {
     }
 
     private void refreshTableChannels(int row) {
-        channelsModel.refreshContent();
+    	DBTableModel tm = (DBTableModel) jtbChannels.getModel();
+        tm.refreshContent();
         jtbChannels.setVisible(false);
         jtbChannels.setVisible(true);
         if (jtbChannels.getRowCount() != 0) {
@@ -448,7 +422,8 @@ public class ChannelsProperty extends JDialog {
     }
 
     private void refreshTableUserChannels(int row) {
-        userChannelsModel.refreshContent();
+    	DBTableModel tm = (DBTableModel) jtbUserChannels.getModel();
+        tm.refreshContent();
         jtbUserChannels.setVisible(false);
         jtbUserChannels.setVisible(true);
         if (jtbUserChannels.getRowCount() != 0) {

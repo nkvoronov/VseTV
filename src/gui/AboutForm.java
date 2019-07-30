@@ -8,12 +8,6 @@ import java.awt.event.ActionListener;
 @SuppressWarnings("serial")
 public class AboutForm extends JDialog implements ActionListener {
     private int modalResult = 0;
-    private JPanel jpnClient;
-    private JLabel jlbImage;
-    private JLabel jlbName;
-    private JLabel jlbAuthor;
-    private JPanel jpnButtons;
-    private JButton jbtOk;
 
     public AboutForm(Frame owner) {
         super(owner);
@@ -28,11 +22,11 @@ public class AboutForm extends JDialog implements ActionListener {
         setTitle(Messages.getString("StrActionAbout"));
 
         GridBagConstraints gridBagConstraints;
-        jpnClient = new JPanel();
+        JPanel jpnClient = new JPanel();
         jpnClient.setName("pnClient");
         jpnClient.setLayout(new GridBagLayout());
 
-        jlbImage = new JLabel();
+        JLabel jlbImage = new JLabel();
         jlbImage.setIcon(new ImageIcon(AboutForm.class.getResource("/resources/main.png")));
         jlbImage.setName("lbImage");
         gridBagConstraints = new GridBagConstraints();
@@ -42,7 +36,7 @@ public class AboutForm extends JDialog implements ActionListener {
         gridBagConstraints.anchor = GridBagConstraints.PAGE_END;
         jpnClient.add(jlbImage, gridBagConstraints);
 
-        jlbName = new javax.swing.JLabel();
+        JLabel jlbName = new JLabel();
         jlbName.setText(Messages.getString("StrTitleMain"));
         jlbName.setName("lbName");
         gridBagConstraints = new GridBagConstraints();
@@ -50,7 +44,7 @@ public class AboutForm extends JDialog implements ActionListener {
         gridBagConstraints.gridy = 1;
         jpnClient.add(jlbName, gridBagConstraints);
 
-        jlbAuthor = new JLabel();
+        JLabel jlbAuthor = new JLabel();
         jlbAuthor.setText("Воронов Николай");
         jlbAuthor.setName("lbAuthor");
         gridBagConstraints = new GridBagConstraints();
@@ -60,10 +54,10 @@ public class AboutForm extends JDialog implements ActionListener {
 
         getContentPane().add(jpnClient, BorderLayout.CENTER);
 
-        jpnButtons = new JPanel();
+        JPanel jpnButtons = new JPanel();
         jpnButtons.setLayout(new FlowLayout(FlowLayout.CENTER, 4, 4));
 
-        jbtOk = new JButton();
+        JButton jbtOk = new JButton();
         jbtOk.setText(Messages.getString("StrActionClose"));
         jbtOk.setName("btOk");
         jbtOk.setActionCommand("cmd_OK");
