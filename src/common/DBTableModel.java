@@ -123,6 +123,10 @@ public class DBTableModel extends AbstractTableModel {
     public String getColumnName(int column){
         return fieldsSet.getFieldSet().get(column).getTitle();
     }
+    
+    public int getColumnWidth(int column){
+        return fieldsSet.getFieldSet().get(column).getWidth();
+    }    
 
     public Object getIconObject(Object obj) {
         return obj;
