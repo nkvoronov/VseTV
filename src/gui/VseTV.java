@@ -243,57 +243,18 @@ public class VseTV  extends JFrame implements ChangeListener {
 
         JScrollPane jspUserChannels = new JScrollPane();
         jspUserChannels.setViewportView(jtbMainChannels);
-        jslScheludeAllMain.setLeftComponent(jspUserChannels);
+        jslScheludeAllMain.setLeftComponent(jspUserChannels);        
+
+        JScrollPane jspScheludeAll = new JScrollPane();        
+        
+        jtbScheludeAll = new JTable();
         
         DBTableModelMainSchedule scheludeAllModel = new DBTableModelMainSchedule(DBUtils.SQL_MAINSCHEDULE);
-
-        JScrollPane jspScheludeAll = new JScrollPane();
-        jtbScheludeAll = new JTable();
+        
         jtbScheludeAll.setModel(scheludeAllModel);
-                
-        jtbScheludeAll.setFillsViewportHeight(true);
-        jtbScheludeAll.setFocusable(false);
-        jtbScheludeAll.setRowHeight(28);
-        jtbScheludeAll.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jtbScheludeAll.setShowHorizontalLines(true);
-        jtbScheludeAll.setShowVerticalLines(false);
-        jtbScheludeAll.getTableHeader().setResizingAllowed(false);
-        jtbScheludeAll.getTableHeader().setReorderingAllowed(false);
-        jtbScheludeAll.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        CommonTypes.setTableProperties(jtbScheludeAll);
         jtbScheludeAll.setDefaultRenderer(String.class, new DBTableRenderMainSchedule());
         jtbScheludeAll.setDefaultRenderer(Integer.class, new DBTableRenderMainSchedule());
-        jtbScheludeAll.setGridColor(Color.LIGHT_GRAY);
-        jtbScheludeAll.setIntercellSpacing(new Dimension(0, 1));
-        
-        if (jtbScheludeAll.getColumnModel().getColumnCount() > 0) {
-        	jtbScheludeAll.getColumnModel().getColumn(0).setMinWidth(0);
-        	jtbScheludeAll.getColumnModel().getColumn(0).setPreferredWidth(0);
-        	jtbScheludeAll.getColumnModel().getColumn(0).setMaxWidth(0);
-        	jtbScheludeAll.getColumnModel().getColumn(1).setMinWidth(100);
-        	jtbScheludeAll.getColumnModel().getColumn(1).setPreferredWidth(100);
-        	jtbScheludeAll.getColumnModel().getColumn(1).setMaxWidth(100);
-        	jtbScheludeAll.getColumnModel().getColumn(2).setMinWidth(0);
-        	jtbScheludeAll.getColumnModel().getColumn(2).setPreferredWidth(0);
-        	jtbScheludeAll.getColumnModel().getColumn(2).setMaxWidth(0);
-        	jtbScheludeAll.getColumnModel().getColumn(3).setMinWidth(90);
-        	jtbScheludeAll.getColumnModel().getColumn(3).setPreferredWidth(90);
-        	jtbScheludeAll.getColumnModel().getColumn(3).setMaxWidth(90);
-        	jtbScheludeAll.getColumnModel().getColumn(5).setMinWidth(28);
-        	jtbScheludeAll.getColumnModel().getColumn(5).setPreferredWidth(28);
-        	jtbScheludeAll.getColumnModel().getColumn(5).setMaxWidth(28);
-        	jtbScheludeAll.getColumnModel().getColumn(6).setMinWidth(28);
-        	jtbScheludeAll.getColumnModel().getColumn(6).setPreferredWidth(28);
-        	jtbScheludeAll.getColumnModel().getColumn(6).setMaxWidth(28);
-        	jtbScheludeAll.getColumnModel().getColumn(7).setMinWidth(0);
-        	jtbScheludeAll.getColumnModel().getColumn(7).setPreferredWidth(0);
-        	jtbScheludeAll.getColumnModel().getColumn(7).setMaxWidth(0);
-        	jtbScheludeAll.getColumnModel().getColumn(8).setMinWidth(0);
-        	jtbScheludeAll.getColumnModel().getColumn(8).setPreferredWidth(0);
-        	jtbScheludeAll.getColumnModel().getColumn(8).setMaxWidth(0);
-        	jtbScheludeAll.getColumnModel().getColumn(9).setMinWidth(0);
-        	jtbScheludeAll.getColumnModel().getColumn(9).setPreferredWidth(0);
-        	jtbScheludeAll.getColumnModel().getColumn(9).setMaxWidth(0);
-        }        
                                 
         jtbScheludeAll.getSelectionModel().addListSelectionListener(e -> {
             if (jtbScheludeAll.getSelectedRow() != -1) {
@@ -316,54 +277,10 @@ public class VseTV  extends JFrame implements ChangeListener {
         DBTableModelOtherSchedule scheludeNowModel = new DBTableModelOtherSchedule(DBUtils.SQL_NOWSCHEDULE);
         
         jtbScheludeNow.setModel(scheludeNowModel);
-                
-        jtbScheludeNow.setFillsViewportHeight(true);
-        jtbScheludeNow.setFocusable(false);
-        jtbScheludeNow.setRowHeight(28);
-        jtbScheludeNow.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jtbScheludeNow.setShowHorizontalLines(true);
-        jtbScheludeNow.setShowVerticalLines(false);
-        jtbScheludeNow.getTableHeader().setResizingAllowed(false);
-        jtbScheludeNow.getTableHeader().setReorderingAllowed(false);
-        jtbScheludeNow.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        CommonTypes.setTableProperties(jtbScheludeNow);
         jtbScheludeNow.setDefaultRenderer(String.class, new DBTableRenderOtherSchedule());
         jtbScheludeNow.setDefaultRenderer(Integer.class, new DBTableRenderOtherSchedule());
-        jtbScheludeNow.setGridColor(Color.LIGHT_GRAY);
-        jtbScheludeNow.setIntercellSpacing(new Dimension(0, 1));
-                
-        if (jtbScheludeNow.getColumnModel().getColumnCount() > 0) {        	
-        	jtbScheludeNow.getColumnModel().getColumn(0).setMinWidth(0);
-        	jtbScheludeNow.getColumnModel().getColumn(0).setPreferredWidth(0);
-        	jtbScheludeNow.getColumnModel().getColumn(0).setMaxWidth(0);        	
-        	jtbScheludeNow.getColumnModel().getColumn(1).setMinWidth(28);
-        	jtbScheludeNow.getColumnModel().getColumn(1).setPreferredWidth(28);
-        	jtbScheludeNow.getColumnModel().getColumn(1).setMaxWidth(28);        	
-        	jtbScheludeNow.getColumnModel().getColumn(2).setMinWidth(100);
-        	jtbScheludeNow.getColumnModel().getColumn(2).setPreferredWidth(100);
-        	jtbScheludeNow.getColumnModel().getColumn(2).setMaxWidth(100);         	
-        	jtbScheludeNow.getColumnModel().getColumn(3).setMinWidth(100);
-        	jtbScheludeNow.getColumnModel().getColumn(3).setPreferredWidth(100);
-        	jtbScheludeNow.getColumnModel().getColumn(3).setMaxWidth(100);        	
-        	jtbScheludeNow.getColumnModel().getColumn(4).setMinWidth(0);
-        	jtbScheludeNow.getColumnModel().getColumn(4).setPreferredWidth(0);
-        	jtbScheludeNow.getColumnModel().getColumn(4).setMaxWidth(0);        	
-        	jtbScheludeNow.getColumnModel().getColumn(5).setMinWidth(90);
-        	jtbScheludeNow.getColumnModel().getColumn(5).setPreferredWidth(90);
-        	jtbScheludeNow.getColumnModel().getColumn(5).setMaxWidth(90);       	
-        	jtbScheludeNow.getColumnModel().getColumn(7).setMinWidth(28);
-        	jtbScheludeNow.getColumnModel().getColumn(7).setPreferredWidth(28);
-        	jtbScheludeNow.getColumnModel().getColumn(7).setMaxWidth(28);        	
-        	jtbScheludeNow.getColumnModel().getColumn(8).setMinWidth(28);
-        	jtbScheludeNow.getColumnModel().getColumn(8).setPreferredWidth(28);
-        	jtbScheludeNow.getColumnModel().getColumn(8).setMaxWidth(28);        	
-        	jtbScheludeNow.getColumnModel().getColumn(9).setMinWidth(0);
-        	jtbScheludeNow.getColumnModel().getColumn(9).setPreferredWidth(0);
-        	jtbScheludeNow.getColumnModel().getColumn(9).setMaxWidth(0);        	
-        	jtbScheludeNow.getColumnModel().getColumn(10).setMinWidth(0);
-        	jtbScheludeNow.getColumnModel().getColumn(10).setPreferredWidth(0);
-        	jtbScheludeNow.getColumnModel().getColumn(10).setMaxWidth(0);
-        } 
-        
+
         jtbScheludeNow.getSelectionModel().addListSelectionListener(e -> {
             if (jtbScheludeNow.getSelectedRow() != -1) {
                 onSelectScheludeRow(jtbScheludeNow);
@@ -384,53 +301,9 @@ public class VseTV  extends JFrame implements ChangeListener {
         DBTableModelOtherSchedule scheludeNextModel = new DBTableModelOtherSchedule(DBUtils.SQL_NEXTSCHEDULE);
         
         jtbScheludeNext.setModel(scheludeNextModel);
-                
-        jtbScheludeNext.setFillsViewportHeight(true);
-        jtbScheludeNext.setFocusable(false);
-        jtbScheludeNext.setRowHeight(28);
-        jtbScheludeNext.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jtbScheludeNext.setShowHorizontalLines(true);
-        jtbScheludeNext.setShowVerticalLines(false);
-        jtbScheludeNext.getTableHeader().setResizingAllowed(false);
-        jtbScheludeNext.getTableHeader().setReorderingAllowed(false);
-        jtbScheludeNext.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        CommonTypes.setTableProperties(jtbScheludeNext);
         jtbScheludeNext.setDefaultRenderer(String.class, new DBTableRenderOtherSchedule());
         jtbScheludeNext.setDefaultRenderer(Integer.class, new DBTableRenderOtherSchedule());
-        jtbScheludeNext.setGridColor(Color.LIGHT_GRAY);
-        jtbScheludeNext.setIntercellSpacing(new Dimension(0, 1));
-                
-        if (jtbScheludeNext.getColumnModel().getColumnCount() > 0) {
-        	jtbScheludeNext.getColumnModel().getColumn(0).setMinWidth(0);
-        	jtbScheludeNext.getColumnModel().getColumn(0).setPreferredWidth(0);
-        	jtbScheludeNext.getColumnModel().getColumn(0).setMaxWidth(0);
-        	jtbScheludeNext.getColumnModel().getColumn(1).setMinWidth(28);
-        	jtbScheludeNext.getColumnModel().getColumn(1).setPreferredWidth(28);
-        	jtbScheludeNext.getColumnModel().getColumn(1).setMaxWidth(28);
-        	jtbScheludeNext.getColumnModel().getColumn(2).setMinWidth(100);
-        	jtbScheludeNext.getColumnModel().getColumn(2).setPreferredWidth(100);
-        	jtbScheludeNext.getColumnModel().getColumn(2).setMaxWidth(100);
-        	jtbScheludeNext.getColumnModel().getColumn(3).setMinWidth(100);
-        	jtbScheludeNext.getColumnModel().getColumn(3).setPreferredWidth(100);
-        	jtbScheludeNext.getColumnModel().getColumn(3).setMaxWidth(100);
-        	jtbScheludeNext.getColumnModel().getColumn(4).setMinWidth(0);
-        	jtbScheludeNext.getColumnModel().getColumn(4).setPreferredWidth(0);
-        	jtbScheludeNext.getColumnModel().getColumn(4).setMaxWidth(0);
-        	jtbScheludeNext.getColumnModel().getColumn(5).setMinWidth(90);
-        	jtbScheludeNext.getColumnModel().getColumn(5).setPreferredWidth(90);
-        	jtbScheludeNext.getColumnModel().getColumn(5).setMaxWidth(90);
-        	jtbScheludeNext.getColumnModel().getColumn(7).setMinWidth(28);
-        	jtbScheludeNext.getColumnModel().getColumn(7).setPreferredWidth(28);
-        	jtbScheludeNext.getColumnModel().getColumn(7).setMaxWidth(28);
-        	jtbScheludeNext.getColumnModel().getColumn(8).setMinWidth(28);
-        	jtbScheludeNext.getColumnModel().getColumn(8).setPreferredWidth(28);
-        	jtbScheludeNext.getColumnModel().getColumn(8).setMaxWidth(28);
-        	jtbScheludeNext.getColumnModel().getColumn(9).setMinWidth(0);
-        	jtbScheludeNext.getColumnModel().getColumn(9).setPreferredWidth(0);
-        	jtbScheludeNext.getColumnModel().getColumn(9).setMaxWidth(0);
-        	jtbScheludeNext.getColumnModel().getColumn(10).setMinWidth(0);
-        	jtbScheludeNext.getColumnModel().getColumn(10).setPreferredWidth(0);
-        	jtbScheludeNext.getColumnModel().getColumn(10).setMaxWidth(0);
-        } 
         
         jtbScheludeNext.getSelectionModel().addListSelectionListener(e -> {
             if (jtbScheludeNext.getSelectedRow() != -1) {
@@ -452,54 +325,10 @@ public class VseTV  extends JFrame implements ChangeListener {
         DBTableModelOtherSchedule scheludeRemindersModel = new DBTableModelOtherSchedule(DBUtils.SQL_FAVORITES);
         
         jtbScheludeReminders.setModel(scheludeRemindersModel);
-        
-        jtbScheludeReminders.setFillsViewportHeight(true);
-        jtbScheludeReminders.setFocusable(false);
-        jtbScheludeReminders.setRowHeight(28);
-        jtbScheludeReminders.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jtbScheludeReminders.setShowHorizontalLines(true);
-        jtbScheludeReminders.setShowVerticalLines(false);
-        jtbScheludeReminders.getTableHeader().setResizingAllowed(false);
-        jtbScheludeReminders.getTableHeader().setReorderingAllowed(false);
-        jtbScheludeReminders.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        CommonTypes.setTableProperties(jtbScheludeReminders);
         jtbScheludeReminders.setDefaultRenderer(String.class, new DBTableRenderOtherSchedule());
         jtbScheludeReminders.setDefaultRenderer(Integer.class, new DBTableRenderOtherSchedule());
-        jtbScheludeReminders.setGridColor(Color.LIGHT_GRAY);
-        jtbScheludeReminders.setIntercellSpacing(new Dimension(0, 1));
-                
-        if (jtbScheludeReminders.getColumnModel().getColumnCount() > 0) {
-        	jtbScheludeReminders.getColumnModel().getColumn(0).setMinWidth(0);
-        	jtbScheludeReminders.getColumnModel().getColumn(0).setPreferredWidth(0);
-        	jtbScheludeReminders.getColumnModel().getColumn(0).setMaxWidth(0);
-        	jtbScheludeReminders.getColumnModel().getColumn(1).setMinWidth(28);
-        	jtbScheludeReminders.getColumnModel().getColumn(1).setPreferredWidth(28);
-        	jtbScheludeReminders.getColumnModel().getColumn(1).setMaxWidth(28);
-        	jtbScheludeReminders.getColumnModel().getColumn(2).setMinWidth(100);
-        	jtbScheludeReminders.getColumnModel().getColumn(2).setPreferredWidth(100);
-        	jtbScheludeReminders.getColumnModel().getColumn(2).setMaxWidth(100);
-        	jtbScheludeReminders.getColumnModel().getColumn(3).setMinWidth(100);
-        	jtbScheludeReminders.getColumnModel().getColumn(3).setPreferredWidth(100);
-        	jtbScheludeReminders.getColumnModel().getColumn(3).setMaxWidth(100);
-        	jtbScheludeReminders.getColumnModel().getColumn(4).setMinWidth(0);
-        	jtbScheludeReminders.getColumnModel().getColumn(4).setPreferredWidth(0);
-        	jtbScheludeReminders.getColumnModel().getColumn(4).setMaxWidth(0);
-        	jtbScheludeReminders.getColumnModel().getColumn(5).setMinWidth(90);
-        	jtbScheludeReminders.getColumnModel().getColumn(5).setPreferredWidth(90);
-        	jtbScheludeReminders.getColumnModel().getColumn(5).setMaxWidth(90);
-        	jtbScheludeReminders.getColumnModel().getColumn(7).setMinWidth(28);
-        	jtbScheludeReminders.getColumnModel().getColumn(7).setPreferredWidth(28);
-        	jtbScheludeReminders.getColumnModel().getColumn(7).setMaxWidth(28);
-        	jtbScheludeReminders.getColumnModel().getColumn(8).setMinWidth(0);
-        	jtbScheludeReminders.getColumnModel().getColumn(8).setPreferredWidth(0);
-        	jtbScheludeReminders.getColumnModel().getColumn(8).setMaxWidth(0);
-        	jtbScheludeReminders.getColumnModel().getColumn(9).setMinWidth(0);
-        	jtbScheludeReminders.getColumnModel().getColumn(9).setPreferredWidth(0);
-        	jtbScheludeReminders.getColumnModel().getColumn(9).setMaxWidth(0);
-        	jtbScheludeReminders.getColumnModel().getColumn(10).setMinWidth(0);
-        	jtbScheludeReminders.getColumnModel().getColumn(10).setPreferredWidth(0);
-        	jtbScheludeReminders.getColumnModel().getColumn(10).setMaxWidth(0);
-        }
-        
+
         jtbScheludeReminders.getSelectionModel().addListSelectionListener(e -> {
             if (jtbScheludeReminders.getSelectedRow() != -1) {
                 onSelectScheludeRow(jtbScheludeReminders);
@@ -601,7 +430,7 @@ public class VseTV  extends JFrame implements ChangeListener {
         int row = jtbMainChannels.getSelectedRow();
         TableModel tm = jtbMainChannels.getModel();
         if (row != -1) {
-            Integer id = new Integer((String) tm.getValueAt(row, 0));
+            Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_ID));
             DBParams[] aParams = new DBParams[1];
             aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
             refreshTableForParams(jtbScheludeAll, aParams);
@@ -630,7 +459,7 @@ public class VseTV  extends JFrame implements ChangeListener {
         int row = table.getSelectedRow();
         TableModel tm = table.getModel();
         if (row != -1) {
-            Integer id = new Integer((String) tm.getValueAt(row, 0));
+            Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_ID));
             DBParams[] aParams = new DBParams[1];
             aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
             updateDescription(aParams);
@@ -690,7 +519,7 @@ public class VseTV  extends JFrame implements ChangeListener {
         String isOld;
         int i;
         for (i = 0; i < rowCount; i++) {
-            isOld = (String) jtbScheludeAll.getModel().getValueAt(i, 7);
+            isOld = (String) jtbScheludeAll.getModel().getValueAt(i, DBUtils.INDEX_ASCHELUDE_TIMETYPE);
             if (isOld.equals("NOW")) {
                 jtbScheludeAll.setRowSelectionInterval(i, i);
                 find = true;

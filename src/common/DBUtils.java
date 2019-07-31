@@ -16,6 +16,31 @@ public class DBUtils {
 	public static final int INDEX_UCHANNEL_ICON = 2;
 	public static final int INDEX_UCHANNEL_NAME = 3;
 	public static final int INDEX_UCHANNEL_CORRECTION = 4;
+		
+	public static final int INDEX_MCHANNEL_ICON = 1;
+	public static final int INDEX_MCHANNEL_NAME = 2;
+	public static final int INDEX_MCHANNEL_UPD = 3;
+	
+	public static final int INDEX_ASCHELUDE_SDATE = 1;
+	public static final int INDEX_ASCHELUDE_EDATE = 2;
+	public static final int INDEX_ASCHELUDE_DURATION = 3;
+	public static final int INDEX_ASCHELUDE_TITLE = 4;
+	public static final int INDEX_ASCHELUDE_ISDESC = 5;
+	public static final int INDEX_ASCHELUDE_ISFAV = 6;
+	public static final int INDEX_ASCHELUDE_TIMETYPE = 7;
+	public static final int INDEX_ASCHELUDE_CAT_EN = 8;
+	public static final int INDEX_ASCHELUDE_CAT_RU = 9;
+	
+	public static final int INDEX_NSCHELUDE_CICON = 1;
+	public static final int INDEX_NSCHELUDE_CNAME = 2;
+	public static final int INDEX_NSCHELUDE_SDATE = 3;
+	public static final int INDEX_NSCHELUDE_EDATE = 4;
+	public static final int INDEX_NSCHELUDE_DURATION = 5;
+	public static final int INDEX_NSCHELUDE_TITLE = 6;
+	public static final int INDEX_NSCHELUDE_ISDESC = 7;
+	public static final int INDEX_NSCHELUDE_ISFAV = 8;
+	public static final int INDEX_NSCHELUDE_CAT_EN = 9;
+	public static final int INDEX_NSCHELUDE_CAT_RU = 10;
 	
 	public static final String CLASS_NAME = "org.sqlite.JDBC";
     public static final String URL_PRE = "jdbc:sqlite:";
@@ -41,11 +66,11 @@ public class DBUtils {
 
     public static final String SQL_MAINUSERCHANNELS =
             "select uchn.id as id, " +
-            "uchn.icon as picon, " +
+            "uchn.icon as uicon, " +
             "uchn.name as uname, " +
             "case when ((julianday('now')-julianday(uchn.upd_date))>" + CommonTypes.COUNT_DAY +") or (uchn.upd_date is null) then 0 else 1 end as isupd " +            
             "from user_channels uchn " +
-            "order by uchn.id";
+            "order by uchn.name";
     
     public static final String SQL_DBCHANNELS =
     		"select uchn.id as id, " +
@@ -100,7 +125,7 @@ public class DBUtils {
             "join categorys cat on (cat.id=sch.category) " +
             "join user_channels usch on (usch.id=sch.channel) " +
             "where (sch.starting <= datetime('now','localtime')) and (sch.ending > datetime('now','localtime')) " +
-            "order by usch.id";
+            "order by usch.name";
     
     public static final String SQL_NEXTSCHEDULE =
             "select " +
@@ -119,7 +144,8 @@ public class DBUtils {
             "join categorys cat on (cat.id=sch.category) " +
             "join user_channels usch on (usch.id=sch.channel) " +
             "where (sch.starting > datetime('now','localtime')) " +
-            "group by usch.id HAVING min(sch.starting)";
+            "group by usch.id HAVING min(sch.starting) " + 
+    		"order by usch.name";
     
     public static final String SQL_FAVORITES =
             "select " +
@@ -137,7 +163,8 @@ public class DBUtils {
             "from schedule sch " +
             "join categorys cat on (cat.id=sch.category) " +
             "join user_channels usch on (usch.id=sch.channel) " +
-            "join schedule_favorites sf on (sf.schedule=sch.id)";
+            "join schedule_favorites sf on (sf.schedule=sch.id) " +
+    		"order by usch.name";
     
     public static final String SQL_SCHEDULE_FAVORITES_INSERT =
             "insert into schedule_favorites " +

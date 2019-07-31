@@ -9,7 +9,7 @@ public class DBTableRenderOtherSchedule extends DBTableRender {
     private void setColorCategory(JLabel cellComponent, JTable table, int row, int column) {
         for (CategoryProgramme cp : CommonTypes.catList.getData()) {
             if (cp.getId() != 0) {
-                if (cp.getNameRU().equals(table.getModel().getValueAt(row, 10))&&(column == 6)) {
+                if (cp.getNameRU().equals(table.getModel().getValueAt(row, DBUtils.INDEX_NSCHELUDE_CAT_RU))&&(column == DBUtils.INDEX_NSCHELUDE_TITLE)) {
                     cellComponent.setForeground(Color.decode("0x"+cp.getColor()));
                     break;
                 }
@@ -31,15 +31,15 @@ public class DBTableRenderOtherSchedule extends DBTableRender {
         
         setColorCategory(cellComponent, table, row, column);
 
-        if (column == 3) {
+        if (column == DBUtils.INDEX_NSCHELUDE_SDATE) {
             cellComponent.setText(CommonTypes.dtFormat((String)value, false));
         }
 
-        if (column == 5) {
+        if (column == DBUtils.INDEX_NSCHELUDE_DURATION) {
             cellComponent.setText(CommonTypes.intToTime(Integer.parseInt((String)value), ":", false, true));
         }
         
-        if (column == 3 || column == 5) {
+        if (column == DBUtils.INDEX_NSCHELUDE_SDATE || column == 5) {
         	cellComponent.setHorizontalAlignment(JLabel.CENTER);
         } else {
         	cellComponent.setHorizontalAlignment(JLabel.LEFT);

@@ -9,7 +9,7 @@ public class DBFielsSetOtherSchedule extends DBFieldsSet {
         DBField fld = new DBField("picon", "", 28);
         fld.setType(CommonTypes.DBType.OBJECT);
         this.getFieldSet().add(fld);
-        fld = new DBField("uname", Messages.getString("FIELD_NAME"), 100);
+        fld = new DBField("uname", Messages.getString("FIELD_NAME"), 90);
         this.getFieldSet().add(fld);
         fld = new DBField("sdate", Messages.getString("FIELD_SDATE"), 100);
         this.getFieldSet().add(fld);
