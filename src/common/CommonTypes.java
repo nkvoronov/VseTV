@@ -1,10 +1,15 @@
 package common;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.io.File;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 public class CommonTypes {
     public static final String ICON_FOLDER = "icons";    
@@ -13,6 +18,8 @@ public class CommonTypes {
     public static final String OUT_XML = "vsetv.xml";
     public static final String LANG = "ru";
     public static final Boolean INDEX_SORT = true;
+    
+    public static final int DEFAULT_GRID_HEIGHT = 28;
     
     public enum DBType {STRING, INTEGER, BOOL, DATETIME, TIME, OBJECT}
 
@@ -157,6 +164,35 @@ public class CommonTypes {
             e.printStackTrace();
         }
         return res;
+    }
+    
+    public static void setTableProperties(JTable table) {
+    	int w = 0;
+    	
+    	if (table != null) {
+    		table.setFillsViewportHeight(true);
+    		table.setFocusable(false);
+    		table.setRowHeight(DEFAULT_GRID_HEIGHT);
+    		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    		table.setShowHorizontalLines(true);
+    		table.setShowVerticalLines(false);
+    		table.getTableHeader().setResizingAllowed(false);
+    		table.getTableHeader().setReorderingAllowed(false);
+    		table.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);        
+    		table.setGridColor(Color.LIGHT_GRAY);
+    		table.setIntercellSpacing(new Dimension(0, 1));
+    		
+    		DBTableModel tm = (DBTableModel) table.getModel();
+    		
+    		for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
+    			w = tm.getColumnWidth(i);
+    			if (w != -1) {
+    				table.getColumnModel().getColumn(i).setMinWidth(w);
+    				table.getColumnModel().getColumn(i).setPreferredWidth(w);
+    				table.getColumnModel().getColumn(i).setMaxWidth(w);
+    			}
+    		}
+    	}   	
     }
 
 }

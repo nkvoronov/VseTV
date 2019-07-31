@@ -8,7 +8,7 @@ public class DBFieldsSet {
 
     public DBFieldsSet() {
         fieldSet = new ArrayList<>();
-        DBField fld = new DBField("id", "id", 0);
+        DBField fld = new DBField("id", "", 0);
         fld.setType(CommonTypes.DBType.INTEGER);
         fld.setWidth(0);
         fieldSet.add(fld);

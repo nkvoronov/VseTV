@@ -99,10 +99,10 @@ public class ChannelList implements Runnable{
         if (conn != null) {
             try {
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(DBUtils.SQL_MAINUSERCHANNELS);
+                ResultSet rs = stmt.executeQuery(DBUtils.SQL_DBCHANNELS);
                 try {
                     while (rs.next()) {
-                        Channel chn = new Channel(rs.getInt(2), rs.getString(4), rs.getString(8), rs.getString(3), rs.getInt(5));
+                        Channel chn = new Channel(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
                         this.data.add(chn);
                     }
                 } catch (SQLException e) {

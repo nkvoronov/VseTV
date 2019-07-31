@@ -17,8 +17,14 @@ public class DBTableRenderUserChannels extends DBTableRender{
             cellComponent.setForeground(Color.BLACK);
         }
 
-        if (column == 4) {
+        if (column == DBUtils.INDEX_UCHANNEL_CORRECTION) {
             cellComponent.setText(CommonTypes.intToTime(Integer.parseInt((String)value), ":", true, false));
+        }
+        
+        if (column == DBUtils.INDEX_UCHANNEL_CORRECTION) {
+        	cellComponent.setHorizontalAlignment(JLabel.CENTER);
+        } else {
+        	cellComponent.setHorizontalAlignment(JLabel.LEFT);
         }
         return cellComponent;
     }

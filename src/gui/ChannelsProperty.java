@@ -3,7 +3,6 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 
 import common.DBParams;
@@ -153,7 +152,15 @@ public class ChannelsProperty extends JDialog {
         //Left table
 
         JScrollPane jspLeft = new JScrollPane();
+        
         jtbChannels = new JTable();
+        
+        DBTableModelChannels channelsModel = new DBTableModelChannels(DBUtils.SQL_CHANNELS);
+        
+        jtbChannels.setModel(channelsModel);
+        CommonTypes.setTableProperties(jtbChannels);        
+        jtbChannels.setDefaultRenderer(Object.class, new DBTableRender()); 
+        
         jtbChannels.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
@@ -162,40 +169,6 @@ public class ChannelsProperty extends JDialog {
         		}	
         	}
         });
-        
-        DBTableModelChannels channelsModel = new DBTableModelChannels(DBUtils.SQL_CHANNELS);
-        jtbChannels.setModel(channelsModel);
-
-        jtbChannels.setFillsViewportHeight(true);
-        jtbChannels.setFocusable(false);
-        jtbChannels.setRowHeight(28);
-        jtbChannels.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jtbChannels.setShowHorizontalLines(true);
-        jtbChannels.setShowVerticalLines(false);
-        jtbChannels.getTableHeader().setResizingAllowed(false);
-        jtbChannels.getTableHeader().setReorderingAllowed(false);
-        jtbChannels.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jtbChannels.setDefaultRenderer(Object.class, new DBTableRender());
-        jtbChannels.setGridColor(Color.LIGHT_GRAY);
-        jtbChannels.setIntercellSpacing(new Dimension(0, 1));
-
-        if (jtbChannels.getColumnModel().getColumnCount() > 0) {
-        	jtbChannels.getColumnModel().getColumn(0).setMinWidth(0);
-        	jtbChannels.getColumnModel().getColumn(0).setPreferredWidth(0);
-        	jtbChannels.getColumnModel().getColumn(0).setMaxWidth(0);
-        	jtbChannels.getColumnModel().getColumn(1).setMinWidth(0);
-        	jtbChannels.getColumnModel().getColumn(1).setPreferredWidth(0);
-        	jtbChannels.getColumnModel().getColumn(1).setMaxWidth(0);
-        	jtbChannels.getColumnModel().getColumn(2).setMinWidth(0);
-        	jtbChannels.getColumnModel().getColumn(2).setPreferredWidth(0);
-        	jtbChannels.getColumnModel().getColumn(2).setMaxWidth(0);
-        	jtbChannels.getColumnModel().getColumn(3).setMinWidth(28);
-        	jtbChannels.getColumnModel().getColumn(3).setPreferredWidth(28);
-        	jtbChannels.getColumnModel().getColumn(3).setMaxWidth(28);
-        	jtbChannels.getColumnModel().getColumn(4).setMinWidth(28);
-        	jtbChannels.getColumnModel().getColumn(4).setPreferredWidth(28);
-        	jtbChannels.getColumnModel().getColumn(4).setMaxWidth(28);
-        }
 
         jtbChannels.getSelectionModel().addListSelectionListener(e -> {
             if (jtbChannels.getSelectedRow() != -1) {
@@ -292,7 +265,16 @@ public class ChannelsProperty extends JDialog {
         //Right table
 
         JScrollPane jspRight = new JScrollPane();
+        
         jtbUserChannels = new JTable();
+                
+        DBTableModelUserChannels userChannelsModel = new DBTableModelUserChannels(DBUtils.SQL_USERCHANNELS);
+        
+        jtbUserChannels.setModel(userChannelsModel);
+        CommonTypes.setTableProperties(jtbUserChannels);
+        jtbUserChannels.setDefaultRenderer(String.class, new DBTableRenderUserChannels());
+        jtbUserChannels.setDefaultRenderer(Integer.class, new DBTableRenderUserChannels());
+
         jtbUserChannels.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
@@ -304,43 +286,6 @@ public class ChannelsProperty extends JDialog {
         		}	
         	}
         });
-        
-        DBTableModelUserChannels userChannelsModel = new DBTableModelUserChannels(DBUtils.SQL_USERCHANNELS);
-        
-        jtbUserChannels.setModel(userChannelsModel);
-
-        jtbUserChannels.setFillsViewportHeight(true);
-        jtbUserChannels.setFocusable(false);
-        jtbUserChannels.setRowHeight(28);
-        jtbUserChannels.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jtbUserChannels.setShowHorizontalLines(true);
-        jtbUserChannels.setShowVerticalLines(false);
-        jtbUserChannels.getTableHeader().setResizingAllowed(false);
-        jtbUserChannels.getTableHeader().setReorderingAllowed(false);
-        jtbUserChannels.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jtbUserChannels.setDefaultRenderer(Object.class, new DBTableRenderUserChannels());
-        jtbUserChannels.setGridColor(Color.LIGHT_GRAY);
-        jtbUserChannels.setIntercellSpacing(new Dimension(0, 1));
-
-        DefaultTableCellRenderer centerRenderer = new DBTableRenderUserChannels();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-
-        if (jtbUserChannels.getColumnModel().getColumnCount() > 0) {
-        	jtbUserChannels.getColumnModel().getColumn(0).setMinWidth(0);
-        	jtbUserChannels.getColumnModel().getColumn(0).setPreferredWidth(0);
-        	jtbUserChannels.getColumnModel().getColumn(0).setMaxWidth(0);
-        	jtbUserChannels.getColumnModel().getColumn(1).setMinWidth(0);
-        	jtbUserChannels.getColumnModel().getColumn(1).setPreferredWidth(0);
-        	jtbUserChannels.getColumnModel().getColumn(1).setMaxWidth(0);
-        	jtbUserChannels.getColumnModel().getColumn(2).setMinWidth(28);
-        	jtbUserChannels.getColumnModel().getColumn(2).setPreferredWidth(28);
-        	jtbUserChannels.getColumnModel().getColumn(2).setMaxWidth(28);
-        	jtbUserChannels.getColumnModel().getColumn(4).setMinWidth(70);
-        	jtbUserChannels.getColumnModel().getColumn(4).setPreferredWidth(70);
-        	jtbUserChannels.getColumnModel().getColumn(4).setMaxWidth(70);
-
-        	jtbUserChannels.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
-        }
 
         JPopupMenu jpmUserChannels = new JPopupMenu();
 
@@ -392,10 +337,10 @@ public class ChannelsProperty extends JDialog {
     }
 
     private void onSelectChannelsRow() {
-        int row1 = jtbChannels.getSelectedRow();
+        int row = jtbChannels.getSelectedRow();
         TableModel tm = jtbChannels.getModel();        
-        if (row1 != -1) {
-            Boolean isUse = (Boolean) tm.getValueAt(row1, 3);
+        if (row != -1) {
+            Boolean isUse = (Boolean) tm.getValueAt(row, DBUtils.INDEX_IS_USER);
             acAddToUser.setEnabled(!isUse);
         }
     }
@@ -456,15 +401,15 @@ public class ChannelsProperty extends JDialog {
     	}
     	
     	public void onExecute() {
-			int row1 = jtbChannels.getSelectedRow();
+			int row = jtbChannels.getSelectedRow();
             TableModel tm = jtbChannels.getModel();
-            if (row1 != -1) {
-                Integer id = new Integer((String) tm.getValueAt(row1, 0));
+            if (row != -1) {
+                Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_ID));
                 DBParams[] aParams = new DBParams[2];
                 aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
                 aParams[1] = new DBParams(2, id, CommonTypes.DBType.INTEGER);
                 if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_ADD_CHANNEL, aParams) != -1) {
-                    refreshTableChannels(row1);
+                    refreshTableChannels(row);
                     refreshTableUserChannels(0);
                 }
             }  		
@@ -485,9 +430,9 @@ public class ChannelsProperty extends JDialog {
     	}
     	
     	public void onExecute() {
-			int row1 = jtbChannels.getSelectedRow();
+			int row = jtbChannels.getSelectedRow();
             if (DBUtils.getExecuteUpdate(DBUtils.SQL_ADD_ALLCHANNELS) != -1) {
-                refreshTableChannels(row1);
+                refreshTableChannels(row);
                 refreshTableUserChannels(0);
             }
 		}
@@ -542,14 +487,14 @@ public class ChannelsProperty extends JDialog {
     	}
     	
     	public void onExecute() {
-			int row1 = jtbChannels.getSelectedRow();
+			int row = jtbChannels.getSelectedRow();
             TableModel tm = jtbChannels.getModel();
-            if (row1 != -1) {
-                Integer id = new Integer((String) tm.getValueAt(row1, 0));
+            if (row != -1) {
+                Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_ID));
                 EdtChannel edtChannel = new EdtChannel(parent, Messages.getString("StrTitleEdt"));
-                edtChannel.setIndex((String) tm.getValueAt(row1, 1));
-                edtChannel.setCName((String) tm.getValueAt(row1, 5));
-                edtChannel.setIcon((String) tm.getValueAt(row1, 2));
+                edtChannel.setIndex((String) tm.getValueAt(row, DBUtils.INDEX_CHANNEL_INDEX));
+                edtChannel.setCName((String) tm.getValueAt(row, DBUtils.INDEX_CHANNEL_NAME));
+                edtChannel.setIcon((String) tm.getValueAt(row, DBUtils.INDEX_CHANNEL_ICON_STR));
                 edtChannel.setVisible(true);
                 if (edtChannel.getModalResult() != 0) {
                     DBParams[] aParams = new DBParams[4];
@@ -558,7 +503,7 @@ public class ChannelsProperty extends JDialog {
                     aParams[2] = new DBParams(3, edtChannel.getIcon(), CommonTypes.DBType.STRING);
                     aParams[3] = new DBParams(4, id, CommonTypes.DBType.INTEGER);
                     if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_EDT_CHANNEL, aParams) != -1) {
-                        refreshTableChannels(row1);
+                        refreshTableChannels(row);
                     }
                 }
             } 
@@ -583,16 +528,16 @@ public class ChannelsProperty extends JDialog {
     	}
     	
     	public void onExecute() {
-			int row1 = jtbChannels.getSelectedRow();
+			int row = jtbChannels.getSelectedRow();
             TableModel tm = jtbChannels.getModel();
-            if (row1 != -1) {
-                Integer id = new Integer((String) tm.getValueAt(row1, 0));
+            if (row != -1) {
+                Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_ID));
                 if (JOptionPane.showConfirmDialog(parent, Messages.getString("StrConfirmDel"), Messages.getString("StrTitleDel"), JOptionPane.YES_NO_OPTION) == 0) {
                     DBParams[] aParams = new DBParams[1];
                     aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
                     if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_DEL_CHANNELS, aParams) != -1) {
-                        if (row1 != 0) {row1--;}
-                        refreshTableChannels(row1);
+                        if (row != 0) {row--;}
+                        refreshTableChannels(row);
                         refreshTableUserChannels(0);
                     }
                 }
@@ -693,18 +638,18 @@ public class ChannelsProperty extends JDialog {
     	}
     	
     	public void onExecute() {
-			int row1 = jtbChannels.getSelectedRow();
-            int row2 = jtbUserChannels.getSelectedRow();
+			int crow = jtbChannels.getSelectedRow();
+            int row = jtbUserChannels.getSelectedRow();
             TableModel tm = jtbUserChannels.getModel();
-            if (row2 != -1) {
-                Integer id = new Integer((String) tm.getValueAt(row2, 0));
+            if (row != -1) {
+                Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_ID));
                 if (JOptionPane.showConfirmDialog(parent, Messages.getString("StrConfirmDelUsr"), Messages.getString("StrTitleDel"), JOptionPane.YES_NO_OPTION) == 0) {
                     DBParams[] aParams = new DBParams[1];
                     aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
                     if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_DEL_USERCHANNELS, aParams) != -1) {
-                        if (row2 != 0) {row2--;}
-                        refreshTableChannels(row1);
-                        refreshTableUserChannels(row2);
+                        if (row != 0) {row--;}
+                        refreshTableChannels(crow);
+                        refreshTableUserChannels(row);
                     }
                 }
             } 
@@ -728,10 +673,10 @@ public class ChannelsProperty extends JDialog {
     	}
     	
     	public void onExecute() {
-			int row1 = jtbChannels.getSelectedRow();
+			int row = jtbChannels.getSelectedRow();
             if (JOptionPane.showConfirmDialog(parent, Messages.getString("StrConfirmDelUsrAll"), Messages.getString("StrTitleDel"), JOptionPane.YES_NO_OPTION) == 0) {
                 if (DBUtils.getExecuteUpdate(DBUtils.SQL_DEL_ALLUSERCHANNELS) != -1) {
-                    refreshTableChannels(row1);
+                    refreshTableChannels(row);
                     refreshTableUserChannels(0);
                 }
             }
@@ -755,14 +700,14 @@ public class ChannelsProperty extends JDialog {
     	}
     	
     	public void onExecute() {
-			int row2 = jtbUserChannels.getSelectedRow();
+			int row = jtbUserChannels.getSelectedRow();
             TableModel tm = jtbUserChannels.getModel();
-            if (row2 != -1) {
-                Integer id = new Integer((String) tm.getValueAt(row2, 0));
+            if (row != -1) {
+                Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_ID));
                 EdtUsrChannel edtUsrChannel = new EdtUsrChannel(parent);
-                edtUsrChannel.setCName((String) tm.getValueAt(row2, 3));
-                edtUsrChannel.setIcon((String) tm.getValueAt(row2, 1));
-                edtUsrChannel.setCorrection((String) tm.getValueAt(row2, 4));
+                edtUsrChannel.setCName((String) tm.getValueAt(row, DBUtils.INDEX_UCHANNEL_NAME));
+                edtUsrChannel.setIcon((String) tm.getValueAt(row, DBUtils.INDEX_UCHANNEL_ICON_STR));
+                edtUsrChannel.setCorrection((String) tm.getValueAt(row, DBUtils.INDEX_UCHANNEL_CORRECTION));
                 edtUsrChannel.setVisible(true);
                 if (edtUsrChannel.getModalResult() != 0) {
                     DBParams[] aParams = new DBParams[4];
@@ -771,7 +716,7 @@ public class ChannelsProperty extends JDialog {
                     aParams[2] = new DBParams(3, new Integer(edtUsrChannel.getCorrection()), CommonTypes.DBType.INTEGER);
                     aParams[3] = new DBParams(4, id, CommonTypes.DBType.INTEGER);
                     if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_EDT_USERCHANNELS, aParams) != -1) {
-                        refreshTableUserChannels(row2);
+                        refreshTableUserChannels(row);
                     }
                 }
             } 
@@ -792,12 +737,12 @@ public class ChannelsProperty extends JDialog {
     	}
     	
     	public void onExecute() {
-			int row2 = jtbUserChannels.getSelectedRow();
+			int row = jtbUserChannels.getSelectedRow();
             Integer correction = new Integer(jtfCorrection.getText());
             DBParams[] aParams = new DBParams[1];
             aParams[0] = new DBParams(1, correction, CommonTypes.DBType.INTEGER);
             if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_SET_CORRECTIONUSERCHANNELS, aParams) != -1) {
-                refreshTableUserChannels(row2);	
+                refreshTableUserChannels(row);	
             }
 		}
     }

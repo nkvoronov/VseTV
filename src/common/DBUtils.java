@@ -3,7 +3,20 @@ package common;
 import java.sql.*;
 
 public class DBUtils {
-
+	
+	public static final int INDEX_ID = 0;
+	
+	public static final int INDEX_CHANNEL_INDEX = 1;
+	public static final int INDEX_CHANNEL_ICON_STR = 2;
+	public static final int INDEX_IS_USER = 3;
+	public static final int INDEX_CHANNEL_ICON = 4;
+	public static final int INDEX_CHANNEL_NAME = 5;
+	
+	public static final int INDEX_UCHANNEL_ICON_STR = 1;
+	public static final int INDEX_UCHANNEL_ICON = 2;
+	public static final int INDEX_UCHANNEL_NAME = 3;
+	public static final int INDEX_UCHANNEL_CORRECTION = 4;
+	
 	public static final String CLASS_NAME = "org.sqlite.JDBC";
     public static final String URL_PRE = "jdbc:sqlite:";
     public static final String DB_DEST = "vsetv.db";
@@ -33,6 +46,16 @@ public class DBUtils {
             "case when ((julianday('now')-julianday(uchn.upd_date))>" + CommonTypes.COUNT_DAY +") or (uchn.upd_date is null) then 0 else 1 end as isupd " +            
             "from user_channels uchn " +
             "order by uchn.id";
+    
+    public static final String SQL_DBCHANNELS =
+    		"select uchn.id as id, " +
+    		"chn.cindex as idx, " +
+    	    "chn.name as oname, " +	
+    		"uchn.name as uname, " +
+    	    "uchn.icon as sicon, " +
+    	    "uchn.correction as correction " +
+    	    "from user_channels uchn " +
+    	    "join channels chn on (chn.id=uchn.channel)";
 
     public static final String SQL_MAINUSERCHANNELS_UPDDATE = "update user_channels set upd_date=datetime('now') where id=(select uchn.id from user_channels uchn join channels chn on (chn.id=uchn.channel) where chn.cindex=?)";
 
@@ -140,11 +163,11 @@ public class DBUtils {
 
     public static final String SQL_CHANNELS =
             "select chn.id as id, " +
-            "chn.cindex as idx, " +
-            "chn.icon as sicon, " +
-            "case when (select usr.id from user_channels usr where usr.channel=chn.id) is null then 0 else 1 end as users, " +
-            "chn.icon as picon, " +
-            "chn.name as name " +
+            "chn.cindex as cidx, " +
+            "chn.icon as ciconstr, " +
+            "case when (select usr.id from user_channels usr where usr.channel=chn.id) is null then 0 else 1 end as isusr, " +
+            "chn.icon as cicon, " +
+            "chn.name as cname " +
             "from channels chn " +
             "order by chn.cindex";
 
@@ -187,10 +210,10 @@ public class DBUtils {
 
     public static final String SQL_USERCHANNELS =
             "select uchn.id as id, " +
-            "uchn.icon as sicon, " +
-            "uchn.icon as picon, " +
-            "uchn.name as name, " +
-            "uchn.correction as correction " +
+            "uchn.icon as uiconstr, " +
+            "uchn.icon as uicon, " +
+            "uchn.name as uname, " +
+            "uchn.correction as ucorrection " +
             "from user_channels uchn " +
             "order by uchn.id";
 

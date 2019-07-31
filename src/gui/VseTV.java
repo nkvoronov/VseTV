@@ -228,33 +228,12 @@ public class VseTV  extends JFrame implements ChangeListener {
         jpnScheludeAll.add(jslScheludeAllMain, BorderLayout.CENTER);
 
         jtbMainChannels = new JTable();
+        
         DBTableModelMainChannels mainChannelsModel = new DBTableModelMainChannels(DBUtils.SQL_MAINUSERCHANNELS);
+        
         jtbMainChannels.setModel(mainChannelsModel);
-
-        jtbMainChannels.setFillsViewportHeight(true);
-        jtbMainChannels.setFocusable(false);
-        jtbMainChannels.setRowHeight(28);
-        jtbMainChannels.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jtbMainChannels.setShowHorizontalLines(true);
-        jtbMainChannels.setShowVerticalLines(false);
-        jtbMainChannels.getTableHeader().setResizingAllowed(false);
-        jtbMainChannels.getTableHeader().setReorderingAllowed(false);
-        jtbMainChannels.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        CommonTypes.setTableProperties(jtbMainChannels);
         jtbMainChannels.setDefaultRenderer(Object.class, new DBTableRender());
-        jtbMainChannels.setGridColor(Color.LIGHT_GRAY);
-        jtbMainChannels.setIntercellSpacing(new Dimension(0, 1));
-
-        if (jtbMainChannels.getColumnModel().getColumnCount() > 0) {
-        	jtbMainChannels.getColumnModel().getColumn(0).setMinWidth(0);
-        	jtbMainChannels.getColumnModel().getColumn(0).setPreferredWidth(0);
-        	jtbMainChannels.getColumnModel().getColumn(0).setMaxWidth(0);
-        	jtbMainChannels.getColumnModel().getColumn(1).setMinWidth(28);
-        	jtbMainChannels.getColumnModel().getColumn(1).setPreferredWidth(28);
-        	jtbMainChannels.getColumnModel().getColumn(1).setMaxWidth(28);
-        	jtbMainChannels.getColumnModel().getColumn(2).setMinWidth(28);
-        	jtbMainChannels.getColumnModel().getColumn(2).setPreferredWidth(28);
-        	jtbMainChannels.getColumnModel().getColumn(2).setMaxWidth(28);
-        }
 
         jtbMainChannels.getSelectionModel().addListSelectionListener(e -> {
             if (jtbMainChannels.getSelectedRow() != -1) {
