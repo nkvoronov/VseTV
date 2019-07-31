@@ -30,6 +30,7 @@ public class VseTV  extends JFrame implements ChangeListener {
     private ActionOptions acOptions;
     private ActionAbout acAbout;
     private ActionUpdateProgramme acUpdateProgramme;
+    private ActionFavorites acFavorites;
     private ActionViewToolBar acViewToolBar;
     private ActionViewStatusBar acViewStatusBar; 
     private JToolBar jtbrMain;
@@ -71,7 +72,8 @@ public class VseTV  extends JFrame implements ChangeListener {
         acExit = new ActionExit(this);
         acChannelsList = new ActionChannelsList(this);
         acOptions = new ActionOptions(this);
-        acAbout = new ActionAbout(this);
+        acFavorites = new ActionFavorites();
+        acAbout = new ActionAbout(this);        
         acUpdateProgramme = new ActionUpdateProgramme();
         acViewToolBar = new ActionViewToolBar();
         acViewStatusBar = new ActionViewStatusBar();		
@@ -201,6 +203,16 @@ public class VseTV  extends JFrame implements ChangeListener {
         jbtOptions.setVerticalTextPosition(SwingConstants.BOTTOM);
         jtbrMain.add(jbtOptions);
 
+        jtbrMain.add(new JToolBar.Separator());
+        
+        JButton jbtFavorites = new JButton();
+        jbtFavorites.setAction(acFavorites);
+        jbtFavorites.setText("");
+        jbtFavorites.setFocusable(false);
+        jbtFavorites.setHorizontalTextPosition(SwingConstants.CENTER);
+        jbtFavorites.setVerticalTextPosition(SwingConstants.BOTTOM);
+        jtbrMain.add(jbtFavorites);
+        
         jtbrMain.add(new JToolBar.Separator());
 
         getContentPane().add(jtbrMain, BorderLayout.PAGE_START);
@@ -456,14 +468,16 @@ public class VseTV  extends JFrame implements ChangeListener {
     }
 
     private void onSelectScheludeRow(JTable table) {
-        int row = table.getSelectedRow();
-        TableModel tm = table.getModel();
-        if (row != -1) {
-            Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_ID));
-            DBParams[] aParams = new DBParams[1];
-            aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
-            updateDescription(aParams);
-        }
+    	if (table != null) {
+	        int row = table.getSelectedRow();
+	        TableModel tm = table.getModel();
+	        if (row != -1) {
+	            Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_ID));
+	            DBParams[] aParams = new DBParams[1];
+	            aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
+	            updateDescription(aParams);
+	        }
+    	}
     }
     
     private void updateDescription(DBParams[] aParams) {
@@ -498,18 +512,20 @@ public class VseTV  extends JFrame implements ChangeListener {
     }
     
     private void refreshTable(JTable table, int row) {
-    	DBTableModel tm = (DBTableModel) table.getModel();
-    	tm.refreshContent();
-    	table.setVisible(false);
-    	table.setVisible(true);
-        if (table.getRowCount() != 0) {
-        	table.setRowSelectionInterval(row, row);
-        	if (table == jtbMainChannels) {
-        		onSelectChannelsRow();
-        	} else {
-        		onSelectScheludeRow(table);
-        	}
-        }
+    	if (table != null) {
+	    	DBTableModel tm = (DBTableModel) table.getModel();
+	    	tm.refreshContent();
+	    	table.setVisible(false);
+	    	table.setVisible(true);
+	        if (table.getRowCount() != 0) {
+	        	table.setRowSelectionInterval(row, row);
+	        	if (table == jtbMainChannels) {
+	        		onSelectChannelsRow();
+	        	} else {
+	        		onSelectScheludeRow(table);
+	        	}
+	        }
+    	}
 
     }
 
@@ -535,20 +551,22 @@ public class VseTV  extends JFrame implements ChangeListener {
     }
 
     private void refreshTableForParams(JTable table, DBParams[] aParams) {
-    	DBTableModel tm = (DBTableModel) table.getModel();
-        tm.refreshContentForParams(aParams);
-        try {
-            table.setVisible(false);
-            if (table.getRowCount() != 0) {
-                scheludeAllSelectCurTime();
-                onSelectScheludeRow(table);
-            }
-        } finally {
-        	table.setVisible(true);
-        }
+    	if (table != null) {
+	    	DBTableModel tm = (DBTableModel) table.getModel();
+	        tm.refreshContentForParams(aParams);
+	        try {
+	            table.setVisible(false);
+	            if (table.getRowCount() != 0) {
+	                scheludeAllSelectCurTime();
+	                onSelectScheludeRow(table);
+	            }
+	        } finally {
+	        	table.setVisible(true);
+	        }
+    	}
 
     }
-    
+        
     private class ActionSaveXmlTV extends AbstractAction {
     	private Frame parent;
     	    	
@@ -688,6 +706,76 @@ public class VseTV  extends JFrame implements ChangeListener {
             new Thread(parser).start();
     	} 
     }
+        
+    private class ActionFavorites extends AbstractAction {
+    	
+    	public ActionFavorites() {
+    		putValue(NAME, Messages.getString("StrActionFavorites"));
+            putValue(ACCELERATOR_KEY, null);
+            putValue(SHORT_DESCRIPTION, Messages.getString("StrActionFavorites"));
+            putValue(SMALL_ICON, new ImageIcon(VseTV.class.getResource("/resources/favorites.png")));	
+    	}
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		onExecute();
+    	}
+    	
+    	public void onExecute() {
+    		JTable table = null;
+    		int rowFav = DBUtils.INDEX_NSCHELUDE_ISFAV;
+    		int channelID = 0;
+    		switch (jtpMain.getSelectedIndex()) {
+			case 0:
+				table = jtbScheludeAll;
+				rowFav = DBUtils.INDEX_ASCHELUDE_ISFAV;
+				channelID = 0;
+				break;
+			case 1:
+				table = jtbScheludeNow;
+				break;
+			case 2:
+				table = jtbScheludeNext;
+				break;
+			}
+    		updateFavorites(table, rowFav, channelID);
+    	}
+    	
+        private void updateFavorites(JTable table, int favIndex, int cId) {
+        	if (table != null) {
+    			int row = table.getSelectedRow();
+    			DBTableModel tm = (DBTableModel) table.getModel();
+    			if (row != -1) {
+    				Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_ID));
+    				boolean isFav = (Boolean) tm.getValueAt(row, favIndex);
+    				DBParams[] aParams = new DBParams[1];
+                    aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);                    
+                    if (isFav) {
+                    	if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_DEL_SCHEDULE_FAVORITES, aParams) != -1) {
+                    		updateTable(table, row, cId);
+                    	}
+                    } else {
+                    	if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_SCHEDULE_FAVORITES_INSERT, aParams) != -1) {
+                    		updateTable(table, row, cId);                   		
+                    	}	
+                		
+                    }
+    			}
+        	}
+        }
+        
+        private void updateTable(JTable table, int row, int cId) {
+        	if (table != null) {
+        		if (table != jtbScheludeAll) {
+        			refreshTable(table, row);
+        		} else {
+        			onSelectChannelsRow();
+        			table.setRowSelectionInterval(row, row);
+        		}
+        	}
+        }
+    } 
+    
     
     private class ActionViewToolBar extends AbstractAction {
     	

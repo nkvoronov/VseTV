@@ -171,7 +171,7 @@ public class DBUtils {
             "(schedule) " +
             "values (?)";
     
-    public static final String SQL_DEL_SCHEDULE_FAVORITES = "delete from schedule_favorites where id=?";
+    public static final String SQL_DEL_SCHEDULE_FAVORITES = "delete from schedule_favorites where schedule=?";
 
     public static final String SQL_DEL_ALL_SCHEDULE_FAVORITES = "delete from schedule_favorites";
     
