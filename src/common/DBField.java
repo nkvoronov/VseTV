@@ -5,11 +5,12 @@ public class DBField {
     private String title;
     private String name;
     private CommonTypes.DBType type = CommonTypes.DBType.STRING;
-    private Boolean visible = true;
+    private int width = 0;
 
-    public DBField(String name, String title) {
+    public DBField(String name, String title, int width) {
         this.name = name;
         this.title = title;
+        this.width = width;
     }
 
     public String getTitle() {
@@ -36,11 +37,11 @@ public class DBField {
         this.type = type;
     }
 
-    public Boolean getVisible() {
-        return visible;
+    public int getWidth() {
+        return width;
     }
 
-    public void setVisible(Boolean visible) {
-        this.visible = visible;
+    public void setWidth(int width) {
+        this.width = width;
     }
 }

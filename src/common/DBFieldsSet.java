@@ -8,9 +8,9 @@ public class DBFieldsSet {
 
     public DBFieldsSet() {
         fieldSet = new ArrayList<>();
-        DBField fld = new DBField("id", "id");
+        DBField fld = new DBField("id", "id", 0);
         fld.setType(CommonTypes.DBType.INTEGER);
-        fld.setVisible(false);
+        fld.setWidth(0);
         fieldSet.add(fld);
     }
 
