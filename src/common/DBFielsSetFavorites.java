@@ -6,10 +6,10 @@ public class DBFielsSetFavorites extends DBFieldsSet {
 	
     public DBFielsSetFavorites() {
         super();
-        DBField fld = new DBField("picon", "", 0);
+        DBField fld = new DBField("picon", "", 28);
         fld.setType(CommonTypes.DBType.OBJECT);
         this.getFieldSet().add(fld);
-        fld = new DBField("uname", Messages.getString("FIELD_NAME"), 28);
+        fld = new DBField("uname", Messages.getString("FIELD_NAME"), 90);
         this.getFieldSet().add(fld);
         fld = new DBField("sdate", Messages.getString("FIELD_SDATE"), 100);
         this.getFieldSet().add(fld);
@@ -21,7 +21,7 @@ public class DBFielsSetFavorites extends DBFieldsSet {
         fld = new DBField("title", Messages.getString("FIELD_TITLE"), -1);
         this.getFieldSet().add(fld);
         fld = new DBField("isdesc", "", 28);
-        fld.setType(CommonTypes.DBType.BOOL);
+        fld.setType(CommonTypes.DBType.OBJECT);
         this.getFieldSet().add(fld);
         fld = new DBField("cat_en", Messages.getString("FIELD_CANEN"), 0);
         this.getFieldSet().add(fld);

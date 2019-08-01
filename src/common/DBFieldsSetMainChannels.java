@@ -12,7 +12,7 @@ public class DBFieldsSetMainChannels extends DBFieldsSet{
         fld = new DBField("uname", Messages.getString("FIELD_NAME"), -1);
         this.getFieldSet().add(fld);
         fld = new DBField("isupd", "", 28);
-        fld.setType(CommonTypes.DBType.BOOL);
+        fld.setType(CommonTypes.DBType.OBJECT);
         this.getFieldSet().add(fld);        
     }
 }

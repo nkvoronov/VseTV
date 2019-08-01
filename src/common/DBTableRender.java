@@ -11,12 +11,12 @@ public class DBTableRender extends DefaultTableCellRenderer{
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component cellComponent = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         
-        cellComponent.setBackground(Color.WHITE);
-        cellComponent.setForeground(Color.BLACK);
+        cellComponent.setBackground(SystemColor.window);
+        cellComponent.setForeground(SystemColor.windowText);
             
         if (isSelected) {
-            cellComponent.setBackground(Color.decode("0x3399FF"));
-            cellComponent.setForeground(Color.WHITE);
+            cellComponent.setBackground(SystemColor.textHighlight);
+            cellComponent.setForeground(SystemColor.window);
         }
         
         return cellComponent;

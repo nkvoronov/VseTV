@@ -5,6 +5,7 @@ import java.sql.*;
 public class DBUtils {
 	
 	public static final int INDEX_ID = 0;
+	public static final int INDEX_SCHELUDE_FAV = 1;
 	
 	public static final int INDEX_CHANNEL_INDEX = 1;
 	public static final int INDEX_CHANNEL_ICON_STR = 2;
@@ -21,26 +22,34 @@ public class DBUtils {
 	public static final int INDEX_MCHANNEL_NAME = 2;
 	public static final int INDEX_MCHANNEL_UPD = 3;
 	
-	public static final int INDEX_ASCHELUDE_SDATE = 1;
-	public static final int INDEX_ASCHELUDE_EDATE = 2;
-	public static final int INDEX_ASCHELUDE_DURATION = 3;
-	public static final int INDEX_ASCHELUDE_TITLE = 4;
-	public static final int INDEX_ASCHELUDE_ISDESC = 5;
-	public static final int INDEX_ASCHELUDE_ISFAV = 6;
+	public static final int INDEX_ASCHELUDE_SDATE = 2;
+	public static final int INDEX_ASCHELUDE_EDATE = 3;
+	public static final int INDEX_ASCHELUDE_DURATION = 4;
+	public static final int INDEX_ASCHELUDE_TITLE = 5;
+	public static final int INDEX_ASCHELUDE_ISDESC = 6;
 	public static final int INDEX_ASCHELUDE_TIMETYPE = 7;
 	public static final int INDEX_ASCHELUDE_CAT_EN = 8;
 	public static final int INDEX_ASCHELUDE_CAT_RU = 9;
 	
-	public static final int INDEX_NSCHELUDE_CICON = 1;
-	public static final int INDEX_NSCHELUDE_CNAME = 2;
-	public static final int INDEX_NSCHELUDE_SDATE = 3;
-	public static final int INDEX_NSCHELUDE_EDATE = 4;
-	public static final int INDEX_NSCHELUDE_DURATION = 5;
-	public static final int INDEX_NSCHELUDE_TITLE = 6;
-	public static final int INDEX_NSCHELUDE_ISDESC = 7;
-	public static final int INDEX_NSCHELUDE_ISFAV = 8;
+	public static final int INDEX_NSCHELUDE_CICON = 2;
+	public static final int INDEX_NSCHELUDE_CNAME = 3;
+	public static final int INDEX_NSCHELUDE_SDATE = 4;
+	public static final int INDEX_NSCHELUDE_EDATE = 5;
+	public static final int INDEX_NSCHELUDE_DURATION = 6;
+	public static final int INDEX_NSCHELUDE_TITLE = 7;
+	public static final int INDEX_NSCHELUDE_ISDESC = 8;
 	public static final int INDEX_NSCHELUDE_CAT_EN = 9;
 	public static final int INDEX_NSCHELUDE_CAT_RU = 10;
+	
+	public static final int INDEX_FAVORITES_CICON = 1;
+	public static final int INDEX_FAVORITES_CNAME = 2;
+	public static final int INDEX_FAVORITES_SDATE = 3;
+	public static final int INDEX_FAVORITES_EDATE = 4;
+	public static final int INDEX_FAVORITES_DURATION = 5;
+	public static final int INDEX_FAVORITES_TITLE = 6;
+	public static final int INDEX_FAVORITES_ISDESC = 7;
+	public static final int INDEX_FAVORITES_CAT_EN = 8;
+	public static final int INDEX_FAVORITES_CAT_RU = 9;
 	
 	public static final String CLASS_NAME = "org.sqlite.JDBC";
     public static final String URL_PRE = "jdbc:sqlite:";
@@ -68,7 +77,7 @@ public class DBUtils {
             "select uchn.id as id, " +
             "\"" + CommonTypes.TYPE_SOURCE_IMAGE_FILE + "\" || uchn.icon as uicon, " +
             "uchn.name as uname, " +
-            "case when ((julianday('now')-julianday(uchn.upd_date))>" + CommonTypes.COUNT_DAY +") or (uchn.upd_date is null) then 0 else 1 end as isupd " +            
+            "case when ((julianday('now')-julianday(uchn.upd_date))>" + CommonTypes.COUNT_DAY +") or (uchn.upd_date is null) then \"" + CommonTypes.TYPE_SOURCE_IMAGE_RES + "update_big.png\" else \"\" end as isupd " +            
             "from user_channels uchn " +
             "order by uchn.name";
     
@@ -93,12 +102,12 @@ public class DBUtils {
     public static final String SQL_MAINSCHEDULE =
             "select " +
             "sch.id as id, " +
+            "case when (select sf.id from schedule_favorites sf where sf.schedule=sch.id) is not null then \"" + CommonTypes.TYPE_SOURCE_IMAGE_RES + "favorites_big.png\" else \"\" end as isfav, " +		
             "strftime('%Y-%m-%d %H:%M',sch.starting) as sdate, " +
             "strftime('%Y-%m-%d %H:%M',sch.ending) as edate, " +
             "strftime('%s', sch.ending)-strftime('%s', sch.starting) as duration, " +
             "sch.title, " +
-            "case when (select sd.id from schedule_description sd where sd.schedule=sch.id) is not null then \"" + CommonTypes.TYPE_SOURCE_IMAGE_RES + "description_32.png\" else \"\" end as isdesc, " +
-            "case when (select sf.id from schedule_favorites sf where sf.schedule=sch.id) is not null then '1' else '0' end as isfav, " +
+            "case when (select sd.id from schedule_description sd where sd.schedule=sch.id) is not null then \"" + CommonTypes.TYPE_SOURCE_IMAGE_RES + "description_big.png\" else \"\" end as isdesc, " +            
 			"case when (sch.starting <= datetime('now','localtime')) and (sch.ending >= datetime('now','localtime')) then \"NOW\" when sch.starting <= datetime('now','localtime') then \"OLD\" else \"NEW\" end as timetype, " +
             "cat.name_en as cat_en, " +
             "cat.name_ru as cat_ru " +
@@ -111,14 +120,14 @@ public class DBUtils {
     public static final String SQL_NOWSCHEDULE =
             "select " +
             "sch.id as id, " +
+            "case when (select sf.id from schedule_favorites sf where sf.schedule=sch.id) is not null then \"" + CommonTypes.TYPE_SOURCE_IMAGE_RES + "favorites_big.png\" else \"\" end as isfav, " +
             "\"" + CommonTypes.TYPE_SOURCE_IMAGE_FILE + "\" || usch.icon as picon, " +
             "usch.name as uname, " +
             "strftime('%Y-%m-%d %H:%M',sch.starting) as sdate, " +
             "strftime('%Y-%m-%d %H:%M',sch.ending) as edate, " +
             "strftime('%s', sch.ending)-strftime('%s', sch.starting) as duration, " +
             "sch.title, " +
-            "case when (select sd.id from schedule_description sd where sd.schedule=sch.id) is not null then '1' else '0' end as isdesc, " +
-            "case when (select sf.id from schedule_favorites sf where sf.schedule=sch.id) is not null then '1' else '0' end as isfav, " +
+            "case when (select sd.id from schedule_description sd where sd.schedule=sch.id) is not null then \"" + CommonTypes.TYPE_SOURCE_IMAGE_RES + "description_big.png\" else \"\" end as isdesc, " +
             "cat.name_en as cat_en, " +
             "cat.name_ru as cat_ru " +
             "from schedule sch " +
@@ -130,14 +139,14 @@ public class DBUtils {
     public static final String SQL_NEXTSCHEDULE =
             "select " +
             "sch.id as id, " +
+            "case when (select sf.id from schedule_favorites sf where sf.schedule=sch.id) is not null then \"" + CommonTypes.TYPE_SOURCE_IMAGE_RES + "favorites_big.png\" else \"\" end as isfav, " +
             "\"" + CommonTypes.TYPE_SOURCE_IMAGE_FILE + "\" || usch.icon as picon, " +
             "usch.name as uname, " +
             "strftime('%Y-%m-%d %H:%M',sch.starting) as sdate, " +
             "strftime('%Y-%m-%d %H:%M',sch.ending) as edate, " +
             "strftime('%s', sch.ending)-strftime('%s', sch.starting) as duration, " +
             "sch.title, " +
-            "case when (select sd.id from schedule_description sd where sd.schedule=sch.id) is not null then '1' else '0' end as isdesc, " +
-            "case when (select sf.id from schedule_favorites sf where sf.schedule=sch.id) is not null then '1' else '0' end as isfav, " +
+            "case when (select sd.id from schedule_description sd where sd.schedule=sch.id) is not null then \"" + CommonTypes.TYPE_SOURCE_IMAGE_RES + "description_big.png\" else \"\" end as isdesc, " +
             "cat.name_en as cat_en, " +
             "cat.name_ru as cat_ru " +
             "from schedule sch " +
@@ -156,8 +165,7 @@ public class DBUtils {
             "strftime('%Y-%m-%d %H:%M',sch.ending) as edate, " +
             "strftime('%s', sch.ending)-strftime('%s', sch.starting) as duration, " +
             "sch.title, " +
-            "case when (select sd.id from schedule_description sd where sd.schedule=sch.id) is not null then '1' else '0' end as isdesc, " +
-            "case when (select sf.id from schedule_favorites sf where sf.schedule=sch.id) is not null then '1' else '0' end as isfav, " +
+            "case when (select sd.id from schedule_description sd where sd.schedule=sch.id) is not null then \"" + CommonTypes.TYPE_SOURCE_IMAGE_RES + "description_big.png\" else \"\" end as isdesc, " +
             "cat.name_en as cat_en, " +
             "cat.name_ru as cat_ru " +
             "from schedule sch " +
@@ -192,7 +200,7 @@ public class DBUtils {
             "select chn.id as id, " +
             "chn.cindex as cidx, " +
             "chn.icon as ciconstr, " +
-            "case when (select usr.id from user_channels usr where usr.channel=chn.id) is null then 0 else 1 end as isusr, " +
+            "case when (select usr.id from user_channels usr where usr.channel=chn.id) is null then \"\" else \"" + CommonTypes.TYPE_SOURCE_IMAGE_RES + "favorites_big.png\" end as isusr, " +
             "chn.icon as cicon, " +
             "chn.name as cname " +
             "from channels chn " +

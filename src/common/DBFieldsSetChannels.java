@@ -12,7 +12,7 @@ public class DBFieldsSetChannels extends DBFieldsSet{
         fld = new DBField("ciconstr", "", 0);
         this.getFieldSet().add(fld);        
         fld = new DBField("isusr", "", 28);
-        fld.setType(CommonTypes.DBType.BOOL);
+        fld.setType(CommonTypes.DBType.OBJECT);
         this.getFieldSet().add(fld);
         fld = new DBField("cicon", "", 28);
         fld.setType(CommonTypes.DBType.OBJECT);

@@ -340,8 +340,8 @@ public class ChannelsProperty extends JDialog {
         int row = jtbChannels.getSelectedRow();
         TableModel tm = jtbChannels.getModel();        
         if (row != -1) {
-            Boolean isUse = (Boolean) tm.getValueAt(row, DBUtils.INDEX_IS_USER);
-            acAddToUser.setEnabled(!isUse);
+            Object oUser = tm.getValueAt(row, DBUtils.INDEX_IS_USER);
+            acAddToUser.setEnabled(oUser == null);
         }
     }
 

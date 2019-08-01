@@ -31,7 +31,7 @@ public class DBTableRenderOtherSchedule extends DBTableRender {
             cellComponent.setText(CommonTypes.intToTime(Integer.parseInt((String)value), ":", false, true));
         }
         
-        if (column == DBUtils.INDEX_NSCHELUDE_SDATE || column == 5) {
+        if (column == DBUtils.INDEX_NSCHELUDE_SDATE || column == DBUtils.INDEX_NSCHELUDE_DURATION) {
         	cellComponent.setHorizontalAlignment(JLabel.CENTER);
         } else {
         	cellComponent.setHorizontalAlignment(JLabel.LEFT);

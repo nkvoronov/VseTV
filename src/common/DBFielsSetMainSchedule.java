@@ -6,7 +6,10 @@ public class DBFielsSetMainSchedule  extends DBFieldsSet {
 
     public DBFielsSetMainSchedule() {
         super();
-        DBField fld = new DBField("sdate", Messages.getString("FIELD_SDATE"), 100);
+        DBField fld = new DBField("isfav", "", 28);
+        fld.setType(CommonTypes.DBType.OBJECT);
+        this.getFieldSet().add(fld);
+        fld = new DBField("sdate", Messages.getString("FIELD_SDATE"), 100);
         this.getFieldSet().add(fld);
         fld = new DBField("edate", "", 0);
         this.getFieldSet().add(fld);
@@ -17,10 +20,7 @@ public class DBFielsSetMainSchedule  extends DBFieldsSet {
         this.getFieldSet().add(fld);
         fld = new DBField("isdesc", "", 28);
         fld.setType(CommonTypes.DBType.OBJECT);
-        this.getFieldSet().add(fld);
-        fld = new DBField("isfav", "", 28);
-        fld.setType(CommonTypes.DBType.BOOL);
-        this.getFieldSet().add(fld);
+        this.getFieldSet().add(fld);        
         fld = new DBField("timetype", "", 0);
         this.getFieldSet().add(fld);
         fld = new DBField("cat_en", Messages.getString("FIELD_CANEN"), 0);

@@ -15,9 +15,11 @@ import common.DBTableModelMainChannels;
 import common.DBTableModelMainSchedule;
 import common.DBTableModelOtherSchedule;
 import common.DBTableRender;
+import common.DBTableRenderFavorites;
 import common.DBTableRenderMainSchedule;
 import common.DBTableRenderOtherSchedule;
 import common.DBTableModel;
+import common.DBTableModelFavorites;
 import common.DBUtils;
 import parser.ParserVseTV;
 
@@ -334,12 +336,12 @@ public class VseTV  extends JFrame implements ChangeListener {
         
         jtbScheludeReminders = new JTable();
         
-        DBTableModelOtherSchedule scheludeRemindersModel = new DBTableModelOtherSchedule(DBUtils.SQL_FAVORITES);
+        DBTableModelFavorites scheludeRemindersModel = new DBTableModelFavorites(DBUtils.SQL_FAVORITES);
         
         jtbScheludeReminders.setModel(scheludeRemindersModel);
         CommonTypes.setTableProperties(jtbScheludeReminders);
-        jtbScheludeReminders.setDefaultRenderer(String.class, new DBTableRenderOtherSchedule());
-        jtbScheludeReminders.setDefaultRenderer(Integer.class, new DBTableRenderOtherSchedule());
+        jtbScheludeReminders.setDefaultRenderer(String.class, new DBTableRenderFavorites());
+        jtbScheludeReminders.setDefaultRenderer(Integer.class, new DBTableRenderFavorites());
 
         jtbScheludeReminders.getSelectionModel().addListSelectionListener(e -> {
             if (jtbScheludeReminders.getSelectedRow() != -1) {
@@ -723,12 +725,11 @@ public class VseTV  extends JFrame implements ChangeListener {
     	
     	public void onExecute() {
     		JTable table = null;
-    		int rowFav = DBUtils.INDEX_NSCHELUDE_ISFAV;
+    		int rowFav = DBUtils.INDEX_SCHELUDE_FAV;
     		int channelID = 0;
     		switch (jtpMain.getSelectedIndex()) {
 			case 0:
 				table = jtbScheludeAll;
-				rowFav = DBUtils.INDEX_ASCHELUDE_ISFAV;
 				channelID = 0;
 				break;
 			case 1:
@@ -747,10 +748,10 @@ public class VseTV  extends JFrame implements ChangeListener {
     			DBTableModel tm = (DBTableModel) table.getModel();
     			if (row != -1) {
     				Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_ID));
-    				boolean isFav = (Boolean) tm.getValueAt(row, favIndex);
+    				Object oFav = tm.getValueAt(row, favIndex);
     				DBParams[] aParams = new DBParams[1];
                     aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);                    
-                    if (isFav) {
+                    if (oFav != null) {
                     	if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_DEL_SCHEDULE_FAVORITES, aParams) != -1) {
                     		updateTable(table, row, cId);
                     	}
