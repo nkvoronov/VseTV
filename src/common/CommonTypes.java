@@ -19,6 +19,12 @@ public class CommonTypes {
     public static final String LANG = "ru";
     public static final Boolean INDEX_SORT = true;
     
+    public static final String TYPE_SOURCE_IMAGE_WEB = "http:";
+    public static final String TYPE_SOURCE_IMAGE_FILE = "file:";
+    public static final String TYPE_SOURCE_IMAGE_RES = "res:";
+    
+    public static final String RES_FOLDER = "/resources/";
+    
     public static final int DEFAULT_GRID_HEIGHT = 28;
     
     public enum DBType {STRING, INTEGER, BOOL, DATETIME, TIME, OBJECT}

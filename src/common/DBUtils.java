@@ -66,7 +66,7 @@ public class DBUtils {
 
     public static final String SQL_MAINUSERCHANNELS =
             "select uchn.id as id, " +
-            "uchn.icon as uicon, " +
+            "\"" + CommonTypes.TYPE_SOURCE_IMAGE_FILE + "\" || uchn.icon as uicon, " +
             "uchn.name as uname, " +
             "case when ((julianday('now')-julianday(uchn.upd_date))>" + CommonTypes.COUNT_DAY +") or (uchn.upd_date is null) then 0 else 1 end as isupd " +            
             "from user_channels uchn " +
@@ -97,7 +97,7 @@ public class DBUtils {
             "strftime('%Y-%m-%d %H:%M',sch.ending) as edate, " +
             "strftime('%s', sch.ending)-strftime('%s', sch.starting) as duration, " +
             "sch.title, " +
-            "case when (select sd.id from schedule_description sd where sd.schedule=sch.id) is not null then '1' else '0' end as isdesc, " +
+            "case when (select sd.id from schedule_description sd where sd.schedule=sch.id) is not null then \"" + CommonTypes.TYPE_SOURCE_IMAGE_RES + "description_32.png\" else \"\" end as isdesc, " +
             "case when (select sf.id from schedule_favorites sf where sf.schedule=sch.id) is not null then '1' else '0' end as isfav, " +
 			"case when (sch.starting <= datetime('now','localtime')) and (sch.ending >= datetime('now','localtime')) then \"NOW\" when sch.starting <= datetime('now','localtime') then \"OLD\" else \"NEW\" end as timetype, " +
             "cat.name_en as cat_en, " +
@@ -111,7 +111,7 @@ public class DBUtils {
     public static final String SQL_NOWSCHEDULE =
             "select " +
             "sch.id as id, " +
-            "usch.icon as picon, " +
+            "\"" + CommonTypes.TYPE_SOURCE_IMAGE_FILE + "\" || usch.icon as picon, " +
             "usch.name as uname, " +
             "strftime('%Y-%m-%d %H:%M',sch.starting) as sdate, " +
             "strftime('%Y-%m-%d %H:%M',sch.ending) as edate, " +
@@ -130,7 +130,7 @@ public class DBUtils {
     public static final String SQL_NEXTSCHEDULE =
             "select " +
             "sch.id as id, " +
-            "usch.icon as picon, " +
+            "\"" + CommonTypes.TYPE_SOURCE_IMAGE_FILE + "\" || usch.icon as picon, " +
             "usch.name as uname, " +
             "strftime('%Y-%m-%d %H:%M',sch.starting) as sdate, " +
             "strftime('%Y-%m-%d %H:%M',sch.ending) as edate, " +
@@ -150,7 +150,7 @@ public class DBUtils {
     public static final String SQL_FAVORITES =
             "select " +
             "sch.id as id, " +
-            "usch.icon as picon, " +
+            "\"" + CommonTypes.TYPE_SOURCE_IMAGE_FILE + "\" || usch.icon as picon, " +
             "usch.name as uname, " +
             "strftime('%Y-%m-%d %H:%M',sch.starting) as sdate, " +
             "strftime('%Y-%m-%d %H:%M',sch.ending) as edate, " +
@@ -238,11 +238,11 @@ public class DBUtils {
     public static final String SQL_USERCHANNELS =
             "select uchn.id as id, " +
             "uchn.icon as uiconstr, " +
-            "uchn.icon as uicon, " +
+            "\"" + CommonTypes.TYPE_SOURCE_IMAGE_FILE + "\" || uchn.icon as uicon, " +
             "uchn.name as uname, " +
             "uchn.correction as ucorrection " +
             "from user_channels uchn " +
-            "order by uchn.id";
+            "order by uchn.name";
 
     public static final String SQL_DEL_USERCHANNELS = "delete from user_channels where id=?";
 

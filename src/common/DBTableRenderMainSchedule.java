@@ -22,15 +22,17 @@ public class DBTableRenderMainSchedule extends DBTableRender {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         JLabel cellComponent = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-        String isOld = (String) table.getModel().getValueAt(row, DBUtils.INDEX_ASCHELUDE_TIMETYPE);
-        cellComponent.setBackground(Color.WHITE);
-        cellComponent.setForeground(Color.BLACK);
+//
+//        
+//        cellComponent.setBackground(Color.WHITE);
+//        cellComponent.setForeground(Color.BLACK);
+//        
+//        if (isSelected) {
+//            cellComponent.setBackground(Color.decode("0x3399FF"));
+//            cellComponent.setForeground(Color.WHITE);
+//        }
         
-        if (isSelected) {
-            cellComponent.setBackground(Color.decode("0x3399FF"));
-            cellComponent.setForeground(Color.WHITE);
-        }
+        String isOld = (String) table.getModel().getValueAt(row, DBUtils.INDEX_ASCHELUDE_TIMETYPE);
 
         if (isOld.equals("NOW")) {
         	cellComponent.setFont(new Font("default", Font.BOLD, 11));            

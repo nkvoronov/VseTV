@@ -16,7 +16,7 @@ public class DBFielsSetMainSchedule  extends DBFieldsSet {
         fld = new DBField("title", Messages.getString("FIELD_TITLE"), -1);
         this.getFieldSet().add(fld);
         fld = new DBField("isdesc", "", 28);
-        fld.setType(CommonTypes.DBType.BOOL);
+        fld.setType(CommonTypes.DBType.OBJECT);
         this.getFieldSet().add(fld);
         fld = new DBField("isfav", "", 28);
         fld.setType(CommonTypes.DBType.BOOL);
