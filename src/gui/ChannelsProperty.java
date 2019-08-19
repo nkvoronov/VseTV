@@ -404,7 +404,7 @@ public class ChannelsProperty extends JDialog {
 			int row = jtbChannels.getSelectedRow();
             TableModel tm = jtbChannels.getModel();
             if (row != -1) {
-                Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_ID));
+                Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_CHANNEL_INDEX));
                 DBParams[] aParams = new DBParams[2];
                 aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
                 aParams[1] = new DBParams(2, id, CommonTypes.DBType.INTEGER);

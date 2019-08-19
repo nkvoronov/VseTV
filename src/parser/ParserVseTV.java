@@ -118,29 +118,29 @@ public class ParserVseTV implements Runnable {
             pMonitor.setTotal(count);
         }
         this.programmes.getData().clear();
-        for (Channel chn : this.channels.getData()) {
+        for (Channel channel : this.channels.getData()) {
             cur.setTime(dt);
             while (!cur.getTime().equals(last.getTime())) {
                 if (isGUI) {
                 	format = new Formatter();
-                	format.format(UtilStrings.STR_GETCHANEL, chn.getoName(), ft.format(cur.getTime()));
+                	format.format(UtilStrings.STR_GETCHANEL, channel.getoName(), ft.format(cur.getTime()));
                     pMonitor.setCurrent(format.toString(), i);
                 }
-                getContentDay(chn, cur.getTime());
+                getContentDay(channel, cur.getTime());
                 cur.add(Calendar.DATE, 1);
                 i++;
             }
         }
     }
 
-    public void getContentDay(Channel chn, Date date) {
+    public void getContentDay(Channel channel, Date date) {
         SimpleDateFormat ftd = new SimpleDateFormat(UtilStrings.DATE_FORMAT);
         SimpleDateFormat ftdt = new SimpleDateFormat(UtilStrings.DATE_FORMATTIME);
         Calendar dt = Calendar.getInstance();
         dt.setTime(date);
         String otime = UtilStrings.STR_OTIME;
         format = new Formatter();
-        format.format(UtilStrings.STR_SCHEDULECHANNEL, chn.getIndex(), ftd.format(date));
+        format.format(UtilStrings.STR_SCHEDULECHANNEL, channel.getIndex(), ftd.format(date));
         String vdirection = format.toString();
         org.jsoup.nodes.Document doc = new HttpContent(vdirection).getDocument();
         Elements items = doc.select(UtilStrings.STR_ELMDOCSELECT);
@@ -178,18 +178,18 @@ public class ParserVseTV implements Runnable {
             } catch (Exception e) {
                 //
             }
-            Programme prg = new Programme(chn.getIndex(), startDate, endDate, etitle);            
-            prg.setCorrectionTime(chn.getCorrection());
-            getCategoryFromTitle(prg);
+            Programme programme = new Programme(channel.getIndex(), startDate, endDate, etitle);            
+            programme.setCorrectionTime(channel.getCorrection());
+            getCategoryFromTitle(programme);
             
             if (edesc.length() > 0 && !Objects.equals(edesc, "")) {
-                prg.setDesc(edesc);
+            	programme.setDescription(edesc);
             }
             if (efulldescurl.length() > 0 && !Objects.equals(efulldescurl, "") && this.fullDesc) {
-                prg.setUrlFullDesc(efulldescurl);
-                getFullDesc(prg);
+            	programme.setUrlFullDesc(efulldescurl);
+                getFullDesc(programme);
             }
-            getProgrammes().getData().add(prg);
+            getProgrammes().getData().add(programme);
         }
 
     }
@@ -203,17 +203,17 @@ public class ParserVseTV implements Runnable {
         return res;
     }
 
-    private void getCategoryFromTitle(Programme prg) {
+    private void getCategoryFromTitle(Programme programme) {
         try {
-            String ctitle = new String(prg.getTitle().getBytes(), "UTF-8").toLowerCase();
-            prg.setCategoryLangRU(Messages.getString("StrCategoryLangRU"));
-            prg.setCategoryLangEN(Messages.getString("StrCategoryLangEN"));
+            String ctitle = new String(programme.getTitle().getBytes(), "UTF-8").toLowerCase();
+            programme.setCategoryLangRU(Messages.getString("StrCategoryLangRU"));
+            programme.setCategoryLangEN(Messages.getString("StrCategoryLangEN"));
             try {
             	for (CategoryProgramme cp : CommonTypes.catList.getData()) {
             		if (cp.getId() != 0) {
             			if (titleContainsDictWorlds(ctitle, cp.getDictionary())) {
-            				prg.setCategoryLangRU(cp.getNameRU());
-            				prg.setCategoryLangEN(cp.getNameEN());
+            				programme.setCategoryLangRU(cp.getNameRU());
+            				programme.setCategoryLangEN(cp.getNameEN());
             				break;
             			}
             		}
@@ -227,7 +227,7 @@ public class ParserVseTV implements Runnable {
         }
     }
 
-    private void getFullDesc(Programme prg) {
+    private void getFullDesc(Programme programme) {
         //
     }
 

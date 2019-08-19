@@ -83,16 +83,14 @@ public class DBUtils {
     
     public static final String SQL_DBCHANNELS =
     		"select uchn.id as id, " +
-    		"chn.cindex as idx, " +
+    		"chn.channel as idx, " +
     	    "chn.name as oname, " +	
     		"uchn.name as uname, " +    		
     	    "uchn.icon as sicon, " +    		
     	    "uchn.correction as correction, " +
     	    "chn.lang as lang " +
     	    "from user_channels uchn " +
-    	    "join channels chn on (chn.cindex=uchn.channel)";
-
-    public static final String SQL_MAINUSERCHANNELS_ID = "select uchn.id as id, chn.cindex as idx from user_channels uchn join channels chn on (chn.cindex=uchn.channel) where chn.cindex=?";
+    	    "join channels chn on (chn.channel=uchn.channel)";
 
     public static final String SQL_MAINSCHEDULE_CLEAR = "delete from schedule";
 
@@ -193,50 +191,50 @@ public class DBUtils {
     
     public static final String SQL_SCHEDULE_DESCRIPTION_INSERT = "insert into schedule_description (schedule, description) values (?,?)";
 
-    public static final String SQL_FINDINCHANNELS_INDEX = "select * from channels where cindex=?";
+    public static final String SQL_FINDINCHANNELS_INDEX = "select * from channels where channel=?";
 
     public static final String SQL_CHANNELS =
             "select chn.id as id, " +
-            "chn.cindex as cidx, " +
+            "chn.channel as cidx, " +
             "chn.icon as ciconstr, " +
-            "case when (select usr.id from user_channels usr where usr.channel=chn.cindex) is null then \"\" else \"" + CommonTypes.TYPE_SOURCE_IMAGE_RES + "favorites_big.png\" end as isusr, " +
+            "case when (select usr.id from user_channels usr where usr.channel=chn.channel) is null then \"\" else \"" + CommonTypes.TYPE_SOURCE_IMAGE_RES + "favorites_big.png\" end as isusr, " +
             "chn.icon as cicon, " +
             "chn.name as cname " +
             "from channels chn " +
-            "order by chn.cindex";
+            "order by chn.channel";
 
     public static final String SQL_ADD_CHANNEL =
             "insert into user_channels (channel, name, icon) " +
-            "select id, name, '" + CommonTypes.getIconsPatch() + "' || cindex || '.gif' as sicon from channels " +
+            "select id, name, '" + CommonTypes.getIconsPatch() + "' || channel || '.gif' as sicon from channels " +
             "where id=? and (select usr.id from user_channels usr where usr.channel=?) is null";
 
     public static final String SQL_ADD_ALLCHANNELS =
             "insert into user_channels (channel, name, icon) " +
-            "select id, name, '" + CommonTypes.getIconsPatch() + "' || cindex || '.gif' as sicon from channels " +
+            "select id, name, '" + CommonTypes.getIconsPatch() + "' || channel || '.gif' as sicon from channels " +
             "where id not in (select usr.channel from user_channels usr)";
 
     public static final String SQL_INS_CHANNEL =
-            "insert into channels (cindex, name, icon, lang) " +
+            "insert into channels (channel, name, icon, lang) " +
             "values(?,?,?,?)";
     
     public static final String SQL_INS_CHANNEL_DLG =
-            "insert into channels (cindex, name, icon) " +
+            "insert into channels (channel, name, icon) " +
             "values(?,?,?)";
 
     public static final String SQL_EDT_CHANNEL =
             "update channels " +
-            "set cindex=?, name=?, icon=?, upd_date=datetime('now') " +
+            "set channel=?, name=?, icon=?, upd_date=datetime('now') " +
             "where id=?";
 
     public static final String SQL_UPD_CHANNELNAME =
             "update channels " +
             "set name=?, icon=?, lang=?, upd_date=datetime('now') " +
-            "where cindex=?";
+            "where channel=?";
 
     public static final String SQL_UPD_CHANNELDATE =
             "update channels " +
             "set upd_date=datetime('now') " +
-            "where cindex=?";
+            "where channel=?";
 
     public static final String SQL_UPD_CHANNELDATE_NULL = "update channels set upd_date=null";
 

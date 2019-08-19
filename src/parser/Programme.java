@@ -11,37 +11,37 @@ import common.UtilStrings;
 public class Programme {
     public static final String SEP_LIST = ",";
 
-    private int channelIdx;
+    private int index;
     private Date start;
     private Date stop;
     private String correctionTime;
     private String title;
-    private String desc;
+    private String description;
     private String urlFullDesc;
     private String categoryLangEN;
     private String categoryLangRU;
     private String genres;
     private String directors;
     private String actors;
-    private String date;
+    private String year;
     private String country;
     private String image;
     private String starrating;
 
-    public Programme(int channelIdx, Date start, Date stop, String title) {
-        this.channelIdx = channelIdx;
+    public Programme(int index, Date start, Date stop, String title) {
+        this.index = index;
         this.start = start;
         this.stop = stop;
         this.correctionTime = null;
         this.title = title;
-        this.desc = null;
+        this.description = null;
         this.urlFullDesc = null;
         this.categoryLangEN = null;
         this.categoryLangRU = null;
         this.genres = null;
         this.directors = null;
         this.actors = null;
-        this.date = null;
+        this.year = null;
         this.country = null;
         this.image =null;
         this.starrating = null;
@@ -71,12 +71,12 @@ public class Programme {
         this.image = image;
     }
 
-    public int getChannelIdx() {
-        return channelIdx;
+    public int getIndex() {
+        return index;
     }
 
-    public void setChannelIdx(int channelIdx) {
-        this.channelIdx = channelIdx;
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public Date getStart() {
@@ -103,12 +103,12 @@ public class Programme {
         this.title = title;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getUrlFullDesc() {
@@ -151,12 +151,12 @@ public class Programme {
         this.actors = actors;
     }
 
-    public String getDate() {
-        return date;
+    public String getYear() {
+        return year;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public String getStarrating() {
@@ -167,24 +167,24 @@ public class Programme {
         this.starrating = starrating;
     }
 
-    public void copyFullDesc(Programme prg) {
-        if (prg != null) {
-            this.urlFullDesc = prg.urlFullDesc;
-            this.desc = prg.desc;
-            this.categoryLangEN = prg.categoryLangEN;
-            this.categoryLangRU = prg.categoryLangRU;
-            this.genres = prg.genres;
-            this.directors = prg.directors;
-            this.actors = prg.actors;
-            this.country = prg.country;
-            this.image = prg.image;
-            this.date = prg.date;
-            this.starrating = prg.starrating;
+    public void copyFullDesc(Programme programme) {
+        if (programme != null) {
+            this.urlFullDesc = programme.urlFullDesc;
+            this.description = programme.description;
+            this.categoryLangEN = programme.categoryLangEN;
+            this.categoryLangRU = programme.categoryLangRU;
+            this.genres = programme.genres;
+            this.directors = programme.directors;
+            this.actors = programme.actors;
+            this.country = programme.country;
+            this.image = programme.image;
+            this.year = programme.year;
+            this.starrating = programme.starrating;
         }
     }
 
     public void print() {
-        System.out.println(getChannelIdx() + Channel.SEP_FOLDER + getStart() + Channel.SEP_FOLDER + getStop() + Channel.SEP_FOLDER + getTitle() + Channel.SEP_FOLDER + getDesc());
+        System.out.println(getIndex() + Channel.SEP_FOLDER + getStart() + Channel.SEP_FOLDER + getStop() + Channel.SEP_FOLDER + getTitle() + Channel.SEP_FOLDER + getDescription());
     }
 
     public void setCorrectionTime(int correction) {
@@ -204,15 +204,15 @@ public class Programme {
         Element eprogramme = document.createElement("programme");
         eprogramme.setAttribute("start", getDateToFormat(this.getStart()));
         eprogramme.setAttribute("stop", getDateToFormat(this.getStop()));
-        eprogramme.setAttribute("channel", Integer.toString(getChannelIdx()));
+        eprogramme.setAttribute("channel", Integer.toString(getIndex()));
         Element etittle = document.createElement("title");
         etittle.setAttribute("lang", "ru");
         etittle.appendChild(document.createTextNode(getTitle()));
         eprogramme.appendChild(etittle);
-        if (getDesc() != null) {
+        if (getDescription() != null) {
             Element edesc = document.createElement("desc");
             edesc.setAttribute("lang", "ru");
-            edesc.appendChild(document.createTextNode(getDesc()));
+            edesc.appendChild(document.createTextNode(getDescription()));
             eprogramme.appendChild(edesc);
         }
         if (getDirectors() != null ||  getActors() != null) {
@@ -235,9 +235,9 @@ public class Programme {
             }
             eprogramme.appendChild(ecredits);
         }
-        if (getDate() != null) {
+        if (getYear() != null) {
             Element edate = document.createElement("date");
-            edate.appendChild(document.createTextNode(getDate()));
+            edate.appendChild(document.createTextNode(getYear()));
             eprogramme.appendChild(edate);
         }
         if (getCategoryLangEN() != null) {

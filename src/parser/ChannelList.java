@@ -143,14 +143,14 @@ public class ChannelList implements Runnable{
     }
 
     public void print() {
-        for (Channel chn : this.data) {
-            chn.print();
+        for (Channel channel : this.data) {
+        	channel.print();
         }
     }
 
     public void getXML(org.w3c.dom.Document document, org.w3c.dom.Element element) {
-        for (Channel chn : this.data) {
-            chn.getXML(document, element);
+        for (Channel channel : this.data) {
+        	channel.getXML(document, element);
         }
     }
 
@@ -244,8 +244,8 @@ public class ChannelList implements Runnable{
         pMonitor.start("");
         if (isUpdChannels) {
         	DBUtils.getExecuteUpdate(DBUtils.SQL_UPD_CHANNELDATE_NULL);
-            for (Channel chn : this.data) {
-                saveChannelToDB(chn,i);
+            for (Channel channel : this.data) {
+                saveChannelToDB(channel, i);
                 i++;
                 try {
                     Thread.sleep(10);
@@ -258,8 +258,8 @@ public class ChannelList implements Runnable{
                 pMonitor.setCurrent("Удалено - " + resupd, i);
             }
         } else {
-            for (Channel chn : this.data) {
-                saveChannelIcon(chn,i);
+            for (Channel channel : this.data) {
+                saveChannelIcon(channel, i);
                 i++;
                 try {
                     Thread.sleep(10);

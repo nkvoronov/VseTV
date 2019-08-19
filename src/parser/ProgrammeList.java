@@ -25,24 +25,20 @@ public class ProgrammeList {
     }
 
     public void saveToDB(ProgressMonitor monitor) {
-        int userChannelId;
-        int scheduleID;
-        int categoryID;
         int i = 1;
         monitor.setTotal(this.data.size());
         SimpleDateFormat ftdt = new SimpleDateFormat(UtilStrings.DATE_FORMATTIME);
-        for (Programme prg : this.data) {
-            userChannelId = getUserChannelID(prg.getChannelIdx());
-            categoryID = saveToDBCategory(prg);
+        for (Programme programme : this.data) {
+            int categoryID = saveToDBCategory(programme);
             DBParams[] aParams = new DBParams[5];
-            aParams[0] = new DBParams(1, userChannelId, CommonTypes.DBType.INTEGER);
+            aParams[0] = new DBParams(1, programme.getIndex(), CommonTypes.DBType.INTEGER);
             aParams[1] = new DBParams(2, categoryID, CommonTypes.DBType.INTEGER);
-            aParams[2] = new DBParams(3, ftdt.format(prg.getStart()), CommonTypes.DBType.STRING);
-            aParams[3] = new DBParams(4, ftdt.format(prg.getStop()), CommonTypes.DBType.STRING);
-            aParams[4] = new DBParams(5, prg.getTitle(), CommonTypes.DBType.STRING);
+            aParams[2] = new DBParams(3, ftdt.format(programme.getStart()), CommonTypes.DBType.STRING);
+            aParams[3] = new DBParams(4, ftdt.format(programme.getStop()), CommonTypes.DBType.STRING);
+            aParams[4] = new DBParams(5, programme.getTitle(), CommonTypes.DBType.STRING);
             DBUtils.getExecutePreparedUpdate(DBUtils.SQL_SCHEDULE_INSERT, aParams);
-            scheduleID = getInsertScheduleID(prg);
-            saveToDBDescription(scheduleID, prg);
+            int scheduleID = getInsertScheduleID(programme);
+            saveToDBDescription(scheduleID, programme);
             format = new Formatter();
             format.format(Messages.getString("StrSaveToBD"), i, this.data.size());
             monitor.setCurrent(format.toString(), i);
@@ -57,16 +53,16 @@ public class ProgrammeList {
         return DBUtils.getIdForPreparedStatement(DBUtils.SQL_CATEGORY_ID, aParams);
     }
 
-    private int saveToDBCategory(Programme prg) {
+    private int saveToDBCategory(Programme programme) {
         int categoryID = 0;
-        if (prg.getCategoryLangEN() != null && prg.getCategoryLangRU() != null) {
-            categoryID = getCategoryID(prg.getCategoryLangEN(), prg.getCategoryLangRU());
+        if (programme.getCategoryLangEN() != null && programme.getCategoryLangRU() != null) {
+            categoryID = getCategoryID(programme.getCategoryLangEN(), programme.getCategoryLangRU());
             if (categoryID == -1) {
                 DBParams[] aParams = new DBParams[2];
-                aParams[0] = new DBParams(1, prg.getCategoryLangEN(), CommonTypes.DBType.STRING);
-                aParams[1] = new DBParams(2, prg.getCategoryLangRU(), CommonTypes.DBType.STRING);
+                aParams[0] = new DBParams(1, programme.getCategoryLangEN(), CommonTypes.DBType.STRING);
+                aParams[1] = new DBParams(2, programme.getCategoryLangRU(), CommonTypes.DBType.STRING);
                 DBUtils.getExecutePreparedUpdate(DBUtils.SQL_CATEGORY_INSERT, aParams);
-                categoryID = getCategoryID(prg.getCategoryLangEN(), prg.getCategoryLangRU());
+                categoryID = getCategoryID(programme.getCategoryLangEN(), programme.getCategoryLangRU());
             }
         }
         return categoryID;
@@ -78,38 +74,38 @@ public class ProgrammeList {
         return DBUtils.getIdForPreparedStatement(DBUtils.SQL_DESCRIPTION_ID, aParams);
     }
 
-    private void saveToDBDescription(int scheduleID, Programme prg) {
+    private void saveToDBDescription(int scheduleID, Programme programme) {
         int descriptionID;
-        if (prg.getDesc() != null) {
-            descriptionID = getDescriptionID(prg.getDesc());
+        if (programme.getDescription() != null) {
+            descriptionID = getDescriptionID(programme.getDescription());
             if (descriptionID == -1) {
                 DBParams[] aParams = new DBParams[5];
-                aParams[0] = new DBParams(1, prg.getDesc(), CommonTypes.DBType.STRING);
-                if (prg.getImage() != null) {
-                    aParams[1] = new DBParams(2, prg.getImage(), CommonTypes.DBType.STRING);
+                aParams[0] = new DBParams(1, programme.getDescription(), CommonTypes.DBType.STRING);
+                if (programme.getImage() != null) {
+                    aParams[1] = new DBParams(2, programme.getImage(), CommonTypes.DBType.STRING);
                 } else {
                     aParams[1] = new DBParams(2, "", CommonTypes.DBType.STRING);
                 }
-                if (prg.getCountry() != null) {
-                    aParams[2] = new DBParams(3, prg.getCountry(), CommonTypes.DBType.STRING);
+                if (programme.getCountry() != null) {
+                    aParams[2] = new DBParams(3, programme.getCountry(), CommonTypes.DBType.STRING);
                 } else {
                     aParams[2] = new DBParams(3, "", CommonTypes.DBType.STRING);
                 }
-                if (prg.getDate() != null) {
-                    aParams[3] = new DBParams(4, prg.getDate(), CommonTypes.DBType.STRING);
+                if (programme.getYear() != null) {
+                    aParams[3] = new DBParams(4, programme.getYear(), CommonTypes.DBType.STRING);
                 } else {
                     aParams[3] = new DBParams(4, "", CommonTypes.DBType.STRING);
                 }
-                if (prg.getStarrating() != null) {
-                    aParams[4] = new DBParams(5, prg.getStarrating(), CommonTypes.DBType.STRING);
+                if (programme.getStarrating() != null) {
+                    aParams[4] = new DBParams(5, programme.getStarrating(), CommonTypes.DBType.STRING);
                 } else {
                     aParams[4] = new DBParams(5, "", CommonTypes.DBType.STRING);
                 }
                 DBUtils.getExecutePreparedUpdate(DBUtils.SQL_DESCRIPTION_INSERT, aParams);
-                descriptionID = getDescriptionID(prg.getDesc());
+                descriptionID = getDescriptionID(programme.getDescription());
             }
-            saveToDBGenre(descriptionID, prg);
-            saveToDBCredits(descriptionID, prg);
+            saveToDBGenre(descriptionID, programme);
+            saveToDBCredits(descriptionID, programme);
             DBParams[] aParams = new DBParams[2];
             aParams[0] = new DBParams(1, scheduleID, CommonTypes.DBType.INTEGER);
             aParams[1] = new DBParams(2, descriptionID, CommonTypes.DBType.INTEGER);
@@ -140,9 +136,9 @@ public class ProgrammeList {
         }
     }
 
-    private void saveToDBGenre(int descriptionID, Programme prg) {
-        if (prg.getGenres() != null) {
-            String[] listgr = prg.getGenres().split(Programme.SEP_LIST);
+    private void saveToDBGenre(int descriptionID, Programme programme) {
+        if (programme.getGenres() != null) {
+            String[] listgr = programme.getGenres().split(Programme.SEP_LIST);
             saveToDBCategoryList(listgr, descriptionID);
         }
     }
@@ -192,21 +188,15 @@ public class ProgrammeList {
         return DBUtils.getIdForPreparedStatement(DBUtils.SQL_MAINSCHEDULE_ID, aParams);
     }
 
-    private int getUserChannelID(int channelIdx) {
-        DBParams[] aParams = new DBParams[1];
-        aParams[0] = new DBParams(1, channelIdx, CommonTypes.DBType.INTEGER);
-        return DBUtils.getIdForPreparedStatement(DBUtils.SQL_MAINUSERCHANNELS_ID, aParams);
-    }
-
     public void setProgrammeStop() {
         int i = 0;
         while (i != this.data.size()) {
-            Programme prg1 = this.data.get(i);
-            Programme prg2;
+            Programme programme1 = this.data.get(i);
+            Programme programme2;
             if (i + 1 != this.data.size()) {
-                prg2 = this.data.get(i+1);
-                if (prg1.getChannelIdx() == prg2.getChannelIdx()) {
-                    prg1.setStop(prg2.getStart());
+            	programme2 = this.data.get(i+1);
+                if (programme1.getIndex() == programme2.getIndex()) {
+                	programme1.setStop(programme2.getStart());
                 }
             }
             i++;
@@ -218,23 +208,23 @@ public class ProgrammeList {
     }
 
     public Programme getProgrammeForUrl(String url) {
-        for (Programme prg : this.data) {
-            if (prg.getUrlFullDesc().equals(url)) {
-                return prg;
+        for (Programme programme : this.data) {
+            if (programme.getUrlFullDesc().equals(url)) {
+                return programme;
             }
         }
         return null;
     }
 
     public void print() {
-        for (Programme prg : this.data) {
-            prg.print();
+        for (Programme programme : this.data) {
+        	programme.print();
         }
     }
 
     public void getXML(org.w3c.dom.Document document, org.w3c.dom.Element element) {
-        for (Programme prg : this.data) {
-            prg.getXML(document, element);
+        for (Programme programme : this.data) {
+        	programme.getXML(document, element);
         }
     }
 }

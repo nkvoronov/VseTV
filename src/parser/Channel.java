@@ -5,7 +5,6 @@ import java.util.*;
 
 public class Channel {
     public static final String SEP_FOLDER = ";";
-
     private int index;
     private String uName;
     private String oName;
