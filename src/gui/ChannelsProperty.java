@@ -81,8 +81,15 @@ public class ChannelsProperty extends JDialog {
         jtbrChannels.setFloatable(false);
         
         jcbLang = new JComboBox<>();
-        jcbLang.setModel(new DefaultComboBoxModel<String>(new String[] {"all", "rus", "ukr"}));
+        jcbLang.setModel(new DefaultComboBoxModel<String>(new String[] {Messages.getString("StrLangAll"), Messages.getString("StrLangRus"), Messages.getString("StrLangUkr")}));
         jcbLang.setSelectedIndex(0);
+        jcbLang.addActionListener(new ActionListener () {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				onChangeLang();			
+			}
+		});
         jtbrChannels.add(jcbLang);
 
         JButton jbtAddToUser = new JButton();
@@ -327,7 +334,7 @@ public class ChannelsProperty extends JDialog {
 
         getContentPane().add(jpnButtons, BorderLayout.PAGE_END);
 
-        refreshTableChannels(0);
+        refreshTableChannels(0, jcbLang.getSelectedIndex());
         refreshTableUserChannels(0);
 
         setSize(new Dimension(723, 563));
@@ -343,6 +350,11 @@ public class ChannelsProperty extends JDialog {
     public int getModalResult() {
         return modalResult;
     }
+    
+    private void onChangeLang() {
+    	int selectedIndex = jcbLang.getSelectedIndex();
+    	System.out.println("Select - " + selectedIndex);
+    }
 
     private void onSelectChannelsRow() {
         int row = jtbChannels.getSelectedRow();
@@ -353,10 +365,24 @@ public class ChannelsProperty extends JDialog {
         }
     }
 
-    private void refreshTableChannels(int row) {
+    private void refreshTableChannels(int row, int filter) {
     	DBTableModel tm = (DBTableModel) jtbChannels.getModel();
+    	filter = 0;
     	try {
-    		tm.refreshContent();
+	    	if (filter != 0) {
+	    		String sflString = "";
+	    		if (filter == 1) {
+	    			sflString = "rus";
+	    		}
+	    		if (filter == 2) {
+	    			sflString = "ukr";
+	    		}
+	    		DBParams[] aParams = new DBParams[1];
+	            aParams[0] = new DBParams(1, sflString, CommonTypes.DBType.STRING);
+	            tm.refreshContentForParams(aParams);
+	    	} else {
+	    		tm.refreshContent();
+	    	}    		
     	} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -425,7 +451,7 @@ public class ChannelsProperty extends JDialog {
                 aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
                 aParams[1] = new DBParams(2, id, CommonTypes.DBType.INTEGER);
                 if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_ADD_CHANNEL, aParams) != -1) {
-                    refreshTableChannels(row);
+                    refreshTableChannels(row, jcbLang.getSelectedIndex());
                     refreshTableUserChannels(0);
                 }
             }  		
@@ -448,7 +474,7 @@ public class ChannelsProperty extends JDialog {
     	public void onExecute() {
 			int row = jtbChannels.getSelectedRow();
             if (DBUtils.getExecuteUpdate(DBUtils.SQL_ADD_ALLCHANNELS) != -1) {
-                refreshTableChannels(row);
+                refreshTableChannels(row, jcbLang.getSelectedIndex());
                 refreshTableUserChannels(0);
             }
 		}
@@ -480,7 +506,7 @@ public class ChannelsProperty extends JDialog {
                 aParams[1] = new DBParams(2, edtChannel.getCName(), CommonTypes.DBType.STRING);
                 aParams[2] = new DBParams(3, edtChannel.getIcon(), CommonTypes.DBType.STRING);
                 if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_INS_CHANNEL_DLG, aParams) != -1) {
-                    refreshTableChannels(tm.getRowCount());
+                    refreshTableChannels(tm.getRowCount(), jcbLang.getSelectedIndex());
                 }
             }  
 		}
@@ -519,7 +545,7 @@ public class ChannelsProperty extends JDialog {
                     aParams[2] = new DBParams(3, edtChannel.getIcon(), CommonTypes.DBType.STRING);
                     aParams[3] = new DBParams(4, id, CommonTypes.DBType.INTEGER);
                     if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_EDT_CHANNEL, aParams) != -1) {
-                        refreshTableChannels(row);
+                        refreshTableChannels(row, jcbLang.getSelectedIndex());
                     }
                 }
             } 
@@ -553,7 +579,7 @@ public class ChannelsProperty extends JDialog {
                     aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
                     if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_DEL_CHANNELS, aParams) != -1) {
                         if (row != 0) {row--;}
-                        refreshTableChannels(row);
+                        refreshTableChannels(row, jcbLang.getSelectedIndex());
                         refreshTableUserChannels(0);
                     }
                 }
@@ -580,7 +606,7 @@ public class ChannelsProperty extends JDialog {
     	public void onExecute() {
 			if (JOptionPane.showConfirmDialog(parent, Messages.getString("StrConfirmDelAll"), Messages.getString("StrTitleDel"), JOptionPane.YES_NO_OPTION) == 0) {
                 if (DBUtils.getExecuteUpdate(DBUtils.SQL_DEL_ALLCHANNELS) != -1) {
-                    refreshTableChannels(0);
+                    refreshTableChannels(0, jcbLang.getSelectedIndex());
                     refreshTableUserChannels(0);
                 }
             } 
@@ -607,7 +633,7 @@ public class ChannelsProperty extends JDialog {
 			UpdateForm updateForm = new UpdateForm(parent, true);
 			updateForm.setVisible(true);
             if (updateForm.getModalResult() != 0) {
-                refreshTableChannels(0);
+                refreshTableChannels(0, jcbLang.getSelectedIndex());
             }
 		}
     }
@@ -632,7 +658,7 @@ public class ChannelsProperty extends JDialog {
 			UpdateForm updateForm = new UpdateForm(parent, false);
 			updateForm.setVisible(true);
             if (updateForm.getModalResult() != 0) {
-                refreshTableChannels(0);
+                refreshTableChannels(0, jcbLang.getSelectedIndex());
             }
 		}
     }    
@@ -664,7 +690,7 @@ public class ChannelsProperty extends JDialog {
                     aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
                     if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_DEL_USERCHANNELS, aParams) != -1) {
                         if (row != 0) {row--;}
-                        refreshTableChannels(crow);
+                        refreshTableChannels(crow, jcbLang.getSelectedIndex());
                         refreshTableUserChannels(row);
                     }
                 }
@@ -692,7 +718,7 @@ public class ChannelsProperty extends JDialog {
 			int row = jtbChannels.getSelectedRow();
             if (JOptionPane.showConfirmDialog(parent, Messages.getString("StrConfirmDelUsrAll"), Messages.getString("StrTitleDel"), JOptionPane.YES_NO_OPTION) == 0) {
                 if (DBUtils.getExecuteUpdate(DBUtils.SQL_DEL_ALLUSERCHANNELS) != -1) {
-                    refreshTableChannels(row);
+                    refreshTableChannels(row, jcbLang.getSelectedIndex());
                     refreshTableUserChannels(0);
                 }
             }

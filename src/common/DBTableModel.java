@@ -125,8 +125,7 @@ public class DBTableModel extends AbstractTableModel {
             File file = new File(iconPatch);
             if (file.exists()) {
                 ImageIcon icon = new ImageIcon(iconPatch);
-                Image img = icon.getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH);;
-                return new ImageIcon(img);
+                return new ImageIcon(icon.getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH));
             } else return null;
         }
         if (iconPatch.indexOf(CommonTypes.TYPE_SOURCE_IMAGE_WEB) != -1) {
@@ -134,15 +133,13 @@ public class DBTableModel extends AbstractTableModel {
             File file = new File(iconPatch);
             if (file.exists()) {
                 ImageIcon icon = new ImageIcon(iconPatch);
-                Image img = icon.getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH);;
-                return new ImageIcon(img);
+                return new ImageIcon(icon.getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH));
             } else return null;
         }  
         if (iconPatch.indexOf(CommonTypes.TYPE_SOURCE_IMAGE_RES) != -1) {
         	iconPatch = iconPatch.substring(CommonTypes.TYPE_SOURCE_IMAGE_RES.length());
         	ImageIcon icon = new ImageIcon(DBTableModel.class.getResource(CommonTypes.RES_FOLDER + iconPatch));
-        	Image img = icon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);;
-            return new ImageIcon(img);
+            return new ImageIcon(icon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH));
         }
         return null;
     }

@@ -8,7 +8,6 @@ import javax.swing.table.TableModel;
 import java.sql.*;
 import java.io.File;
 import java.util.Objects;
-
 import common.CommonTypes;
 import common.DBParams;
 import common.DBTableModelMainChannels;

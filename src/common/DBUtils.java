@@ -79,7 +79,7 @@ public class DBUtils {
             "uchn.channel as channel, " +
             "\"" + CommonTypes.TYPE_SOURCE_IMAGE_FILE + "\" || uchn.icon as uicon, " +
             "uchn.name as uname, " +
-            "0 as isupd " +            
+            "case when (select count(sch.id) from schedule sch where (sch.channel=uchn.channel) and (sch.starting>=datetime('now','localtime')))=0 then \"" + CommonTypes.TYPE_SOURCE_IMAGE_RES + "update_big.png\" else \"\" end as isupd " +            
             "from user_channels uchn " +
             "order by uchn.name";
     
