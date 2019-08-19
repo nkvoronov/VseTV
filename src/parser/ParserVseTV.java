@@ -33,22 +33,16 @@ public class ParserVseTV implements Runnable {
     private int countDay;
     private Boolean fullDesc;
     private String outXML;
-    private String lang;
     private ProgressMonitor pMonitor;
 	private Formatter format;
 
-    public ParserVseTV(String outXML, String lang, int countDay, Boolean fullDesc) {
+    public ParserVseTV(String outXML, int countDay, Boolean fullDesc) {
         this.outXML = outXML;
         this.countDay = countDay;
         this.fullDesc = fullDesc;
-        this.lang = lang;
-        channels = new ChannelList(this.lang, true);
+        channels = new ChannelList(true);
         programmes = new ProgrammeList();
         this.pMonitor = new ProgressMonitor(0,false);
-    }
-
-    public String getLang() {
-        return lang;
     }
 
     public ChannelList getChannels() {
@@ -99,7 +93,7 @@ public class ParserVseTV implements Runnable {
                 transformer.setOutputProperty(OutputKeys.METHOD, "xml");
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");
                 try {
-                    transformer.transform(new DOMSource(document), new StreamResult(new FileOutputStream(this.getLang())));
+                    transformer.transform(new DOMSource(document), new StreamResult(new FileOutputStream("ru")));
                 } catch (TransformerException | FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -109,12 +103,6 @@ public class ParserVseTV implements Runnable {
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
-    }
-
-    private void setUpdDateChannel(int channelIndex) {
-        DBParams[] aParams = new DBParams[1];
-        aParams[0] = new DBParams(1, channelIndex, CommonTypes.DBType.INTEGER);
-        DBUtils.getExecutePreparedUpdate(DBUtils.SQL_MAINUSERCHANNELS_UPDDATE, aParams);
     }
 
     public void getContent(Boolean isGUI) {
@@ -139,7 +127,6 @@ public class ParserVseTV implements Runnable {
                     pMonitor.setCurrent(format.toString(), i);
                 }
                 getContentDay(chn, cur.getTime());
-                setUpdDateChannel(chn.getIndex());
                 cur.add(Calendar.DATE, 1);
                 i++;
             }

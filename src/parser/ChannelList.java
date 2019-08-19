@@ -17,14 +17,12 @@ import common.DBUtils;
 import common.UtilStrings;
 
 public class ChannelList implements Runnable{
-    private String lang;
     private Boolean indexSort;
     private List<Channel> data;
     private Boolean isUpdChannels = true;
     private ProgressMonitor pMonitor;
 
-    public ChannelList(String lang, Boolean indexSort) {
-        this.lang = lang;
+    public ChannelList(Boolean indexSort) {
         this.indexSort = indexSort;
         this.data = new ArrayList<>();
         this.pMonitor = new ProgressMonitor(0, true);
@@ -42,14 +40,6 @@ public class ChannelList implements Runnable{
         return pMonitor;
     }
 
-    public String getLang() {
-        return lang;
-    }
-
-    public void setLang(String lang) {
-        this.lang = lang;
-    }
-
     public Boolean getIndexSort() {
         return indexSort;
     }
@@ -62,29 +52,27 @@ public class ChannelList implements Runnable{
         return data;
     }
 
-    public void loadFromNet() {
-        String cindex; 
-        String cname;
-        String clink;
-        String cicon;
-        Boolean flag = false;
+    public void loadFromNet() {   
+        String lang = "all";
         this.data.clear();
         org.jsoup.nodes.Document doc = new HttpContent("channels.html").getDocument();
         Elements items = doc.select("option[value^=channel_]");
         for (org.jsoup.nodes.Element item : items){
-            cname = item.text();
-            try {
-                flag = new String(cname.getBytes(), "UTF-8").endsWith("(на укр.)");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            if ((!flag && this.lang.equals("ru"))||(flag && this.lang.equals("ua"))) {
-                clink = item.attr("value");
-                cindex = clink.split("_")[1];
-                cicon = UtilStrings.ICONS_PRE + cindex + ".gif";
-                Channel chn = new Channel(Integer.parseInt(cindex), cname, "", cicon, 120);
-                this.data.add(chn);
-            }
+        	String cname = item.text();
+        	try {
+	        	if (new String(cname.getBytes(), "UTF-8").endsWith("(на укр.)")) {
+	                lang = "ukr";
+	            } else {
+	                lang = "rus";
+	            }
+        	} catch (UnsupportedEncodingException e) {
+        		e.printStackTrace();
+			}
+        	String clink = item.attr("value");
+        	String cindex = clink.split("_")[1];
+        	String cicon = UtilStrings.ICONS_PRE + cindex + ".gif";
+            Channel channel = new Channel(Integer.parseInt(cindex), cname, "", cicon, 120, lang);           
+            this.data.add(channel);
         }
         if (indexSort) {
             Collections.sort(this.data, Channel.channelIndexComparator);
@@ -102,8 +90,8 @@ public class ChannelList implements Runnable{
                 ResultSet rs = stmt.executeQuery(DBUtils.SQL_DBCHANNELS);
                 try {
                     while (rs.next()) {
-                        Channel chn = new Channel(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
-                        this.data.add(chn);
+                        Channel channel = new Channel(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7));
+                        this.data.add(channel);
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -128,7 +116,7 @@ public class ChannelList implements Runnable{
                 String line;
                 while ((line = br.readLine()) != null) {
                     String[] aline = line.split(Channel.SEP_FOLDER);
-                    Channel chn = new Channel(Integer.parseInt(aline[0]), aline[1], aline[2], aline[3], Integer.parseInt(aline[4]));
+                    Channel chn = new Channel(Integer.parseInt(aline[0]), aline[1], aline[2], aline[3], Integer.parseInt(aline[4]), aline[5]);
                     this.data.add(chn);
                 }
             }
@@ -144,8 +132,8 @@ public class ChannelList implements Runnable{
                 file.createNewFile();
             }
             try (PrintWriter pw = new PrintWriter(file.getAbsoluteFile())) {
-                for (Channel chn : this.data) {
-                    pw.println(chn.getIndex() + Channel.SEP_FOLDER + chn.getoName() + Channel.SEP_FOLDER + chn.getuName() + Channel.SEP_FOLDER + chn.getIcon() + Channel.SEP_FOLDER + chn.getCorrection());
+                for (Channel channel : this.data) {
+                    pw.println(channel.getIndex() + Channel.SEP_FOLDER + channel.getoName() + Channel.SEP_FOLDER + channel.getuName() + Channel.SEP_FOLDER + channel.getIcon() + Channel.SEP_FOLDER + channel.getLang() + Channel.SEP_FOLDER + channel.getCorrection());
                 }
 
             }
@@ -196,18 +184,20 @@ public class ChannelList implements Runnable{
                     logMsg = "Канал " + oldName + " - присутствует";
                 }
             } else if (typeUpdate == 1) {
-                aParams = new DBParams[3];
+                aParams = new DBParams[4];
                 aParams[0] = new DBParams(1, channel.getoName(), CommonTypes.DBType.STRING);
                 aParams[1] = new DBParams(2, channel.getIcon(), CommonTypes.DBType.STRING);
-                aParams[2] = new DBParams(3, channel.getIndex(), CommonTypes.DBType.INTEGER);
+                aParams[2] = new DBParams(3, channel.getLang(), CommonTypes.DBType.STRING);
+                aParams[3] = new DBParams(4, channel.getIndex(), CommonTypes.DBType.INTEGER);
                 if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_UPD_CHANNELNAME, aParams) != -1) {
                     logMsg = "Обновлен канал - " + oldName + " на " + channel.getoName();
                 }
             } else {
-                aParams = new DBParams[3];
+                aParams = new DBParams[4];
                 aParams[0] = new DBParams(1, channel.getIndex(), CommonTypes.DBType.INTEGER);
                 aParams[1] = new DBParams(2, channel.getoName(), CommonTypes.DBType.STRING);
                 aParams[2] = new DBParams(3, channel.getIcon(), CommonTypes.DBType.STRING);
+                aParams[3] = new DBParams(4, channel.getLang(), CommonTypes.DBType.STRING);
                 if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_INS_CHANNEL, aParams) != -1) {
                     logMsg = "Добавлен новый канал - " + channel.getoName();
                 }

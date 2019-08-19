@@ -463,7 +463,7 @@ public class ChannelsProperty extends JDialog {
                 aParams[0] = new DBParams(1, new Integer(edtChannel.getIndex()), CommonTypes.DBType.INTEGER);
                 aParams[1] = new DBParams(2, edtChannel.getCName(), CommonTypes.DBType.STRING);
                 aParams[2] = new DBParams(3, edtChannel.getIcon(), CommonTypes.DBType.STRING);
-                if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_INS_CHANNEL, aParams) != -1) {
+                if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_INS_CHANNEL_DLG, aParams) != -1) {
                     refreshTableChannels(tm.getRowCount());
                 }
             }  

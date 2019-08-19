@@ -28,7 +28,7 @@ public class TestParser {
     }
 
     public static void testChannels() {
-        ChannelList clst = new ChannelList("ru", true);
+        ChannelList clst = new ChannelList(true);
         clst.loadFromDB();
         System.out.println("SAVE ==========================================");
         clst.saveToFile("channels.cfg");
@@ -56,7 +56,7 @@ public class TestParser {
                     etitle = titleItem.text();
                 }
             } catch (Exception ignored) {
-
+            	//
             }
             try {
                 Elements descItem = item.nextElementSibling().nextElementSibling().select("div[class~=(?:pastdesc|prdesc)]");
@@ -136,7 +136,7 @@ public class TestParser {
     }
 
     public static void testParser() {
-        ParserVseTV parser = new ParserVseTV("vsetv.xml", "ru", 3, false);
+        ParserVseTV parser = new ParserVseTV("vsetv.xml", 3, false);
         System.out.println("Create");
         parser.runParser();
         parser.saveXML();

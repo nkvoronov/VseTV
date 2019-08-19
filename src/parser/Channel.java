@@ -10,6 +10,7 @@ public class Channel {
     private String uName;
     private String oName;
     private String icon;
+    private String lang;
     private int correction;
     
     public static Comparator<Channel> channelIndexComparator = (c1, c2) -> {
@@ -24,7 +25,7 @@ public class Channel {
         return channelName1.compareTo(channelName2);
     };
 
-    public Channel(int index, String oName, String uName, String icon, int correction) {
+    public Channel(int index, String oName, String uName, String icon, int correction, String lang) {
         this.index = index;
         this.oName = oName;
         if (Objects.equals(uName, "")) {
@@ -34,6 +35,7 @@ public class Channel {
         }
         this.icon = icon;
         this.correction = correction;
+        this.lang = lang;
     }
 
     public String getuName() {
@@ -76,8 +78,16 @@ public class Channel {
         this.oName = oName;
     }
 
-    public void print() {
-        System.out.println(getIndex() + SEP_FOLDER + getoName() + SEP_FOLDER + getuName() + SEP_FOLDER + getIcon() + SEP_FOLDER + getCorrection());
+    public String getLang() {
+		return lang;
+	}
+
+	public void setLang(String lang) {
+		this.lang = lang;
+	}
+
+	public void print() {
+        System.out.println(getIndex() + SEP_FOLDER + getoName() + SEP_FOLDER + getuName() + SEP_FOLDER + getIcon() + SEP_FOLDER + getCorrection() + SEP_FOLDER + getLang());
     }
 
     public void getXML(Document document, Element element){

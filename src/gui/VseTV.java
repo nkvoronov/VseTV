@@ -62,7 +62,7 @@ public class VseTV  extends JFrame implements ChangeListener {
 	}
 
     public VseTV() {
-        parser = new ParserVseTV(CommonTypes.ICON_FOLDER, CommonTypes.LANG, CommonTypes.COUNT_DAY, CommonTypes.FULL_DESC);
+        parser = new ParserVseTV(CommonTypes.ICON_FOLDER, CommonTypes.COUNT_DAY, CommonTypes.FULL_DESC);
         parser.getMonitor().addChangeListener(this);
         
         initActions();
@@ -737,6 +737,8 @@ public class VseTV  extends JFrame implements ChangeListener {
 				break;
 			case 2:
 				table = jtbScheludeNext;
+				break;
+			default:
 				break;
 			}
     		updateFavorites(table, rowFav, channelID);

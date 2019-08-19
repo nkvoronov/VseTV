@@ -29,7 +29,7 @@ public class UpdateForm extends JDialog implements ActionListener, ChangeListene
         
         initGUI();
         
-        channels = new ChannelList(CommonTypes.LANG, CommonTypes.INDEX_SORT);
+        channels = new ChannelList(CommonTypes.INDEX_SORT);
         channels.setIsUpdChannels(isUpdChannels);
         channels.getMonitor().addChangeListener(this);
         

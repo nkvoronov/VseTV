@@ -77,7 +77,7 @@ public class DBUtils {
             "select uchn.id as id, " +
             "\"" + CommonTypes.TYPE_SOURCE_IMAGE_FILE + "\" || uchn.icon as uicon, " +
             "uchn.name as uname, " +
-            "case when ((julianday('now')-julianday(uchn.upd_date))>" + CommonTypes.COUNT_DAY +") or (uchn.upd_date is null) then \"" + CommonTypes.TYPE_SOURCE_IMAGE_RES + "update_big.png\" else \"\" end as isupd " +            
+            "0 as isupd " +            
             "from user_channels uchn " +
             "order by uchn.name";
     
@@ -85,15 +85,14 @@ public class DBUtils {
     		"select uchn.id as id, " +
     		"chn.cindex as idx, " +
     	    "chn.name as oname, " +	
-    		"uchn.name as uname, " +
-    	    "uchn.icon as sicon, " +
-    	    "uchn.correction as correction " +
+    		"uchn.name as uname, " +    		
+    	    "uchn.icon as sicon, " +    		
+    	    "uchn.correction as correction, " +
+    	    "chn.lang as lang " +
     	    "from user_channels uchn " +
-    	    "join channels chn on (chn.id=uchn.channel)";
+    	    "join channels chn on (chn.cindex=uchn.channel)";
 
-    public static final String SQL_MAINUSERCHANNELS_UPDDATE = "update user_channels set upd_date=datetime('now') where id=(select uchn.id from user_channels uchn join channels chn on (chn.id=uchn.channel) where chn.cindex=?)";
-
-    public static final String SQL_MAINUSERCHANNELS_ID = "select uchn.id as id, chn.cindex as idx from user_channels uchn join channels chn on (chn.id=uchn.channel) where chn.cindex=?";
+    public static final String SQL_MAINUSERCHANNELS_ID = "select uchn.id as id, chn.cindex as idx from user_channels uchn join channels chn on (chn.cindex=uchn.channel) where chn.cindex=?";
 
     public static final String SQL_MAINSCHEDULE_CLEAR = "delete from schedule";
 
@@ -200,7 +199,7 @@ public class DBUtils {
             "select chn.id as id, " +
             "chn.cindex as cidx, " +
             "chn.icon as ciconstr, " +
-            "case when (select usr.id from user_channels usr where usr.channel=chn.id) is null then \"\" else \"" + CommonTypes.TYPE_SOURCE_IMAGE_RES + "favorites_big.png\" end as isusr, " +
+            "case when (select usr.id from user_channels usr where usr.channel=chn.cindex) is null then \"\" else \"" + CommonTypes.TYPE_SOURCE_IMAGE_RES + "favorites_big.png\" end as isusr, " +
             "chn.icon as cicon, " +
             "chn.name as cname " +
             "from channels chn " +
@@ -217,6 +216,10 @@ public class DBUtils {
             "where id not in (select usr.channel from user_channels usr)";
 
     public static final String SQL_INS_CHANNEL =
+            "insert into channels (cindex, name, icon, lang) " +
+            "values(?,?,?,?)";
+    
+    public static final String SQL_INS_CHANNEL_DLG =
             "insert into channels (cindex, name, icon) " +
             "values(?,?,?)";
 
@@ -227,7 +230,7 @@ public class DBUtils {
 
     public static final String SQL_UPD_CHANNELNAME =
             "update channels " +
-            "set name=?, icon=?, upd_date=datetime('now') " +
+            "set name=?, icon=?, lang=?, upd_date=datetime('now') " +
             "where cindex=?";
 
     public static final String SQL_UPD_CHANNELDATE =

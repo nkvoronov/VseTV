@@ -16,7 +16,6 @@ public class CommonTypes {
     public static final int COUNT_DAY = 3;
     public static final Boolean FULL_DESC = false;
     public static final String OUT_XML = "vsetv.xml";
-    public static final String LANG = "ru";
     public static final Boolean INDEX_SORT = true;
     
     public static final String TYPE_SOURCE_IMAGE_WEB = "http:";
