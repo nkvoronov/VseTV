@@ -48,7 +48,8 @@ public class VseTV  extends JFrame implements ChangeListener {
     private JTextArea jtaDescription;
     private JPanel jpnStatus;
     private JProgressBar jpbUpdate;
-    private JLabel jlbStatus;
+    private JLabel jlbStatus;    
+    private JSplitPane jslMain;
     private JSplitPane jslDescription;
     
 	public static void main(String[] args) {
@@ -219,7 +220,7 @@ public class VseTV  extends JFrame implements ChangeListener {
 
         getContentPane().add(jtbrMain, BorderLayout.PAGE_START);
         
-        JSplitPane jslMain = new JSplitPane();
+        jslMain = new JSplitPane();
         jslMain.setOrientation(JSplitPane.VERTICAL_SPLIT);
         jslMain.setBorder(null);
         jslMain.setDividerLocation(360);
@@ -403,7 +404,7 @@ public class VseTV  extends JFrame implements ChangeListener {
 			
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				onTabChanged(e);				
+				onTabChanged();				
 			}
 		});
 
@@ -420,7 +421,7 @@ public class VseTV  extends JFrame implements ChangeListener {
 		
 	}
     
-	public void onTabChanged(ChangeEvent event) {
+	public void onTabChanged() {
 		jtaDescription.setText("");
 		switch (jtpMain.getSelectedIndex()) {
 		case 0:
@@ -444,7 +445,7 @@ public class VseTV  extends JFrame implements ChangeListener {
         int row = jtbMainChannels.getSelectedRow();
         TableModel tm = jtbMainChannels.getModel();
         if (row != -1) {
-            Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_ID));
+            Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_CHANNEL));
             DBParams[] aParams = new DBParams[1];
             aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
             refreshTableForParams(jtbScheludeAll, aParams);
@@ -477,46 +478,48 @@ public class VseTV  extends JFrame implements ChangeListener {
 	            Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_ID));
 	            DBParams[] aParams = new DBParams[1];
 	            aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
-	            updateDescription(aParams);
+	            try {
+	            	updateDescription(aParams);
+	            } catch (SQLException e) {
+					e.printStackTrace();
+				}
 	        }
     	}
     }
     
-    private void updateDescription(DBParams[] aParams) {
+    private void updateDescription(DBParams[] aParams) throws SQLException {
         Connection conn = DBUtils.getConnection(DBUtils.DB_DEST);
         if (conn != null) {
             try {
                 PreparedStatement pstmt = conn.prepareStatement(DBUtils.SQL_MAINSCHEDULE_DESCRIPTION);
                 DBUtils.setParams(pstmt, aParams);
                 ResultSet rs = pstmt.executeQuery();
-                try {
-                    if (rs.next()) {
-                        if (CommonTypes.FULL_DESC) {
-                            jtaDescription.setText(rs.getString(1));
-                        } else {
-                            jtaDescription.setText(rs.getString(1));
-                        }
-                    } else jtaDescription.setText("");
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } finally {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+                if (rs.next()) {
+                    if (CommonTypes.FULL_DESC) {
+                        jtaDescription.setText(rs.getString(1));
+                    } else {
+                        jtaDescription.setText(rs.getString(1));
+                    }
+                } else jtaDescription.setText("");
+            } finally {
+                conn.close();
             }
         }    	
     }
 
     private void onResize() {
-        jslScheludeAllMain.setDividerLocation((jslScheludeAllMain.getWidth() / 5) * 1);
-        jslDescription.setDividerLocation(jslDescription.getHeight());
+    	jslMain.setDividerLocation((this.getHeight() / 10) * 7);
+        jslDescription.setDividerLocation((this.getWidth() / 10) * 1);
     }
     
     private void refreshTable(JTable table, int row) {
     	if (table != null) {
 	    	DBTableModel tm = (DBTableModel) table.getModel();
-	    	tm.refreshContent();
+	    	try {
+	    		tm.refreshContent();
+	    	} catch (SQLException e) {
+				e.printStackTrace();
+			}
 	    	table.setVisible(false);
 	    	table.setVisible(true);
 	        if (table.getRowCount() != 0) {
@@ -555,7 +558,11 @@ public class VseTV  extends JFrame implements ChangeListener {
     private void refreshTableForParams(JTable table, DBParams[] aParams) {
     	if (table != null) {
 	    	DBTableModel tm = (DBTableModel) table.getModel();
-	        tm.refreshContentForParams(aParams);
+	    	try {
+	    		tm.refreshContentForParams(aParams);
+	    	} catch (SQLException e) {
+				e.printStackTrace();
+			}
 	        try {
 	            table.setVisible(false);
 	            if (table.getRowCount() != 0) {
@@ -726,11 +733,9 @@ public class VseTV  extends JFrame implements ChangeListener {
     	public void onExecute() {
     		JTable table = null;
     		int rowFav = DBUtils.INDEX_SCHELUDE_FAV;
-    		int channelID = 0;
     		switch (jtpMain.getSelectedIndex()) {
 			case 0:
 				table = jtbScheludeAll;
-				channelID = 0;
 				break;
 			case 1:
 				table = jtbScheludeNow;
@@ -741,10 +746,10 @@ public class VseTV  extends JFrame implements ChangeListener {
 			default:
 				break;
 			}
-    		updateFavorites(table, rowFav, channelID);
+    		updateFavorites(table, rowFav);
     	}
     	
-        private void updateFavorites(JTable table, int favIndex, int cId) {
+        private void updateFavorites(JTable table, int favIndex) {
         	if (table != null) {
     			int row = table.getSelectedRow();
     			DBTableModel tm = (DBTableModel) table.getModel();
@@ -755,11 +760,11 @@ public class VseTV  extends JFrame implements ChangeListener {
                     aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);                    
                     if (oFav != null) {
                     	if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_DEL_SCHEDULE_FAVORITES, aParams) != -1) {
-                    		updateTable(table, row, cId);
+                    		updateTable(table, row);
                     	}
                     } else {
                     	if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_SCHEDULE_FAVORITES_INSERT, aParams) != -1) {
-                    		updateTable(table, row, cId);                   		
+                    		updateTable(table, row);                   		
                     	}	
                 		
                     }
@@ -767,7 +772,7 @@ public class VseTV  extends JFrame implements ChangeListener {
         	}
         }
         
-        private void updateTable(JTable table, int row, int cId) {
+        private void updateTable(JTable table, int row) {
         	if (table != null) {
         		if (table != jtbScheludeAll) {
         			refreshTable(table, row);

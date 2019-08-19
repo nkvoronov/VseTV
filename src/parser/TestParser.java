@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.xml.transform.TransformerConfigurationException;
+
 import common.UtilStrings;
 
 public class TestParser {
@@ -139,7 +141,11 @@ public class TestParser {
         ParserVseTV parser = new ParserVseTV("vsetv.xml", 3, false);
         System.out.println("Create");
         parser.runParser();
-        parser.saveXML();
+        try {
+        	parser.saveXML();
+	    } catch (TransformerConfigurationException e) {
+			e.printStackTrace();
+		}
         System.out.println("File saved!");
     }
 

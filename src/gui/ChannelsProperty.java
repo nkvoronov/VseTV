@@ -3,6 +3,8 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
+
 import javax.swing.table.TableModel;
 
 import common.DBParams;
@@ -33,6 +35,7 @@ public class ChannelsProperty extends JDialog {
     private JTable jtbChannels;
     private JTable jtbUserChannels;
     private JTextField jtfCorrection;
+    private JComboBox<String> jcbLang;
 
     public ChannelsProperty(Frame owner) {
         super(owner);        
@@ -76,6 +79,11 @@ public class ChannelsProperty extends JDialog {
         JToolBar jtbrChannels = new JToolBar();
         jtbrChannels.setBorder(BorderFactory.createEtchedBorder());
         jtbrChannels.setFloatable(false);
+        
+        jcbLang = new JComboBox<>();
+        jcbLang.setModel(new DefaultComboBoxModel<String>(new String[] {"all", "rus", "ukr"}));
+        jcbLang.setSelectedIndex(0);
+        jtbrChannels.add(jcbLang);
 
         JButton jbtAddToUser = new JButton();
         jbtAddToUser.setAction(acAddToUser);
@@ -347,7 +355,11 @@ public class ChannelsProperty extends JDialog {
 
     private void refreshTableChannels(int row) {
     	DBTableModel tm = (DBTableModel) jtbChannels.getModel();
-        tm.refreshContent();
+    	try {
+    		tm.refreshContent();
+    	} catch (SQLException e) {
+			e.printStackTrace();
+		}
         jtbChannels.setVisible(false);
         jtbChannels.setVisible(true);
         if (jtbChannels.getRowCount() != 0) {
@@ -368,7 +380,11 @@ public class ChannelsProperty extends JDialog {
 
     private void refreshTableUserChannels(int row) {
     	DBTableModel tm = (DBTableModel) jtbUserChannels.getModel();
-        tm.refreshContent();
+    	try {
+        	tm.refreshContent();
+	    } catch (SQLException e) {
+			e.printStackTrace();
+		}
         jtbUserChannels.setVisible(false);
         jtbUserChannels.setVisible(true);
         if (jtbUserChannels.getRowCount() != 0) {
@@ -404,7 +420,7 @@ public class ChannelsProperty extends JDialog {
 			int row = jtbChannels.getSelectedRow();
             TableModel tm = jtbChannels.getModel();
             if (row != -1) {
-                Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_CHANNEL_INDEX));
+                Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_CHANNEL));
                 DBParams[] aParams = new DBParams[2];
                 aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
                 aParams[1] = new DBParams(2, id, CommonTypes.DBType.INTEGER);
@@ -492,7 +508,7 @@ public class ChannelsProperty extends JDialog {
             if (row != -1) {
                 Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_ID));
                 EdtChannel edtChannel = new EdtChannel(parent, Messages.getString("StrTitleEdt"));
-                edtChannel.setIndex((String) tm.getValueAt(row, DBUtils.INDEX_CHANNEL_INDEX));
+                edtChannel.setIndex((String) tm.getValueAt(row, DBUtils.INDEX_CHANNEL));
                 edtChannel.setCName((String) tm.getValueAt(row, DBUtils.INDEX_CHANNEL_NAME));
                 edtChannel.setIcon((String) tm.getValueAt(row, DBUtils.INDEX_CHANNEL_ICON_STR));
                 edtChannel.setVisible(true);

@@ -2,9 +2,6 @@ package common;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-
-import gui.VseTV;
-
 import java.awt.Image;
 import java.io.File;
 import java.sql.*;
@@ -35,7 +32,7 @@ public class DBTableModel extends AbstractTableModel {
         this.sQuery = aQuery;
     }
 
-    public void refreshContent() {
+    public void refreshContent() throws SQLException {
         countRows = 0;
         tableContent.clear();
         int colcount = getColumnCount();
@@ -44,27 +41,21 @@ public class DBTableModel extends AbstractTableModel {
             try {
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sQuery);
-                try {
-                    while (rs.next()) {
-                        String[] rdata = new String[colcount];
-                        for (int c = 0; c < colcount; c++) {
-                            rdata[c] = rs.getString(fieldsSet.getFieldSet().get(c).getName());
-                        }
-                        tableContent.add(rdata);
-                        countRows++;
+                while (rs.next()) {
+                    String[] rdata = new String[colcount];
+                    for (int c = 0; c < colcount; c++) {
+                        rdata[c] = rs.getString(fieldsSet.getFieldSet().get(c).getName());
                     }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } finally {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+                    tableContent.add(rdata);
+                    countRows++;
+                }  
+            } finally {
+				conn.close();          
             }
         }
     }
 
-    public void refreshContentForParams(DBParams[] aParams) {
+    public void refreshContentForParams(DBParams[] aParams) throws SQLException {
         countRows = 0;
         tableContent.clear();
         int colcount = getColumnCount();
@@ -74,22 +65,16 @@ public class DBTableModel extends AbstractTableModel {
                 PreparedStatement pstmt = conn.prepareStatement(sQuery);
                 DBUtils.setParams(pstmt, aParams);
                 ResultSet rs = pstmt.executeQuery();
-                try {
-                    while (rs.next()) {
-                        String[] rdata = new String[colcount];
-                        for (int c = 0; c < colcount; c++) {
-                            rdata[c] = rs.getString(fieldsSet.getFieldSet().get(c).getName());
-                        }
-                        tableContent.add(rdata);
-                        countRows++;
+                while (rs.next()) {
+                    String[] rdata = new String[colcount];
+                    for (int c = 0; c < colcount; c++) {
+                        rdata[c] = rs.getString(fieldsSet.getFieldSet().get(c).getName());
                     }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } finally {
-                    conn.close();
+                    tableContent.add(rdata);
+                    countRows++;
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } finally {
+                conn.close();
             }
         }
     }

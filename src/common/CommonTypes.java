@@ -28,7 +28,7 @@ public class CommonTypes {
     
     public enum DBType {STRING, INTEGER, BOOL, DATETIME, TIME, OBJECT}
 
-    public static CategoryProgrammeList catList;
+    public static final CategoryProgrammeList catList = new CategoryProgrammeList();
 
     public static String getIconsPatch() {
         return getCurrentPatch() + File.separator + ICON_FOLDER + File.separator;
@@ -38,8 +38,7 @@ public class CommonTypes {
         return Paths.get(".").toAbsolutePath().normalize().toString();
     }
 
-    public static void loadConfigs() {
-        catList = new CategoryProgrammeList();
+    public static void loadConfigs() {       
         catList.loadFromDB();
     }
 

@@ -18,11 +18,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Objects;
-
 import common.CategoryProgramme;
 import common.CommonTypes;
-import common.DBParams;
-import common.DBUtils;
 import common.ProgressMonitor;
 import common.UtilStrings;
 import gui.Messages;
@@ -77,7 +74,7 @@ public class ParserVseTV implements Runnable {
         this.outXML = outXML;
     }
 
-    public void saveXML() {
+    public void saveXML() throws TransformerConfigurationException {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder;
         try {
@@ -88,20 +85,12 @@ public class ParserVseTV implements Runnable {
             document.appendChild(rootElement);
             this.channels.getXML(document, rootElement);
             this.programmes.getXML(document, rootElement);
-            try {
-                Transformer transformer = TransformerFactory.newInstance().newTransformer();
-                transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-                try {
-                    transformer.transform(new DOMSource(document), new StreamResult(new FileOutputStream("ru")));
-                } catch (TransformerException | FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            } catch (TransformerConfigurationException e) {
-                e.printStackTrace();
-            }
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.transform(new DOMSource(document), new StreamResult(new FileOutputStream("ru")));
+        } catch (TransformerException|ParserConfigurationException|FileNotFoundException e) {
+        	e.printStackTrace();
         }
     }
 
@@ -207,23 +196,16 @@ public class ParserVseTV implements Runnable {
         try {
             String ctitle = new String(programme.getTitle().getBytes(), "UTF-8").toLowerCase();
             programme.setCategoryLangRU(Messages.getString("StrCategoryLangRU"));
-            programme.setCategoryLangEN(Messages.getString("StrCategoryLangEN"));
-            try {
-            	for (CategoryProgramme cp : CommonTypes.catList.getData()) {
-            		if (cp.getId() != 0) {
-            			if (titleContainsDictWorlds(ctitle, cp.getDictionary())) {
-            				programme.setCategoryLangRU(cp.getNameRU());
-            				programme.setCategoryLangEN(cp.getNameEN());
-            				break;
-            			}
-            		}
-            	}
-            } catch (Exception e) {
-                //
-            }
-            
+            programme.setCategoryLangEN(Messages.getString("StrCategoryLangEN"));            
+        	for (CategoryProgramme cp : CommonTypes.catList.getData()) {
+        		if (cp.getId() != 0 && titleContainsDictWorlds(ctitle, cp.getDictionary())) {
+        			programme.setCategoryLangRU(cp.getNameRU());
+        			programme.setCategoryLangEN(cp.getNameEN());
+        			break;
+        		}
+        	}
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        	e.printStackTrace(); 
         }
     }
 
@@ -235,30 +217,27 @@ public class ParserVseTV implements Runnable {
         getChannels().loadFromDB();
         getContent(false);
         getProgrammes().setProgrammeStop();
-        saveXML();
+        try {
+        	saveXML();
+        } catch (TransformerConfigurationException e) {
+			e.printStackTrace();
+		}
+        		
     }
 
-    public void runParserGUI() {
+    public void runParserGUI() throws InterruptedException {
         pMonitor.start("");
         pMonitor.setIndeterminate(true);
         pMonitor.setCurrent(Messages.getString("StrLoadChanels"), 0);
         getChannels().loadFromDB();
         getProgrammes().clearDBSchedule();
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(100);
         pMonitor.setIndeterminate(false);
         getContent(true);
         pMonitor.setIndeterminate(true);
         pMonitor.setCurrent(Messages.getString("StrProcessShelude"), 0);
         getProgrammes().setProgrammeStop();
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(100);
         pMonitor.setIndeterminate(false);
         getProgrammes().saveToDB(pMonitor);
         pMonitor.setCurrent("", -2);
@@ -266,7 +245,13 @@ public class ParserVseTV implements Runnable {
 
     @Override
     public void run() {
-        runParserGUI();
+    	try {
+    		runParserGUI();
+    	} catch (InterruptedException e) {
+    		e.printStackTrace();
+    		Thread.currentThread().interrupt();    		
+    	}
+
     }
 
     public ProgressMonitor getMonitor() {

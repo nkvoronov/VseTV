@@ -7,20 +7,21 @@ public class DBUtils {
 	public static final int INDEX_ID = 0;
 	public static final int INDEX_SCHELUDE_FAV = 1;
 	
-	public static final int INDEX_CHANNEL_INDEX = 1;
+	public static final int INDEX_CHANNEL = 1;
 	public static final int INDEX_CHANNEL_ICON_STR = 2;
 	public static final int INDEX_IS_USER = 3;
 	public static final int INDEX_CHANNEL_ICON = 4;
 	public static final int INDEX_CHANNEL_NAME = 5;
+	public static final int INDEX_LANG = 6;
 	
 	public static final int INDEX_UCHANNEL_ICON_STR = 1;
 	public static final int INDEX_UCHANNEL_ICON = 2;
 	public static final int INDEX_UCHANNEL_NAME = 3;
 	public static final int INDEX_UCHANNEL_CORRECTION = 4;
 		
-	public static final int INDEX_MCHANNEL_ICON = 1;
-	public static final int INDEX_MCHANNEL_NAME = 2;
-	public static final int INDEX_MCHANNEL_UPD = 3;
+	public static final int INDEX_MCHANNEL_ICON = 2;
+	public static final int INDEX_MCHANNEL_NAME = 3;
+	public static final int INDEX_MCHANNEL_UPD = 4;
 	
 	public static final int INDEX_ASCHELUDE_SDATE = 2;
 	public static final int INDEX_ASCHELUDE_EDATE = 3;
@@ -75,6 +76,7 @@ public class DBUtils {
 
     public static final String SQL_MAINUSERCHANNELS =
             "select uchn.id as id, " +
+            "uchn.channel as channel, " +
             "\"" + CommonTypes.TYPE_SOURCE_IMAGE_FILE + "\" || uchn.icon as uicon, " +
             "uchn.name as uname, " +
             "0 as isupd " +            
@@ -129,7 +131,7 @@ public class DBUtils {
             "cat.name_ru as cat_ru " +
             "from schedule sch " +
             "join categorys cat on (cat.id=sch.category) " +
-            "join user_channels usch on (usch.id=sch.channel) " +
+            "join user_channels usch on (usch.channel=sch.channel) " +
             "where (sch.starting <= datetime('now','localtime')) and (sch.ending > datetime('now','localtime')) " +
             "order by usch.name";
     
@@ -148,7 +150,7 @@ public class DBUtils {
             "cat.name_ru as cat_ru " +
             "from schedule sch " +
             "join categorys cat on (cat.id=sch.category) " +
-            "join user_channels usch on (usch.id=sch.channel) " +
+            "join user_channels usch on (usch.channel=sch.channel) " +
             "where (sch.starting > datetime('now','localtime')) " +
             "group by usch.id HAVING min(sch.starting) " + 
     		"order by usch.name";
@@ -167,7 +169,7 @@ public class DBUtils {
             "cat.name_ru as cat_ru " +
             "from schedule sch " +
             "join categorys cat on (cat.id=sch.category) " +
-            "join user_channels usch on (usch.id=sch.channel) " +
+            "join user_channels usch on (usch.channel=sch.channel) " +
             "join schedule_favorites sf on (sf.schedule=sch.id) " +
     		"order by usch.name";
     
@@ -195,22 +197,23 @@ public class DBUtils {
 
     public static final String SQL_CHANNELS =
             "select chn.id as id, " +
-            "chn.channel as cidx, " +
+            "chn.channel as channel, " +
             "chn.icon as ciconstr, " +
             "case when (select usr.id from user_channels usr where usr.channel=chn.channel) is null then \"\" else \"" + CommonTypes.TYPE_SOURCE_IMAGE_RES + "favorites_big.png\" end as isusr, " +
             "chn.icon as cicon, " +
-            "chn.name as cname " +
+            "chn.name as cname, " +
+            "chn.lang as clang " +
             "from channels chn " +
             "order by chn.channel";
 
     public static final String SQL_ADD_CHANNEL =
             "insert into user_channels (channel, name, icon) " +
-            "select id, name, '" + CommonTypes.getIconsPatch() + "' || channel || '.gif' as sicon from channels " +
-            "where id=? and (select usr.id from user_channels usr where usr.channel=?) is null";
+            "select channel, name, '" + CommonTypes.getIconsPatch() + "' || channel || '.gif' as sicon from channels " +
+            "where channel=? and (select usr.id from user_channels usr where usr.channel=?) is null";
 
     public static final String SQL_ADD_ALLCHANNELS =
             "insert into user_channels (channel, name, icon) " +
-            "select id, name, '" + CommonTypes.getIconsPatch() + "' || channel || '.gif' as sicon from channels " +
+            "select channel, name, '" + CommonTypes.getIconsPatch() + "' || channel || '.gif' as sicon from channels " +
             "where id not in (select usr.channel from user_channels usr)";
 
     public static final String SQL_INS_CHANNEL =
@@ -273,13 +276,9 @@ public class DBUtils {
         Connection conn = null;
         String furl = URL_PRE + url;
         try {
-            try {
-                Class.forName(CLASS_NAME);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+            Class.forName(CLASS_NAME);
             conn = DriverManager.getConnection(furl);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException|SQLException e) {
             e.printStackTrace();
         }
         return conn;
