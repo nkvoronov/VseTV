@@ -177,7 +177,6 @@ public class EdtChannel extends JDialog implements ActionListener {
     }
     
     public void setLang(String lang) {
-    	System.out.println("Lang " + lang);
     	if (lang.equals("rus")) {
     		this.jcbLang.setSelectedIndex(0);
     	}
