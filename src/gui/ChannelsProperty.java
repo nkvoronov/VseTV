@@ -353,7 +353,7 @@ public class ChannelsProperty extends JDialog {
     
     private void onChangeLang() {
     	int selectedIndex = jcbLang.getSelectedIndex();
-    	System.out.println("Select - " + selectedIndex);
+    	refreshTableChannels(0, selectedIndex);   	
     }
 
     private void onSelectChannelsRow() {
@@ -367,22 +367,18 @@ public class ChannelsProperty extends JDialog {
 
     private void refreshTableChannels(int row, int filter) {
     	DBTableModel tm = (DBTableModel) jtbChannels.getModel();
-    	filter = 0;
+    	String sflString = "all";
     	try {
-	    	if (filter != 0) {
-	    		String sflString = "";
-	    		if (filter == 1) {
-	    			sflString = "rus";
-	    		}
-	    		if (filter == 2) {
-	    			sflString = "ukr";
-	    		}
-	    		DBParams[] aParams = new DBParams[1];
-	            aParams[0] = new DBParams(1, sflString, CommonTypes.DBType.STRING);
-	            tm.refreshContentForParams(aParams);
-	    	} else {
-	    		tm.refreshContent();
-	    	}    		
+	    	if (filter == 1) {
+	    		sflString = "rus";
+	    	}
+	    	if (filter == 2) {
+	    		sflString = "ukr";
+	    	}
+	    	DBParams[] aParams = new DBParams[2];
+	        aParams[0] = new DBParams(1, sflString, CommonTypes.DBType.STRING);
+	        aParams[1] = new DBParams(2, sflString, CommonTypes.DBType.STRING);
+	        tm.refreshContentForParams(aParams);	
     	} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -501,11 +497,12 @@ public class ChannelsProperty extends JDialog {
             EdtChannel edtChannel = new EdtChannel(parent, Messages.getString("StrTitleAdd"));
             edtChannel.setVisible(true);
             if (edtChannel.getModalResult() != 0) {
-                DBParams[] aParams = new DBParams[3];
+                DBParams[] aParams = new DBParams[4];
                 aParams[0] = new DBParams(1, new Integer(edtChannel.getIndex()), CommonTypes.DBType.INTEGER);
                 aParams[1] = new DBParams(2, edtChannel.getCName(), CommonTypes.DBType.STRING);
                 aParams[2] = new DBParams(3, edtChannel.getIcon(), CommonTypes.DBType.STRING);
-                if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_INS_CHANNEL_DLG, aParams) != -1) {
+                aParams[3] = new DBParams(4, edtChannel.getLang(), CommonTypes.DBType.STRING);
+                if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_INS_CHANNEL, aParams) != -1) {
                     refreshTableChannels(tm.getRowCount(), jcbLang.getSelectedIndex());
                 }
             }  
@@ -537,13 +534,15 @@ public class ChannelsProperty extends JDialog {
                 edtChannel.setIndex((String) tm.getValueAt(row, DBUtils.INDEX_CHANNEL));
                 edtChannel.setCName((String) tm.getValueAt(row, DBUtils.INDEX_CHANNEL_NAME));
                 edtChannel.setIcon((String) tm.getValueAt(row, DBUtils.INDEX_CHANNEL_ICON_STR));
+                edtChannel.setLang((String) tm.getValueAt(row, DBUtils.INDEX_LANG));
                 edtChannel.setVisible(true);
                 if (edtChannel.getModalResult() != 0) {
-                    DBParams[] aParams = new DBParams[4];
+                    DBParams[] aParams = new DBParams[5];
                     aParams[0] = new DBParams(1, new Integer(edtChannel.getIndex()), CommonTypes.DBType.INTEGER);
                     aParams[1] = new DBParams(2, edtChannel.getCName(), CommonTypes.DBType.STRING);
                     aParams[2] = new DBParams(3, edtChannel.getIcon(), CommonTypes.DBType.STRING);
-                    aParams[3] = new DBParams(4, id, CommonTypes.DBType.INTEGER);
+                    aParams[3] = new DBParams(4, edtChannel.getLang(), CommonTypes.DBType.STRING);
+                    aParams[4] = new DBParams(5, id, CommonTypes.DBType.INTEGER);
                     if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_EDT_CHANNEL, aParams) != -1) {
                         refreshTableChannels(row, jcbLang.getSelectedIndex());
                     }

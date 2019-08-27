@@ -204,6 +204,7 @@ public class DBUtils {
             "chn.name as cname, " +
             "chn.lang as clang " +
             "from channels chn " +
+            "where chn.lang=? or ?='all' " +
             "order by chn.channel";
 
     public static final String SQL_ADD_CHANNEL =
@@ -219,14 +220,10 @@ public class DBUtils {
     public static final String SQL_INS_CHANNEL =
             "insert into channels (channel, name, icon, lang) " +
             "values(?,?,?,?)";
-    
-    public static final String SQL_INS_CHANNEL_DLG =
-            "insert into channels (channel, name, icon) " +
-            "values(?,?,?)";
 
     public static final String SQL_EDT_CHANNEL =
             "update channels " +
-            "set channel=?, name=?, icon=?, upd_date=datetime('now') " +
+            "set channel=?, name=?, icon=?, lang=?, upd_date=datetime('now') " +
             "where id=?";
 
     public static final String SQL_UPD_CHANNELNAME =
