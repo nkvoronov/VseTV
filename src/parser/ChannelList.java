@@ -51,6 +51,18 @@ public class ChannelList implements Runnable{
     public List<Channel> getData() {
         return data;
     }
+    
+    public int size() {
+        return getData().size();
+    }
+
+    public void clear() {
+        getData().clear();
+    }
+
+    public void add(Channel channel) {
+        getData().add(channel);
+    }
 
     public void loadFromNet() {   
         String lang = "all";
@@ -67,6 +79,7 @@ public class ChannelList implements Runnable{
 	            }
         	} catch (UnsupportedEncodingException e) {
         		e.printStackTrace();
+        		System.out.println(e.getMessage());
 			}
         	String clink = item.attr("value");
         	String cindex = clink.split("_")[1];
@@ -95,12 +108,14 @@ public class ChannelList implements Runnable{
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    System.out.println(e.getMessage());
                 }
                 finally {
                     conn.close();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -122,6 +137,7 @@ public class ChannelList implements Runnable{
             }
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -139,6 +155,7 @@ public class ChannelList implements Runnable{
             }
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -205,6 +222,7 @@ public class ChannelList implements Runnable{
             pMonitor.setCurrent(logMsg, index);
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -265,6 +283,7 @@ public class ChannelList implements Runnable{
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    System.out.println(e.getMessage());
                 }
             }
         }

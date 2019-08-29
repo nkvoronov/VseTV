@@ -1,5 +1,6 @@
 package parser;
 
+import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -16,8 +17,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Formatter;
-import java.util.Objects;
 import common.CategoryProgramme;
 import common.CommonTypes;
 import common.ProgressMonitor;
@@ -31,14 +30,13 @@ public class ParserVseTV implements Runnable {
     private Boolean fullDesc;
     private String outXML;
     private ProgressMonitor pMonitor;
-	private Formatter format;
 
     public ParserVseTV(String outXML, int countDay, Boolean fullDesc) {
         this.outXML = outXML;
         this.countDay = countDay;
         this.fullDesc = fullDesc;
-        channels = new ChannelList(true);
-        programmes = new ProgrammeList();
+        this.channels = new ChannelList(true);
+        this.programmes = new ProgrammeList();
         this.pMonitor = new ProgressMonitor(0,false);
     }
 
@@ -91,6 +89,7 @@ public class ParserVseTV implements Runnable {
             transformer.transform(new DOMSource(document), new StreamResult(new FileOutputStream("ru")));
         } catch (TransformerException|ParserConfigurationException|FileNotFoundException e) {
         	e.printStackTrace();
+        	System.out.println(e.getMessage());
         }
     }
 
@@ -111,9 +110,7 @@ public class ParserVseTV implements Runnable {
             cur.setTime(dt);
             while (!cur.getTime().equals(last.getTime())) {
                 if (isGUI) {
-                	format = new Formatter();
-                	format.format(UtilStrings.STR_GETCHANEL, channel.getoName(), ft.format(cur.getTime()));
-                    pMonitor.setCurrent(format.toString(), i);
+                    pMonitor.setCurrent(String.format(UtilStrings.STR_GETCHANEL, channel.getoName(), ft.format(cur.getTime())), i);
                 }
                 getContentDay(channel, cur.getTime());
                 cur.add(Calendar.DATE, 1);
@@ -123,62 +120,71 @@ public class ParserVseTV implements Runnable {
     }
 
     public void getContentDay(Channel channel, Date date) {
-        SimpleDateFormat ftd = new SimpleDateFormat(UtilStrings.DATE_FORMAT);
-        SimpleDateFormat ftdt = new SimpleDateFormat(UtilStrings.DATE_FORMATTIME);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(UtilStrings.DATE_FORMAT);
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat(UtilStrings.DATE_FORMATTIME);
         Calendar dt = Calendar.getInstance();
         dt.setTime(date);
         String otime = UtilStrings.STR_OTIME;
-        format = new Formatter();
-        format.format(UtilStrings.STR_SCHEDULECHANNEL, channel.getIndex(), ftd.format(date));
-        String vdirection = format.toString();
-        org.jsoup.nodes.Document doc = new HttpContent(vdirection).getDocument();
-        Elements items = doc.select(UtilStrings.STR_ELMDOCSELECT);
-        for (org.jsoup.nodes.Element item : items){
-            String etime = item.html();
+        String direction = String.format(UtilStrings.STR_SCHEDULECHANNEL, channel, dateFormat.format(date));
+        org.jsoup.nodes.Document doc = new HttpContent(direction).getDocument();
+        Elements elements = doc.select(UtilStrings.STR_ELMDOCSELECT);
+        for (org.jsoup.nodes.Element element : elements){
+        	//Time
+            String string_time = element.html().trim();
             Date startDate = null;
             Date endDate = null;
-            if (Integer.parseInt(etime.split(":")[0]) < Integer.parseInt(otime.split(":")[0])) {
+            if (Integer.parseInt(string_time.split(":")[0]) < Integer.parseInt(otime.split(":")[0])) {
                 dt.add(Calendar.DATE, 1);
             }
-            otime = etime;
+            otime = string_time;
             try {
-                startDate = ftdt.parse(ftd.format(dt.getTime()) + " " + etime + ":00");
-                endDate = ftdt.parse(ftd.format(dt.getTime()) + " " + "23:59:59");
+                startDate = dateTimeFormat.parse(dateFormat.format(dt.getTime()) + " " + string_time + ":00");
+                endDate = dateTimeFormat.parse(dateFormat.format(dt.getTime()) + " " + "23:59:59");
             } catch (ParseException e) {
                 e.printStackTrace();
+                System.out.println(e.getMessage());
             }
-            String etitle = "";
-            String efulldescurl = "";
-            String edesc = "";
+            //Title
+            String string_title = "";
+            String string_full_description_url = "";
+            org.jsoup.nodes.Element element_title = element.nextElementSibling();
             try {
-                Elements titleItem = item.nextElementSibling().select(UtilStrings.STR_ELMDOCTITLE);
-                if (titleItem != null) {
-                    efulldescurl = titleItem.select("a").attr("href");
-                    etitle = titleItem.text();
-                }
+            	if (element_title != null) {
+            		Elements elements_title = element_title.select(UtilStrings.STR_ELMDOCTITLE);
+	                if (elements_title != null) {
+	                	string_full_description_url = elements_title.select("a").attr("href");
+	                    string_title = elements_title.text();
+	                }
+            	}
             } catch (Exception e) {
-                //
+                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
+            //Description
+            String string_description = "";
+            String string_description_head = "";
+            org.jsoup.nodes.Element element_description = element_title.nextElementSibling();
             try {
-                Elements descItem = item.nextElementSibling().nextElementSibling().select(UtilStrings.STR_ELMDOCDESC);
-                if (descItem != null) {
-                    edesc = descItem.text();
-                }
+            	if (element_description != null) {
+            		Elements elements_description = element_description.select(UtilStrings.STR_ELMDOCDESC);
+	                if (elements_description != null && !CommonTypes.FULL_DESC) {
+	                	string_description = elements_description.html();
+                        string_description_head = elements_description.select("b").text();
+                        string_description = Jsoup.parse(string_description.replaceAll("<br>", ";")
+                                .replace(string_description_head, ""))
+                                .text()
+                                .replaceAll(";", "<br>");
+	                }
+            	}
             } catch (Exception e) {
-                //
+                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
-            Programme programme = new Programme(channel.getIndex(), startDate, endDate, etitle);            
+            Programme programme = new Programme(channel.getIndex(), startDate, endDate, string_title);            
             programme.setCorrectionTime(channel.getCorrection());
-            getCategoryFromTitle(programme);
-            
-            if (edesc.length() > 0 && !Objects.equals(edesc, "")) {
-            	programme.setDescription(edesc);
-            }
-            if (efulldescurl.length() > 0 && !Objects.equals(efulldescurl, "") && this.fullDesc) {
-            	programme.setUrlFullDesc(efulldescurl);
-                getFullDesc(programme);
-            }
-            getProgrammes().getData().add(programme);
+            setCategory(programme);
+            setDescription(programme, string_description, string_description_head, string_full_description_url);
+            getProgrammes().add(programme);
         }
 
     }
@@ -192,25 +198,56 @@ public class ParserVseTV implements Runnable {
         return res;
     }
 
-    private void getCategoryFromTitle(Programme programme) {
+    private void setCategory(Programme programme) {
         try {
-            String ctitle = new String(programme.getTitle().getBytes(), "UTF-8").toLowerCase();
-            programme.setCategoryLangRU(Messages.getString("StrCategoryLangRU"));
-            programme.setCategoryLangEN(Messages.getString("StrCategoryLangEN"));            
-        	for (CategoryProgramme cp : CommonTypes.catList.getData()) {
-        		if (cp.getId() != 0 && titleContainsDictWorlds(ctitle, cp.getDictionary())) {
-        			programme.setCategoryLangRU(cp.getNameRU());
-        			programme.setCategoryLangEN(cp.getNameEN());
+            String ctitle = new String(programme.getTitle().getBytes(), "UTF-8").toLowerCase(); 
+        	for (CategoryProgramme category : CommonTypes.catList.getData()) {
+        		if (category.getId() != 0 && titleContainsDictWorlds(ctitle, category.getDictionary())) {
+        			programme.setCategory(category.getId());
         			break;
         		}
         	}
         } catch (UnsupportedEncodingException e) {
-        	e.printStackTrace(); 
+        	e.printStackTrace();
+        	System.out.println(e.getMessage());
         }
     }
 
-    private void getFullDesc(Programme programme) {
-        //
+    private void setDescription(Programme programme, String description, String head_description, String url_description) {
+    	
+        if (description.length() > 0 && !description.equals("") && !CommonTypes.FULL_DESC) {
+            if (head_description.length() > 0 && !head_description.equals("")) {
+                String[] list = head_description.split(",");
+                programme.setCountry(list[0].trim());
+                programme.setYear(list[1].trim());
+                programme.setGenres(list[2].trim().replace(" / ", ", "));
+            }
+
+            programme.setDescription(description.replaceFirst("<br>", "Роли:" + " "));
+        }        
+        if (url_description.length() > 0 && !url_description.equals("")) {
+            //Parse url
+        	String link = UtilStrings.HOST + url_description;
+            String[] list_url = url_description.replace(".html", "").split("_");
+            String type = list_url[0].trim();
+            programme.setType(type);
+            String catalog = list_url[1].trim();
+            programme.setCatalog(Integer.parseInt(catalog));
+            if (programme.getCategory() == 0) {
+                if (type.equals("film")) {
+                	programme.setCategory(1);
+                }
+                if (type.equals("series")) {
+                	programme.setCategory(2);
+                }
+                if (type.equals("show")) {
+                	programme.setCategory(7);
+                }
+            }
+            if (CommonTypes.FULL_DESC) {
+                //
+            }
+        }
     }
 
     public void runParser() {
@@ -221,6 +258,7 @@ public class ParserVseTV implements Runnable {
         	saveXML();
         } catch (TransformerConfigurationException e) {
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
         		
     }
@@ -249,7 +287,8 @@ public class ParserVseTV implements Runnable {
     		runParserGUI();
     	} catch (InterruptedException e) {
     		e.printStackTrace();
-    		Thread.currentThread().interrupt();    		
+    		Thread.currentThread().interrupt();
+    		System.out.println(e.getMessage());
     	}
 
     }

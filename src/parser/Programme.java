@@ -2,9 +2,7 @@ package parser;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import common.CommonTypes;
 import common.UtilStrings;
 
@@ -17,16 +15,16 @@ public class Programme {
     private String correctionTime;
     private String title;
     private String description;
-    private String urlFullDesc;
-    private String categoryLangEN;
-    private String categoryLangRU;
+    private int category;
     private String genres;
     private String directors;
     private String actors;
     private String year;
     private String country;
     private String image;
-    private String starrating;
+    private String rating;
+    private String type;
+    private int catalog;
 
     public Programme(int index, Date start, Date stop, String title) {
         this.index = index;
@@ -35,16 +33,16 @@ public class Programme {
         this.correctionTime = null;
         this.title = title;
         this.description = null;
-        this.urlFullDesc = null;
-        this.categoryLangEN = null;
-        this.categoryLangRU = null;
+        this.category = 0;
         this.genres = null;
         this.directors = null;
         this.actors = null;
         this.year = null;
         this.country = null;
         this.image =null;
-        this.starrating = null;
+        this.rating = null;
+        this.type = null;
+        this.catalog = 0;
     }
 
     public String getCountry() {
@@ -111,28 +109,12 @@ public class Programme {
         this.description = description;
     }
 
-    public String getUrlFullDesc() {
-        return urlFullDesc;
+    public int getCategory() {
+        return category;
     }
 
-    public void setUrlFullDesc(String urlFullDesc) {
-        this.urlFullDesc = urlFullDesc;
-    }
-
-    public String getCategoryLangEN() {
-        return categoryLangEN;
-    }
-
-    public void setCategoryLangEN(String categoryLang) {
-        this.categoryLangEN = categoryLang;
-    }
-
-    public String getCategoryLangRU() {
-        return categoryLangRU;
-    }
-
-    public void setCategoryLangRU(String categoryLang) {
-        this.categoryLangRU = categoryLang;
+    public void setCategory(int category) {
+        this.category = category;
     }
 
     public String getDirectors() {
@@ -159,27 +141,43 @@ public class Programme {
         this.year = year;
     }
 
-    public String getStarrating() {
-        return starrating;
+    public String getRating() {
+        return rating;
     }
 
-    public void setStarrating(String starrating) {
-        this.starrating = starrating;
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 
-    public void copyFullDesc(Programme programme) {
+    public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public int getCatalog() {
+		return catalog;
+	}
+
+	public void setCatalog(int catalog) {
+		this.catalog = catalog;
+	}
+
+	public void copyFullDesc(Programme programme) {
         if (programme != null) {
-            this.urlFullDesc = programme.urlFullDesc;
-            this.description = programme.description;
-            this.categoryLangEN = programme.categoryLangEN;
-            this.categoryLangRU = programme.categoryLangRU;
-            this.genres = programme.genres;
-            this.directors = programme.directors;
-            this.actors = programme.actors;
-            this.country = programme.country;
-            this.image = programme.image;
-            this.year = programme.year;
-            this.starrating = programme.starrating;
+            this.description = programme.getDescription();
+            this.category = programme.getCategory();
+            this.genres = programme.getGenres();
+            this.directors = programme.getDirectors();
+            this.actors = programme.getActors();
+            this.country = programme.getCountry();
+            this.image = programme.getImage();
+            this.year = programme.getYear();
+            this.rating = programme.getRating();
+            this.type = programme.getType();
+            this.catalog = programme.getCatalog();
         }
     }
 
@@ -192,8 +190,7 @@ public class Programme {
     }
 
     private String getDateToFormat(Date date) {
-        SimpleDateFormat ftdt = new SimpleDateFormat(UtilStrings.DATE_FORMATTIME2);
-        String res = ftdt.format(date);
+        String res = CommonTypes.getDateFormat(date, UtilStrings.DATE_FORMATTIME2);
         if (correctionTime != null) {
             res = res + " " + correctionTime;
         }
@@ -240,18 +237,18 @@ public class Programme {
             edate.appendChild(document.createTextNode(getYear()));
             eprogramme.appendChild(edate);
         }
-        if (getCategoryLangEN() != null) {
-            Element ecategory1 = document.createElement("category");
-            ecategory1.setAttribute("lang", "en");
-            ecategory1.appendChild(document.createTextNode(getCategoryLangEN()));
-            eprogramme.appendChild(ecategory1);
-        }
-        if (getCategoryLangRU() != null) {
-            Element ecategory2 = document.createElement("category");
-            ecategory2.setAttribute("lang", "ru");
-            ecategory2.appendChild(document.createTextNode(getCategoryLangRU()));
-            eprogramme.appendChild(ecategory2);
-        }
+//        if (getCategoryLangEN() != null) {
+//            Element ecategory1 = document.createElement("category");
+//            ecategory1.setAttribute("lang", "en");
+//            ecategory1.appendChild(document.createTextNode(getCategoryLangEN()));
+//            eprogramme.appendChild(ecategory1);
+//        }
+//        if (getCategoryLangRU() != null) {
+//            Element ecategory2 = document.createElement("category");
+//            ecategory2.setAttribute("lang", "ru");
+//            ecategory2.appendChild(document.createTextNode(getCategoryLangRU()));
+//            eprogramme.appendChild(ecategory2);
+//        }
         if (getGenres() != null) {
             String[] strlist = getGenres().split(SEP_LIST);
             for (String astr:strlist) {
@@ -261,10 +258,10 @@ public class Programme {
                 eprogramme.appendChild(ecategory3);
             }
         }
-        if (getStarrating() != null) {
+        if (getRating() != null) {
             Element erating = document.createElement("star-rating");
             Element evalue = document.createElement("value");
-            evalue.appendChild(document.createTextNode(getStarrating()));
+            evalue.appendChild(document.createTextNode(getRating()));
             erating.appendChild(evalue);
             eprogramme.appendChild(erating);
         }

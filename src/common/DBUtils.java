@@ -60,11 +60,12 @@ public class DBUtils {
     public static final String SQL_CATEGORY_ID = "select id from categorys where name_en=? and name_ru=?";
     public static final String SQL_CATEGORY_INSERT = "insert into categorys (name_en,name_ru) values(?,?)";
     public static final String SQL_CATEGORY_UPDATE ="update categorys set name_en=?, name_ru=?, dictionary=?, color=? where id=?";
-    public static final String SQL_DESCRIPTION_ID = "select id from description where description=?";
+    public static final String SQL_DESCRIPTION_ID_ALT = "select id from description where description=?";
+    public static final String SQL_DESCRIPTION_ID = "select id from description where (type=?) and (catalog=?)";
     public static final String SQL_DESCRIPTION_INSERT =
             "insert into description " +
-            "(description, image, country, date, rating) " +
-            "values (?, ?, ?, ?, ?)";
+            "(description, image, country, date, rating, type, catalog) " +
+            "values (?, ?, ?, ?, ?, ?, ?)";
 
     public static final String SQL_GENRE_ID = "select id from genres where name=?";
     public static final String SQL_GENRE_INSERT = "insert into genres (name) values(?)";
@@ -183,7 +184,7 @@ public class DBUtils {
     public static final String SQL_DEL_ALL_SCHEDULE_FAVORITES = "delete from schedule_favorites";
     
     public static final String SQL_MAINSCHEDULE_DESCRIPTION =
-            "select desc.description, desc.image, desc.country, desc.date, desc.rating from description desc " +
+            "select desc.description, desc.image, desc.country, desc.year, desc.rating from description desc " +
             "where desc.id=(select sd.description from schedule_description sd where sd.schedule=? )";
 
     public static final String SQL_SCHEDULE_INSERT =

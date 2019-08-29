@@ -7,16 +7,16 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
+import java.util.Date;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 public class CommonTypes {
     public static final String ICON_FOLDER = "icons";    
     public static final int COUNT_DAY = 3;
-    public static final Boolean FULL_DESC = false;
+    public static final boolean FULL_DESC = false;
     public static final String OUT_XML = "vsetv.xml";
-    public static final Boolean INDEX_SORT = true;
+    public static final boolean INDEX_SORT = true;
     
     public static final String TYPE_SOURCE_IMAGE_WEB = "http:";
     public static final String TYPE_SOURCE_IMAGE_FILE = "file:";
@@ -197,6 +197,11 @@ public class CommonTypes {
     			}
     		}
     	}   	
+    }
+    
+    public static String getDateFormat(Date date, String format) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        return simpleDateFormat.format(date);
     }
 
 }
