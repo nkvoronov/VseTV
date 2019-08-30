@@ -44,7 +44,7 @@ public class VseTV  extends JFrame implements ChangeListener {
     private JTable jtbScheludeNow;
     private JTable jtbScheludeNext;
     private JTable jtbScheludeReminders;    
-    private JTextArea jtaDescription;
+    private JEditorPane jepDescription;
     private JPanel jpnStatus;
     private JProgressBar jpbUpdate;
     private JLabel jlbStatus;    
@@ -366,14 +366,12 @@ public class VseTV  extends JFrame implements ChangeListener {
         
         JScrollPane jspDescription = new JScrollPane();
         
-        jtaDescription = new JTextArea();
-        jtaDescription.setFont(new Font("default", 0, 14));
-        jtaDescription.setEditable(false);
-        jtaDescription.setLineWrap(true);
-        jtaDescription.setColumns(20);
-        jtaDescription.setRows(5);
-        jtaDescription.setFocusable(false);
-        jspDescription.setViewportView(jtaDescription);
+        jepDescription = new JEditorPane();
+        jepDescription.setFont(new Font("default", 0, 14));
+        jepDescription.setContentType("text/html");
+        jepDescription.setEditable(false);
+        jepDescription.setFocusable(false);
+        jspDescription.setViewportView(jepDescription);
         
         jslDescription.setRightComponent(jspDescription); 
         
@@ -422,7 +420,7 @@ public class VseTV  extends JFrame implements ChangeListener {
 	}
     
 	public void onTabChanged() {
-		jtaDescription.setText("");
+		jepDescription.setText("");
 		switch (jtpMain.getSelectedIndex()) {
 		case 0:
 			refreshTable(jtbMainChannels, 0);
@@ -495,13 +493,9 @@ public class VseTV  extends JFrame implements ChangeListener {
                 PreparedStatement pstmt = conn.prepareStatement(DBUtils.SQL_MAINSCHEDULE_DESCRIPTION);
                 DBUtils.setParams(pstmt, aParams);
                 ResultSet rs = pstmt.executeQuery();
-                if (rs.next()) {
-                    if (CommonTypes.FULL_DESC) {
-                        jtaDescription.setText(rs.getString(1));
-                    } else {
-                        jtaDescription.setText(rs.getString(1));
-                    }
-                } else jtaDescription.setText("");
+                if (rs.next()) {                	
+                    jepDescription.setText(rs.getString(1));
+                } else jepDescription.setText("");
             } finally {
                 conn.close();
             }

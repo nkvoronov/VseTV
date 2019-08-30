@@ -115,6 +115,7 @@ public class ProgrammeList {
     private void saveToDBCategoryList(String[] list, int descriptionID) {
         int genreID;
         for (String str:list) {
+        	str = str.trim();
             genreID = getGenreID(str);
             if (genreID == -1) {
                 DBParams[] aParams = new DBParams[1];
