@@ -64,7 +64,7 @@ public class DBUtils {
     public static final String SQL_DESCRIPTION_ID = "select id from description where (type=?) and (catalog=?)";
     public static final String SQL_DESCRIPTION_INSERT =
             "insert into description " +
-            "(description, image, country, date, rating, type, catalog) " +
+            "(description, image, country, year, rating, type, catalog) " +
             "values (?, ?, ?, ?, ?, ?, ?)";
 
     public static final String SQL_GENRE_ID = "select id from genres where name=?";

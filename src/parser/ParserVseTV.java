@@ -10,8 +10,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -81,13 +80,15 @@ public class ParserVseTV implements Runnable {
             Element rootElement = document.createElement("tv");
             rootElement.setAttribute("generator-info-name", "vsetv");
             document.appendChild(rootElement);
-            this.channels.getXML(document, rootElement);
-            this.programmes.getXML(document, rootElement);
+            getChannels().getXML(document, rootElement);
+            getProgrammes().getXML(document, rootElement);
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.setOutputProperty(OutputKeys.METHOD, "xml");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.transform(new DOMSource(document), new StreamResult(new FileOutputStream("ru")));
-        } catch (TransformerException|ParserConfigurationException|FileNotFoundException e) {
+            DOMSource domSource = new DOMSource(document);
+            StreamResult streamResult = new StreamResult(new File(getOutXML()));
+            transformer.transform(domSource, streamResult);
+        } catch (TransformerException|ParserConfigurationException e) {
         	e.printStackTrace();
         	System.out.println(e.getMessage());
         }
@@ -102,11 +103,11 @@ public class ParserVseTV implements Runnable {
         SimpleDateFormat ft = new SimpleDateFormat(UtilStrings.DATE_FORMAT);
         int i = 0;
         if (isGUI) {
-            int count = this.countDay * this.channels.getData().size();
+            int count = this.countDay * getChannels().getData().size();
             pMonitor.setTotal(count);
         }
         this.programmes.getData().clear();
-        for (Channel channel : this.channels.getData()) {
+        for (Channel channel : getChannels().getData()) {
             cur.setTime(dt);
             while (!cur.getTime().equals(last.getTime())) {
                 if (isGUI) {
@@ -125,7 +126,7 @@ public class ParserVseTV implements Runnable {
         Calendar dt = Calendar.getInstance();
         dt.setTime(date);
         String otime = UtilStrings.STR_OTIME;
-        String direction = String.format(UtilStrings.STR_SCHEDULECHANNEL, channel, dateFormat.format(date));
+        String direction = String.format(UtilStrings.STR_SCHEDULECHANNEL, channel.getIndex(), dateFormat.format(date));
         org.jsoup.nodes.Document doc = new HttpContent(direction).getDocument();
         Elements elements = doc.select(UtilStrings.STR_ELMDOCSELECT);
         for (org.jsoup.nodes.Element element : elements){

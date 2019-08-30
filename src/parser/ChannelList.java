@@ -104,7 +104,7 @@ public class ChannelList implements Runnable{
                 try {
                     while (rs.next()) {
                         Channel channel = new Channel(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7));
-                        this.data.add(channel);
+                        add(channel);
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -132,7 +132,7 @@ public class ChannelList implements Runnable{
                 while ((line = br.readLine()) != null) {
                     String[] aline = line.split(Channel.SEP_FOLDER);
                     Channel chn = new Channel(Integer.parseInt(aline[0]), aline[1], aline[2], aline[3], Integer.parseInt(aline[4]), aline[5]);
-                    this.data.add(chn);
+                    add(chn);
                 }
             }
         } catch (IOException e) {
@@ -160,13 +160,13 @@ public class ChannelList implements Runnable{
     }
 
     public void print() {
-        for (Channel channel : this.data) {
+        for (Channel channel : getData()) {
         	channel.print();
         }
     }
 
     public void getXML(org.w3c.dom.Document document, org.w3c.dom.Element element) {
-        for (Channel channel : this.data) {
+        for (Channel channel : getData()) {
         	channel.getXML(document, element);
         }
     }
@@ -262,13 +262,14 @@ public class ChannelList implements Runnable{
         pMonitor.start("");
         if (isUpdChannels) {
         	DBUtils.getExecuteUpdate(DBUtils.SQL_UPD_CHANNELDATE_NULL);
-            for (Channel channel : this.data) {
+            for (Channel channel : getData()) {
                 saveChannelToDB(channel, i);
                 i++;
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    System.out.println(e.getMessage());
                 }
             }
             resupd = DBUtils.getExecuteUpdate(DBUtils.SQL_DEL_CHANNELDATE_NULL);

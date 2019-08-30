@@ -267,7 +267,7 @@ public class Programme {
             for (String astr:strlist) {
                 Element ecategory3 = document.createElement("category");
                 ecategory3.setAttribute("lang", "ru");
-                ecategory3.appendChild(document.createTextNode(astr));
+                ecategory3.appendChild(document.createTextNode(astr.trim()));
                 eprogramme.appendChild(ecategory3);
             }
         }
