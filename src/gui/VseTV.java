@@ -56,6 +56,7 @@ public class VseTV  extends JFrame implements ChangeListener {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException | IllegalAccessException e) {
             e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         CommonTypes.loadConfigs();
         EventQueue.invokeLater(() -> new VseTV().setVisible(true));	
@@ -481,6 +482,7 @@ public class VseTV  extends JFrame implements ChangeListener {
 	            	updateDescription(aParams);
 	            } catch (SQLException e) {
 					e.printStackTrace();
+					System.out.println(e.getMessage());
 				}
 	        }
     	}
@@ -518,6 +520,7 @@ public class VseTV  extends JFrame implements ChangeListener {
 	    		tm.refreshContent();
 	    	} catch (SQLException e) {
 				e.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 	    	table.setVisible(false);
 	    	table.setVisible(true);
@@ -561,6 +564,7 @@ public class VseTV  extends JFrame implements ChangeListener {
 	    		tm.refreshContentForParams(aParams);
 	    	} catch (SQLException e) {
 				e.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 	        try {
 	            table.setVisible(false);

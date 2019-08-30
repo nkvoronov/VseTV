@@ -17,6 +17,7 @@ public class HttpContent {
             this.document = conn.get();
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 

@@ -381,6 +381,7 @@ public class ChannelsProperty extends JDialog {
 	        tm.refreshContentForParams(aParams);	
     	} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
         jtbChannels.setVisible(false);
         jtbChannels.setVisible(true);
@@ -406,6 +407,7 @@ public class ChannelsProperty extends JDialog {
         	tm.refreshContent();
 	    } catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
         jtbUserChannels.setVisible(false);
         jtbUserChannels.setVisible(true);

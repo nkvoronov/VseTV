@@ -11,19 +11,17 @@ import java.util.Date;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-public class CommonTypes {
-    public static final String ICON_FOLDER = "icons";    
-    public static final int COUNT_DAY = 3;
-    public static final boolean FULL_DESC = false;
-    public static final String OUT_XML = "vsetv.xml";
-    public static final boolean INDEX_SORT = true;
+public class CommonTypes {        
+    public static int COUNT_DAY = 3;
+    public static boolean FULL_DESC = false;
+    public static String OUT_XML = "vsetv.xml";
+    public static boolean INDEX_SORT = true;
     
+    public static final String ICON_FOLDER = "icons";
     public static final String TYPE_SOURCE_IMAGE_WEB = "http:";
     public static final String TYPE_SOURCE_IMAGE_FILE = "file:";
-    public static final String TYPE_SOURCE_IMAGE_RES = "res:";
-    
-    public static final String RES_FOLDER = "/resources/";
-    
+    public static final String TYPE_SOURCE_IMAGE_RES = "res:";    
+    public static final String RES_FOLDER = "/resources/";    
     public static final int DEFAULT_GRID_HEIGHT = 28;
     
     public enum DBType {STRING, INTEGER, BOOL, DATETIME, TIME, OBJECT}
@@ -166,6 +164,7 @@ public class CommonTypes {
             } else return addZero(day) + " " + month + " (" + week + ") " + addZero(hour) + ":" + addZero(minute);
         } catch (ParseException e) {
             e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return res;
     }

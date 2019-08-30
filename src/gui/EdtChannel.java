@@ -21,7 +21,6 @@ public class EdtChannel extends JDialog implements ActionListener {
         GridBagConstraints gridBagConstraints;
         JPanel jpnClient = new JPanel();
         GridBagLayout gblClientLayout = new GridBagLayout();
-        gblClientLayout.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
         gblClientLayout.columnWidths = new int[] {91, 100};
         jpnClient.setLayout(gblClientLayout);
 
@@ -105,7 +104,7 @@ public class EdtChannel extends JDialog implements ActionListener {
         jpnClient.add(jlbLang, gbcLang);
         
         jcbLang = new JComboBox<String>();
-        jcbLang.setModel(new DefaultComboBoxModel(new String[] {"rus", "ukr"}));
+        jcbLang.setModel(new DefaultComboBoxModel<String>(new String[] {"rus", "ukr"}));
         jcbLang.setSelectedIndex(0);
         GridBagConstraints gbc_jcbLang = new GridBagConstraints();
         gbc_jcbLang.insets = new Insets(0, 0, 0, 4);

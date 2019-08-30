@@ -227,7 +227,7 @@ public class ParserVseTV implements Runnable {
         }        
         if (url_description.length() > 0 && !url_description.equals("")) {
             //Parse url
-        	String link = UtilStrings.HOST + url_description;
+        	//String link = UtilStrings.HOST + url_description;
             String[] list_url = url_description.replace(".html", "").split("_");
             String type = list_url[0].trim();
             programme.setType(type);

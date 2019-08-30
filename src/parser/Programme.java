@@ -3,6 +3,8 @@ package parser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import java.util.Date;
+
+import common.CategoryProgramme;
 import common.CommonTypes;
 import common.UtilStrings;
 
@@ -237,18 +239,29 @@ public class Programme {
             edate.appendChild(document.createTextNode(getYear()));
             eprogramme.appendChild(edate);
         }
-//        if (getCategoryLangEN() != null) {
-//            Element ecategory1 = document.createElement("category");
-//            ecategory1.setAttribute("lang", "en");
-//            ecategory1.appendChild(document.createTextNode(getCategoryLangEN()));
-//            eprogramme.appendChild(ecategory1);
-//        }
-//        if (getCategoryLangRU() != null) {
-//            Element ecategory2 = document.createElement("category");
-//            ecategory2.setAttribute("lang", "ru");
-//            ecategory2.appendChild(document.createTextNode(getCategoryLangRU()));
-//            eprogramme.appendChild(ecategory2);
-//        }
+        if (getCategory() != 0) {
+        	CategoryProgramme category_res = null;
+        	for (CategoryProgramme category : CommonTypes.catList.getData()) {
+        		if (category.getId() != 0 && category.getId() == getCategory()) {
+        			category_res = category;
+        			break;
+        		}
+        	}
+        	if (category_res != null) {
+		        if (category_res.getNameEN() != null) {
+		            Element ecategory1 = document.createElement("category");
+		            ecategory1.setAttribute("lang", "en");
+		            ecategory1.appendChild(document.createTextNode(category_res.getNameEN()));
+		            eprogramme.appendChild(ecategory1);
+		        }
+		        if (category_res.getNameRU() != null) {
+		            Element ecategory2 = document.createElement("category");
+		            ecategory2.setAttribute("lang", "ru");
+		            ecategory2.appendChild(document.createTextNode(category_res.getNameRU()));
+		            eprogramme.appendChild(ecategory2);
+		        }        		
+        	}
+        }
         if (getGenres() != null) {
             String[] strlist = getGenres().split(SEP_LIST);
             for (String astr:strlist) {

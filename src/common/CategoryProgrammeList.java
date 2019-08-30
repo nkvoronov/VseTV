@@ -41,11 +41,13 @@ public class CategoryProgrammeList {
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    System.out.println(e.getMessage());
                 } finally {
                 	connection.close();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
     }

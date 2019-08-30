@@ -7,6 +7,8 @@ import java.awt.event.*;
 @SuppressWarnings("serial")
 public class MainProperty extends JDialog implements ActionListener {
     private int modalResult = 0;
+    private JComboBox<String> jcbxCountDay;
+    private JCheckBox jcbxUseFullDescription;
 
     public MainProperty(Frame owner) {
         super(owner);
@@ -15,16 +17,54 @@ public class MainProperty extends JDialog implements ActionListener {
     
     private void initGUI() {
 		setTitle(Messages.getString("StrActionOptions"));
+		GridBagConstraints gridBagConstraints;
 
 		JTabbedPane jtpParams = new JTabbedPane();
+		
 		JPanel jpnMain = new JPanel();
-        jpnMain.setLayout(new GridBagLayout());
         jtpParams.addTab(Messages.getString("StrPageMain"), jpnMain);
-
-        JPanel jpnUpdate = new JPanel();
-        jpnUpdate.setLayout(new java.awt.GridBagLayout());
-        jtpParams.addTab(Messages.getString("StrPageUpdate"), jpnUpdate);
-
+        GridBagLayout gblClientLayoutMain = new GridBagLayout();
+        gblClientLayoutMain.columnWidths = new int[] {91, 100};
+        jpnMain.setLayout(gblClientLayoutMain);
+        
+        JLabel jlbCountDay = new JLabel();
+        jlbCountDay.setHorizontalAlignment(SwingConstants.LEFT);
+        jlbCountDay.setLabelFor(jcbxCountDay);
+        jlbCountDay.setText(Messages.getString("StrLbCountDay"));
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = GridBagConstraints.FIRST_LINE_END;
+        gridBagConstraints.insets = new Insets(0, 4, 5, 5);
+        jpnMain.add(jlbCountDay, gridBagConstraints);
+                
+        jcbxCountDay = new JComboBox<>();
+        jcbxCountDay.setModel(new DefaultComboBoxModel<String>(new String[] {"1", "2", "3", "4", "5", "6", "7"}));
+        jcbxCountDay.setSelectedIndex(0);
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = GridBagConstraints.FIRST_LINE_END;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new Insets(4, 0, 5, 4);
+        jpnMain.add(jcbxCountDay, gridBagConstraints);
+        
+        jcbxUseFullDescription = new JCheckBox();
+        jcbxUseFullDescription.setHorizontalAlignment(SwingConstants.LEFT);
+        jcbxUseFullDescription.setText(Messages.getString("StrLbUseFullDescription"));
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = GridBagConstraints.FIRST_LINE_END;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new Insets(4, 0, 5, 4);
+        jpnMain.add(jcbxUseFullDescription, gridBagConstraints);
+                
         getContentPane().add(jtpParams, BorderLayout.CENTER);
 
         JPanel jpnButtons = new JPanel();
@@ -53,7 +93,7 @@ public class MainProperty extends JDialog implements ActionListener {
 
         getContentPane().add(jpnButtons, BorderLayout.PAGE_END);
 
-        setSize(new Dimension(416, 338));
+        setSize(new Dimension(416, 184));
         setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(getParent());
