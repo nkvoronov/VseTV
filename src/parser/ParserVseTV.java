@@ -224,7 +224,7 @@ public class ParserVseTV implements Runnable {
                 programme.setGenres(list[2].trim().replace(" / ", ", "));
             }
 
-            programme.setDescription(description.replaceFirst("<br>", "<b>" + Messages.getString("StrLbCast") + "</b> "));
+            programme.setDescription(description.replaceFirst("<br>", ""));
         }        
         if (url_description.length() > 0 && !url_description.equals("")) {
             //Parse url

@@ -494,7 +494,7 @@ public class VseTV  extends JFrame implements ChangeListener {
                 DBUtils.setParams(pstmt, aParams);
                 ResultSet rs = pstmt.executeQuery();
                 if (rs.next()) {                	
-                    jepDescription.setText(rs.getString(1));
+                    jepDescription.setText("<b>" + Messages.getString("StrLbCountry") + "</b> " + rs.getString(3) + "<br><b>" + Messages.getString("StrLbYear") + "</b> " + rs.getString(4) + "<br><b>" + Messages.getString("StrLbCast") + "</b> " + rs.getString(1));
                 } else jepDescription.setText("");
             } finally {
                 conn.close();
