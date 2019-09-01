@@ -26,7 +26,7 @@ public class CommonTypes {
     
     public enum DBType {STRING, INTEGER, BOOL, DATETIME, TIME, OBJECT}
 
-    public static final CategoryProgrammeList catList = new CategoryProgrammeList();
+    public static final ScheduleCategorysList catList = new ScheduleCategorysList();
 
     public static String getIconsPatch() {
         return getCurrentPatch() + File.separator + ICON_FOLDER + File.separator;

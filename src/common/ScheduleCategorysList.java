@@ -4,19 +4,19 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryProgrammeList {
-    private List<CategoryProgramme> data;
+public class ScheduleCategorysList {
+    private List<ScheduleCategory> data;
 
-    public CategoryProgrammeList() {
+    public ScheduleCategorysList() {
         this.data = new ArrayList<>();
     }
 
-    public List<CategoryProgramme> getData() {
+    public List<ScheduleCategory> getData() {
         return data;
     }
 
     public void saveToDB() {
-        for (CategoryProgramme cp : getData()) {
+        for (ScheduleCategory cp : getData()) {
             DBParams[] aParams = new DBParams[5];
             aParams[0] = new DBParams(1, cp.getNameEN(), CommonTypes.DBType.STRING);
             aParams[1] = new DBParams(2, cp.getNameRU(), CommonTypes.DBType.STRING);
@@ -36,7 +36,7 @@ public class CategoryProgrammeList {
                 ResultSet rs = stmt.executeQuery(DBUtils.SQL_CATEGORY);
                 try {
                     while (rs.next()) {
-                        CategoryProgramme cp = new CategoryProgramme(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                        ScheduleCategory cp = new ScheduleCategory(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
                         getData().add(cp);
                     }
                 } catch (SQLException e) {

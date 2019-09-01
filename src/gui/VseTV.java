@@ -442,12 +442,10 @@ public class VseTV  extends JFrame implements ChangeListener {
     private void onSelectChannelsRow() {
         int row = jtbMainChannels.getSelectedRow();
         TableModel tm = jtbMainChannels.getModel();
-        if (row != -1) {
-            Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_CHANNEL));
-            DBParams[] aParams = new DBParams[1];
-            aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
-            refreshTableForParams(jtbScheludeAll, aParams);
-        }
+        Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_CHANNEL));
+        DBParams[] aParams = new DBParams[1];
+        aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
+        refreshTableForParams(jtbScheludeAll, aParams);
     }
 
     @Override
@@ -493,8 +491,33 @@ public class VseTV  extends JFrame implements ChangeListener {
                 PreparedStatement pstmt = conn.prepareStatement(DBUtils.SQL_MAINSCHEDULE_DESCRIPTION);
                 DBUtils.setParams(pstmt, aParams);
                 ResultSet rs = pstmt.executeQuery();
-                if (rs.next()) {                	
-                    jepDescription.setText("<b>" + Messages.getString("StrLbCountry") + "</b> " + rs.getString(3) + "<br><b>" + Messages.getString("StrLbYear") + "</b> " + rs.getString(4) + "<br><b>" + Messages.getString("StrLbCast") + "</b> " + rs.getString(1));
+                if (rs.next()) { 
+                	String genres = "";
+                	String directors = "";
+                	String actors = "";
+                	String country = "";
+                    String year = "";
+                    String description = "";
+                    
+                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_GENRES) != null) {
+                		genres = "<b>" + Messages.getString("StrLbGenres") + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_GENRES) + "<br>";
+                	}
+                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_DIRECTORS) != null) {
+                		directors = "<b>" + Messages.getString("StrLbDirectors") + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_DIRECTORS) + "<br>";
+                	}
+                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_ACTORS) != null) {
+                		actors = "<b>" + Messages.getString("StrLbCast") + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_ACTORS) + "<br>";
+                	}                	                	
+                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_COUNTRY) != null) {
+                		country = "<b>" + Messages.getString("StrLbCountry") + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_COUNTRY) + "<br>";
+                	}   
+                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_YEAR) != null) {
+                		year = "<b>" + Messages.getString("StrLbYear") + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_YEAR) + "<br>";
+                	}                   	
+                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_DESCRIPTION) != null) {
+                		description = "<br>" + rs.getString(DBUtils.INDEX_DESCRIPTION_DESCRIPTION);
+                	} 
+                	jepDescription.setText(genres + country + year + directors + actors + description);
                 } else jepDescription.setText("");
             } finally {
                 conn.close();
@@ -756,11 +779,11 @@ public class VseTV  extends JFrame implements ChangeListener {
     				DBParams[] aParams = new DBParams[1];
                     aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);                    
                     if (oFav != null) {
-                    	if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_DEL_SCHEDULE_FAVORITES, aParams) != -1) {
+                    	if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_DEL_FAVORITES_SCHEDULE, aParams) != -1) {
                     		updateTable(table, row);
                     	}
                     } else {
-                    	if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_SCHEDULE_FAVORITES_INSERT, aParams) != -1) {
+                    	if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_FAVORITES_SCHEDULE_INSERT, aParams) != -1) {
                     		updateTable(table, row);                   		
                     	}	
                 		

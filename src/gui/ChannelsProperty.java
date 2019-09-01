@@ -10,30 +10,30 @@ import javax.swing.table.TableModel;
 import common.DBParams;
 import common.DBTableModel;
 import common.DBTableModelChannels;
-import common.DBTableModelUserChannels;
+import common.DBTableModelFavoritesChannels;
 import common.DBTableRender;
-import common.DBTableRenderUserChannels;
+import common.DBTableRenderFavoritesChannels;
 import common.DBUtils;
 import common.CommonTypes;
 
 @SuppressWarnings("serial")
 public class ChannelsProperty extends JDialog {
     private int modalResult = 0;
-    private ActionAddToUser acAddToUser;    
-    private ActionAddAllToUser acAddAllToUser;    
+    private ActionAddToFav acAddToFav;    
+    private ActionAddAllToFav acAddAllToFav;    
     private ActionAddChannel acAddChannel;    
     private ActionEdtChannel acEdtChannel;    
     private ActionDelChannel acDelChannel;    
     private ActionDelAllChannels acDelAllChannels;   
     private ActionUpdateChannels acUpdateChannels;    
     private ActionUpdateIcons acUpdateIcons;    
-    private ActionDelFromUser acDelFromUser;    
-    private ActionDelAllFromUser acDelAllFromUser;    
-    private ActionEdtUsrChannel acEdtUsrChannel;   
+    private ActionDelFromFav acDelFromFav;    
+    private ActionDelAllFromFav acDelAllFromFav;    
+    private ActionEdtFavChannel acEdtFavChannel;   
     private ActionSetCorrection acSetCorrection;    
     private ActionSave acSave;   
     private JTable jtbChannels;
-    private JTable jtbUserChannels;
+    private JTable jtbFavoritesChannels;
     private JTextField jtfCorrection;
     private JComboBox<String> jcbLang;
 
@@ -44,17 +44,17 @@ public class ChannelsProperty extends JDialog {
     }
     
     private void initActions() {
-    	acAddToUser = new ActionAddToUser();
-        acAddAllToUser = new ActionAddAllToUser();
+    	acAddToFav = new ActionAddToFav();
+        acAddAllToFav = new ActionAddAllToFav();
         acAddChannel = new ActionAddChannel(this);
         acEdtChannel = new ActionEdtChannel(this);
         acDelChannel = new ActionDelChannel(this);
         acDelAllChannels = new ActionDelAllChannels(this);
         acUpdateChannels = new ActionUpdateChannels(this);
         acUpdateIcons = new ActionUpdateIcons(this);        
-        acDelFromUser = new ActionDelFromUser(this);       
-        acDelAllFromUser = new ActionDelAllFromUser(this);        
-        acEdtUsrChannel = new ActionEdtUsrChannel(this);        
+        acDelFromFav = new ActionDelFromFav(this);       
+        acDelAllFromFav = new ActionDelAllFromFav(this);        
+        acEdtFavChannel = new ActionEdtFavChannel(this);        
         acSetCorrection = new ActionSetCorrection();        
         acSave = new ActionSave(this);
 	}
@@ -92,21 +92,21 @@ public class ChannelsProperty extends JDialog {
 		});
         jtbrChannels.add(jcbLang);
 
-        JButton jbtAddToUser = new JButton();
-        jbtAddToUser.setAction(acAddToUser);
-        jbtAddToUser.setText("");
-        jbtAddToUser.setFocusable(false);
-        jbtAddToUser.setHorizontalTextPosition(SwingConstants.CENTER);
-        jbtAddToUser.setVerticalTextPosition(SwingConstants.BOTTOM);
-        jtbrChannels.add(jbtAddToUser);
+        JButton jbtAddToFav = new JButton();
+        jbtAddToFav.setAction(acAddToFav);
+        jbtAddToFav.setText("");
+        jbtAddToFav.setFocusable(false);
+        jbtAddToFav.setHorizontalTextPosition(SwingConstants.CENTER);
+        jbtAddToFav.setVerticalTextPosition(SwingConstants.BOTTOM);
+        jtbrChannels.add(jbtAddToFav);
 
-        JButton jbtAddAllToUser = new JButton();
-        jbtAddAllToUser.setAction(acAddAllToUser);
-        jbtAddAllToUser.setText("");
-        jbtAddAllToUser.setFocusable(false);
-        jbtAddAllToUser.setHorizontalTextPosition(SwingConstants.CENTER);
-        jbtAddAllToUser.setVerticalTextPosition(SwingConstants.BOTTOM);
-        jtbrChannels.add(jbtAddAllToUser);
+        JButton jbtAddAllToFav = new JButton();
+        jbtAddAllToFav.setAction(acAddAllToFav);
+        jbtAddAllToFav.setText("");
+        jbtAddAllToFav.setFocusable(false);
+        jbtAddAllToFav.setHorizontalTextPosition(SwingConstants.CENTER);
+        jbtAddAllToFav.setVerticalTextPosition(SwingConstants.BOTTOM);
+        jtbrChannels.add(jbtAddAllToFav);
 
         jtbrChannels.add(new JToolBar.Separator());
 
@@ -193,9 +193,9 @@ public class ChannelsProperty extends JDialog {
 
         JPopupMenu jpmChannels = new JPopupMenu();
 
-        JMenuItem jmiAddToUser = new JMenuItem(acAddToUser);
-        jmiAddToUser.setToolTipText("");
-        jpmChannels.add(jmiAddToUser);
+        JMenuItem jmiAddToFav = new JMenuItem(acAddToFav);
+        jmiAddToFav.setToolTipText("");
+        jpmChannels.add(jmiAddToFav);
 
         jpmChannels.add(new JSeparator());
 
@@ -223,47 +223,47 @@ public class ChannelsProperty extends JDialog {
         jpnRight.setBorder(null);
         jpnRight.setLayout(new BorderLayout());
 
-        JToolBar jtbrUserChannels = new JToolBar();
-        jtbrUserChannels.setBorder(BorderFactory.createEtchedBorder());
-        jtbrUserChannels.setFloatable(false);
+        JToolBar jtbrFavChannels = new JToolBar();
+        jtbrFavChannels.setBorder(BorderFactory.createEtchedBorder());
+        jtbrFavChannels.setFloatable(false);
 
-        JButton jbtDelFromUser = new JButton();
-        jbtDelFromUser.setAction(acDelFromUser);
-        jbtDelFromUser.setText("");
-        jbtDelFromUser.setFocusable(false);
-        jbtDelFromUser.setHorizontalTextPosition(SwingConstants.CENTER);
-        jbtDelFromUser.setVerticalTextPosition(SwingConstants.BOTTOM);
-        jtbrUserChannels.add(jbtDelFromUser);
+        JButton jbtDelFromFav = new JButton();
+        jbtDelFromFav.setAction(acDelFromFav);
+        jbtDelFromFav.setText("");
+        jbtDelFromFav.setFocusable(false);
+        jbtDelFromFav.setHorizontalTextPosition(SwingConstants.CENTER);
+        jbtDelFromFav.setVerticalTextPosition(SwingConstants.BOTTOM);
+        jtbrFavChannels.add(jbtDelFromFav);
 
-        JButton jbtDelAllFromUser = new JButton();
-        jbtDelAllFromUser.setAction(acDelAllFromUser);
-        jbtDelAllFromUser.setText("");
-        jbtDelAllFromUser.setFocusable(false);
-        jbtDelAllFromUser.setHorizontalTextPosition(SwingConstants.CENTER);
-        jbtDelAllFromUser.setVerticalTextPosition(SwingConstants.BOTTOM);
-        jtbrUserChannels.add(jbtDelAllFromUser);
+        JButton jbtDelAllFromFav = new JButton();
+        jbtDelAllFromFav.setAction(acDelAllFromFav);
+        jbtDelAllFromFav.setText("");
+        jbtDelAllFromFav.setFocusable(false);
+        jbtDelAllFromFav.setHorizontalTextPosition(SwingConstants.CENTER);
+        jbtDelAllFromFav.setVerticalTextPosition(SwingConstants.BOTTOM);
+        jtbrFavChannels.add(jbtDelAllFromFav);
 
-        jtbrUserChannels.add(new JToolBar.Separator());
+        jtbrFavChannels.add(new JToolBar.Separator());
 
-        JButton jbtEdtUsrChannel = new JButton();
-        jbtEdtUsrChannel.setAction(acEdtUsrChannel);
-        jbtEdtUsrChannel.setText("");
-        jbtEdtUsrChannel.setFocusable(false);
-        jbtEdtUsrChannel.setHorizontalTextPosition(SwingConstants.CENTER);
-        jbtEdtUsrChannel.setVerticalTextPosition(SwingConstants.BOTTOM);
-        jtbrUserChannels.add(jbtEdtUsrChannel);
+        JButton jbtEdtFavChannel = new JButton();
+        jbtEdtFavChannel.setAction(acEdtFavChannel);
+        jbtEdtFavChannel.setText("");
+        jbtEdtFavChannel.setFocusable(false);
+        jbtEdtFavChannel.setHorizontalTextPosition(SwingConstants.CENTER);
+        jbtEdtFavChannel.setVerticalTextPosition(SwingConstants.BOTTOM);
+        jtbrFavChannels.add(jbtEdtFavChannel);
 
-        jtbrUserChannels.add(new JToolBar.Separator());
+        jtbrFavChannels.add(new JToolBar.Separator());
 
         jtfCorrection = new JTextField();
         jtfCorrection.setActionCommand("cmd_Correction");
         jtfCorrection.setHorizontalAlignment(JTextField.RIGHT);
         jtfCorrection.setText("0");
-        jtfCorrection.setToolTipText(Messages.getString("StrlbCorrection"));
+        jtfCorrection.setToolTipText(Messages.getString("StrLbCorrection"));
         jtfCorrection.setPreferredSize(new Dimension(60, 28));
         jtfCorrection.setMaximumSize(new Dimension(60, 28));
         jtfCorrection.setMinimumSize(new Dimension(60, 28));
-        jtbrUserChannels.add(jtfCorrection);
+        jtbrFavChannels.add(jtfCorrection);
 
         JButton jbtSetCorrection = new JButton();
         jbtSetCorrection.setAction(acSetCorrection);
@@ -271,52 +271,52 @@ public class ChannelsProperty extends JDialog {
         jbtSetCorrection.setFocusable(false);
         jbtSetCorrection.setHorizontalTextPosition(SwingConstants.CENTER);
         jbtSetCorrection.setVerticalTextPosition(SwingConstants.BOTTOM);
-        jtbrUserChannels.add(jbtSetCorrection);
+        jtbrFavChannels.add(jbtSetCorrection);
 
-        jtbrUserChannels.setPreferredSize(new Dimension(300, 30));
+        jtbrFavChannels.setPreferredSize(new Dimension(300, 30));
 
-        jpnRight.add(jtbrUserChannels, BorderLayout.PAGE_START);
+        jpnRight.add(jtbrFavChannels, BorderLayout.PAGE_START);
 
         //Right table
 
         JScrollPane jspRight = new JScrollPane();
         
-        jtbUserChannels = new JTable();
+        jtbFavoritesChannels = new JTable();
                 
-        DBTableModelUserChannels userChannelsModel = new DBTableModelUserChannels(DBUtils.SQL_USERCHANNELS);
+        DBTableModelFavoritesChannels favoritesChannelsModel = new DBTableModelFavoritesChannels(DBUtils.SQL_FAVORITES_CHANNELS);
         
-        jtbUserChannels.setModel(userChannelsModel);
-        CommonTypes.setTableProperties(jtbUserChannels);
-        jtbUserChannels.setDefaultRenderer(String.class, new DBTableRenderUserChannels());
-        jtbUserChannels.setDefaultRenderer(Integer.class, new DBTableRenderUserChannels());
+        jtbFavoritesChannels.setModel(favoritesChannelsModel);
+        CommonTypes.setTableProperties(jtbFavoritesChannels);
+        jtbFavoritesChannels.setDefaultRenderer(String.class, new DBTableRenderFavoritesChannels());
+        jtbFavoritesChannels.setDefaultRenderer(Integer.class, new DBTableRenderFavoritesChannels());
 
-        jtbUserChannels.addMouseListener(new MouseAdapter() {
+        jtbFavoritesChannels.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
                 if (jtbChannels.getSelectedRow() != -1) {
                     onSelectChannelsRow();
                 }
         		if (e.getClickCount() == 2) {
-        			acEdtUsrChannel.onExecute();		
+        			acEdtFavChannel.onExecute();		
         		}	
         	}
         });
 
-        JPopupMenu jpmUserChannels = new JPopupMenu();
+        JPopupMenu jpmFavoritesChannels = new JPopupMenu();
 
-        JMenuItem jmiDelFromUser = new JMenuItem(acDelFromUser);
-        jmiDelFromUser.setToolTipText("");
-        jpmUserChannels.add(jmiDelFromUser);
+        JMenuItem jmiDelFromFav = new JMenuItem(acDelFromFav);
+        jmiDelFromFav.setToolTipText("");
+        jpmFavoritesChannels.add(jmiDelFromFav);
 
-        jpmUserChannels.add(new JSeparator());
+        jpmFavoritesChannels.add(new JSeparator());
 
-        JMenuItem jmiEdtUsrChannel = new JMenuItem(acEdtUsrChannel);
-        jmiEdtUsrChannel.setToolTipText("");
-        jpmUserChannels.add(jmiEdtUsrChannel);
+        JMenuItem jmiEdtFavChannel = new JMenuItem(acEdtFavChannel);
+        jmiEdtFavChannel.setToolTipText("");
+        jpmFavoritesChannels.add(jmiEdtFavChannel);
 
-        jtbUserChannels.setComponentPopupMenu(jpmUserChannels);
+        jtbFavoritesChannels.setComponentPopupMenu(jpmFavoritesChannels);
 
-        jspRight.setViewportView(jtbUserChannels);
+        jspRight.setViewportView(jtbFavoritesChannels);
         jpnRight.add(jspRight, BorderLayout.CENTER);
         jslChannelsList.setRightComponent(jpnRight);
 
@@ -335,7 +335,7 @@ public class ChannelsProperty extends JDialog {
         getContentPane().add(jpnButtons, BorderLayout.PAGE_END);
 
         refreshTableChannels(0, jcbLang.getSelectedIndex());
-        refreshTableUserChannels(0);
+        refreshTableFavChannels(0);
 
         setSize(new Dimension(723, 563));
         setModalityType(ModalityType.APPLICATION_MODAL);
@@ -360,8 +360,8 @@ public class ChannelsProperty extends JDialog {
         int row = jtbChannels.getSelectedRow();
         TableModel tm = jtbChannels.getModel();        
         if (row != -1) {
-            Object oUser = tm.getValueAt(row, DBUtils.INDEX_IS_USER);
-            acAddToUser.setEnabled(oUser == null);
+            Object fav = tm.getValueAt(row, DBUtils.INDEX_IS_FAV);
+            acAddToFav.setEnabled(fav == null);
         }
     }
 
@@ -386,49 +386,50 @@ public class ChannelsProperty extends JDialog {
         jtbChannels.setVisible(false);
         jtbChannels.setVisible(true);
         if (jtbChannels.getRowCount() != 0) {
-            acAddToUser.setEnabled(true);
-            acAddAllToUser.setEnabled(true);
+            acAddToFav.setEnabled(true);
+            acAddAllToFav.setEnabled(true);
             acEdtChannel.setEnabled(true);
             acDelChannel.setEnabled(true);
             acDelAllChannels.setEnabled(true);
             jtbChannels.setRowSelectionInterval(row, row);
         } else {
-            acAddToUser.setEnabled(false);
-            acAddAllToUser.setEnabled(false);
+            acAddToFav.setEnabled(false);
+            acAddAllToFav.setEnabled(false);
             acEdtChannel.setEnabled(false);
             acDelChannel.setEnabled(false);
             acDelAllChannels.setEnabled(false);
         }
     }
 
-    private void refreshTableUserChannels(int row) {
-    	DBTableModel tm = (DBTableModel) jtbUserChannels.getModel();
+    private void refreshTableFavChannels(int row) {
+    	DBTableModel tm = (DBTableModel) jtbFavoritesChannels.getModel();
     	try {
         	tm.refreshContent();
 	    } catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
-        jtbUserChannels.setVisible(false);
-        jtbUserChannels.setVisible(true);
-        if (jtbUserChannels.getRowCount() != 0) {
+    	jtbFavoritesChannels.setVisible(false);
+    	jtbFavoritesChannels.setVisible(true);
+        if (jtbFavoritesChannels.getRowCount() != 0) {
             jtfCorrection.setEnabled(true);
-            acDelFromUser.setEnabled(true);
-            acDelAllFromUser.setEnabled(true);
-            acEdtUsrChannel.setEnabled(true);
+            acDelFromFav.setEnabled(true);
+            acDelAllFromFav.setEnabled(true);
+            acEdtFavChannel.setEnabled(true);
             acSetCorrection.setEnabled(true);
-            jtbUserChannels.setRowSelectionInterval(row, row);
+            jtbFavoritesChannels.setRowSelectionInterval(row, row);
         } else {
             jtfCorrection.setEnabled(false);
-            acDelFromUser.setEnabled(false);
-            acDelAllFromUser.setEnabled(false);
-            acEdtUsrChannel.setEnabled(false);
+            acDelFromFav.setEnabled(false);
+            acDelAllFromFav.setEnabled(false);
+            acEdtFavChannel.setEnabled(false);
             acSetCorrection.setEnabled(false);
         }
     }
 
-    private class ActionAddToUser extends AbstractAction {
-    	public ActionAddToUser() {
+    private class ActionAddToFav extends AbstractAction {
+    	
+    	public ActionAddToFav() {
     		putValue(NAME, Messages.getString("StrTitleAdd"));
             putValue(ACCELERATOR_KEY, null);
             putValue(SHORT_DESCRIPTION, Messages.getString("StrTitleAdd"));
@@ -450,14 +451,15 @@ public class ChannelsProperty extends JDialog {
                 aParams[1] = new DBParams(2, id, CommonTypes.DBType.INTEGER);
                 if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_ADD_CHANNEL, aParams) != -1) {
                     refreshTableChannels(row, jcbLang.getSelectedIndex());
-                    refreshTableUserChannels(0);
+                    refreshTableFavChannels(0);
                 }
             }  		
 		}
     }
     
-    private class ActionAddAllToUser extends AbstractAction {
-    	public ActionAddAllToUser() {
+    private class ActionAddAllToFav extends AbstractAction {
+    	
+    	public ActionAddAllToFav() {
     		putValue(NAME, Messages.getString("StrActionAddAll"));
             putValue(ACCELERATOR_KEY, null);
             putValue(SHORT_DESCRIPTION, Messages.getString("StrActionAddAll"));
@@ -473,7 +475,7 @@ public class ChannelsProperty extends JDialog {
 			int row = jtbChannels.getSelectedRow();
             if (DBUtils.getExecuteUpdate(DBUtils.SQL_ADD_ALLCHANNELS) != -1) {
                 refreshTableChannels(row, jcbLang.getSelectedIndex());
-                refreshTableUserChannels(0);
+                refreshTableFavChannels(0);
             }
 		}
     }
@@ -581,7 +583,7 @@ public class ChannelsProperty extends JDialog {
                     if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_DEL_CHANNELS, aParams) != -1) {
                         if (row != 0) {row--;}
                         refreshTableChannels(row, jcbLang.getSelectedIndex());
-                        refreshTableUserChannels(0);
+                        refreshTableFavChannels(0);
                     }
                 }
             }  	
@@ -608,7 +610,7 @@ public class ChannelsProperty extends JDialog {
 			if (JOptionPane.showConfirmDialog(parent, Messages.getString("StrConfirmDelAll"), Messages.getString("StrTitleDel"), JOptionPane.YES_NO_OPTION) == 0) {
                 if (DBUtils.getExecuteUpdate(DBUtils.SQL_DEL_ALLCHANNELS) != -1) {
                     refreshTableChannels(0, jcbLang.getSelectedIndex());
-                    refreshTableUserChannels(0);
+                    refreshTableFavChannels(0);
                 }
             } 
 		}
@@ -664,10 +666,10 @@ public class ChannelsProperty extends JDialog {
 		}
     }    
 
-    private class ActionDelFromUser extends AbstractAction {
+    private class ActionDelFromFav extends AbstractAction {
     	private Dialog parent;
     	
-    	public ActionDelFromUser(Dialog parent) {
+    	public ActionDelFromFav(Dialog parent) {
     		this.parent = parent;
     		putValue(NAME, Messages.getString("StrActionDel"));
             putValue(ACCELERATOR_KEY, null);
@@ -682,27 +684,27 @@ public class ChannelsProperty extends JDialog {
     	
     	public void onExecute() {
 			int crow = jtbChannels.getSelectedRow();
-            int row = jtbUserChannels.getSelectedRow();
-            TableModel tm = jtbUserChannels.getModel();
+            int row = jtbFavoritesChannels.getSelectedRow();
+            TableModel tm = jtbFavoritesChannels.getModel();
             if (row != -1) {
                 Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_ID));
-                if (JOptionPane.showConfirmDialog(parent, Messages.getString("StrConfirmDelUsr"), Messages.getString("StrTitleDel"), JOptionPane.YES_NO_OPTION) == 0) {
+                if (JOptionPane.showConfirmDialog(parent, Messages.getString("StrConfirmDelFav"), Messages.getString("StrTitleDel"), JOptionPane.YES_NO_OPTION) == 0) {
                     DBParams[] aParams = new DBParams[1];
                     aParams[0] = new DBParams(1, id, CommonTypes.DBType.INTEGER);
-                    if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_DEL_USERCHANNELS, aParams) != -1) {
+                    if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_DEL_FAVCHANNELS, aParams) != -1) {
                         if (row != 0) {row--;}
                         refreshTableChannels(crow, jcbLang.getSelectedIndex());
-                        refreshTableUserChannels(row);
+                        refreshTableFavChannels(row);
                     }
                 }
             } 
 		}
     }
     
-    private class ActionDelAllFromUser extends AbstractAction {
+    private class ActionDelAllFromFav extends AbstractAction {
     	private Dialog parent;
     	
-    	public ActionDelAllFromUser(Dialog parent) {
+    	public ActionDelAllFromFav(Dialog parent) {
     		this.parent = parent;
     		putValue(NAME, Messages.getString("StrActionDelAll"));
             putValue(ACCELERATOR_KEY, null);
@@ -717,24 +719,24 @@ public class ChannelsProperty extends JDialog {
     	
     	public void onExecute() {
 			int row = jtbChannels.getSelectedRow();
-            if (JOptionPane.showConfirmDialog(parent, Messages.getString("StrConfirmDelUsrAll"), Messages.getString("StrTitleDel"), JOptionPane.YES_NO_OPTION) == 0) {
-                if (DBUtils.getExecuteUpdate(DBUtils.SQL_DEL_ALLUSERCHANNELS) != -1) {
+            if (JOptionPane.showConfirmDialog(parent, Messages.getString("StrConfirmDelFavAll"), Messages.getString("StrTitleDel"), JOptionPane.YES_NO_OPTION) == 0) {
+                if (DBUtils.getExecuteUpdate(DBUtils.SQL_DEL_ALLFAVCHANNELS) != -1) {
                     refreshTableChannels(row, jcbLang.getSelectedIndex());
-                    refreshTableUserChannels(0);
+                    refreshTableFavChannels(0);
                 }
             }
 		}
     }
     
-    private class ActionEdtUsrChannel extends AbstractAction {
+    private class ActionEdtFavChannel extends AbstractAction {
     	private Dialog parent;
     	
-    	public ActionEdtUsrChannel(Dialog parent) {
+    	public ActionEdtFavChannel(Dialog parent) {
     		this.parent = parent;
     		putValue(NAME, Messages.getString("StrTitleEdt"));
             putValue(ACCELERATOR_KEY, null);
             putValue(SHORT_DESCRIPTION, Messages.getString("StrTitleEdt"));
-            putValue(SMALL_ICON, new ImageIcon(ChannelsProperty.class.getResource("/resources/usr_channel_edt.png")));		
+            putValue(SMALL_ICON, new ImageIcon(ChannelsProperty.class.getResource("/resources/fav_channel_edt.png")));		
     	}
 
     	@Override
@@ -743,23 +745,23 @@ public class ChannelsProperty extends JDialog {
     	}
     	
     	public void onExecute() {
-			int row = jtbUserChannels.getSelectedRow();
-            TableModel tm = jtbUserChannels.getModel();
+			int row = jtbFavoritesChannels.getSelectedRow();
+            TableModel tm = jtbFavoritesChannels.getModel();
             if (row != -1) {
                 Integer id = new Integer((String) tm.getValueAt(row, DBUtils.INDEX_ID));
-                EdtUsrChannel edtUsrChannel = new EdtUsrChannel(parent);
-                edtUsrChannel.setCName((String) tm.getValueAt(row, DBUtils.INDEX_UCHANNEL_NAME));
-                edtUsrChannel.setIcon((String) tm.getValueAt(row, DBUtils.INDEX_UCHANNEL_ICON_STR));
-                edtUsrChannel.setCorrection((String) tm.getValueAt(row, DBUtils.INDEX_UCHANNEL_CORRECTION));
-                edtUsrChannel.setVisible(true);
-                if (edtUsrChannel.getModalResult() != 0) {
+                EdtFavChannel edtFavChannel = new EdtFavChannel(parent);
+                edtFavChannel.setCName((String) tm.getValueAt(row, DBUtils.INDEX_FCHANNEL_NAME));
+                edtFavChannel.setIcon((String) tm.getValueAt(row, DBUtils.INDEX_FCHANNEL_ICON_STR));
+                edtFavChannel.setCorrection((String) tm.getValueAt(row, DBUtils.INDEX_FCHANNEL_CORRECTION));
+                edtFavChannel.setVisible(true);
+                if (edtFavChannel.getModalResult() != 0) {
                     DBParams[] aParams = new DBParams[4];
-                    aParams[0] = new DBParams(1, edtUsrChannel.getCName(), CommonTypes.DBType.STRING);
-                    aParams[1] = new DBParams(2, edtUsrChannel.getIcon(), CommonTypes.DBType.STRING);
-                    aParams[2] = new DBParams(3, new Integer(edtUsrChannel.getCorrection()), CommonTypes.DBType.INTEGER);
+                    aParams[0] = new DBParams(1, edtFavChannel.getCName(), CommonTypes.DBType.STRING);
+                    aParams[1] = new DBParams(2, edtFavChannel.getIcon(), CommonTypes.DBType.STRING);
+                    aParams[2] = new DBParams(3, new Integer(edtFavChannel.getCorrection()), CommonTypes.DBType.INTEGER);
                     aParams[3] = new DBParams(4, id, CommonTypes.DBType.INTEGER);
-                    if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_EDT_USERCHANNELS, aParams) != -1) {
-                        refreshTableUserChannels(row);
+                    if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_EDT_FAVCHANNELS, aParams) != -1) {
+                        refreshTableFavChannels(row);
                     }
                 }
             } 
@@ -780,12 +782,12 @@ public class ChannelsProperty extends JDialog {
     	}
     	
     	public void onExecute() {
-			int row = jtbUserChannels.getSelectedRow();
+			int row = jtbFavoritesChannels.getSelectedRow();
             Integer correction = new Integer(jtfCorrection.getText());
             DBParams[] aParams = new DBParams[1];
             aParams[0] = new DBParams(1, correction, CommonTypes.DBType.INTEGER);
-            if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_SET_CORRECTIONUSERCHANNELS, aParams) != -1) {
-                refreshTableUserChannels(row);	
+            if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_SET_CORRECTIONFAVCHANNELS, aParams) != -1) {
+                refreshTableFavChannels(row);	
             }
 		}
     }

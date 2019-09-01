@@ -4,11 +4,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import java.util.Date;
 
-import common.CategoryProgramme;
+import common.ScheduleCategory;
 import common.CommonTypes;
 import common.UtilStrings;
 
-public class Programme {
+public class Schedule {
     public static final String SEP_LIST = ",";
 
     private int index;
@@ -28,7 +28,7 @@ public class Programme {
     private String type;
     private int catalog;
 
-    public Programme(int index, Date start, Date stop, String title) {
+    public Schedule(int index, Date start, Date stop, String title) {
         this.index = index;
         this.start = start;
         this.stop = stop;
@@ -167,19 +167,19 @@ public class Programme {
 		this.catalog = catalog;
 	}
 
-	public void copyFullDesc(Programme programme) {
-        if (programme != null) {
-            this.description = programme.getDescription();
-            this.category = programme.getCategory();
-            this.genres = programme.getGenres();
-            this.directors = programme.getDirectors();
-            this.actors = programme.getActors();
-            this.country = programme.getCountry();
-            this.image = programme.getImage();
-            this.year = programme.getYear();
-            this.rating = programme.getRating();
-            this.type = programme.getType();
-            this.catalog = programme.getCatalog();
+	public void copyFullDesc(Schedule schedule) {
+        if (schedule != null) {
+            this.description = schedule.getDescription();
+            this.category = schedule.getCategory();
+            this.genres = schedule.getGenres();
+            this.directors = schedule.getDirectors();
+            this.actors = schedule.getActors();
+            this.country = schedule.getCountry();
+            this.image = schedule.getImage();
+            this.year = schedule.getYear();
+            this.rating = schedule.getRating();
+            this.type = schedule.getType();
+            this.catalog = schedule.getCatalog();
         }
     }
 
@@ -240,8 +240,8 @@ public class Programme {
             eprogramme.appendChild(edate);
         }
         if (getCategory() != 0) {
-        	CategoryProgramme category_res = null;
-        	for (CategoryProgramme category : CommonTypes.catList.getData()) {
+        	ScheduleCategory category_res = null;
+        	for (ScheduleCategory category : CommonTypes.catList.getData()) {
         		if (category.getId() != 0 && category.getId() == getCategory()) {
         			category_res = category;
         			break;

@@ -16,13 +16,13 @@ import common.ProgressMonitor;
 import common.DBUtils;
 import common.UtilStrings;
 
-public class ChannelList implements Runnable{
+public class ChannelsList implements Runnable{
     private Boolean indexSort;
     private List<Channel> data;
     private Boolean isUpdChannels = true;
     private ProgressMonitor pMonitor;
 
-    public ChannelList(Boolean indexSort) {
+    public ChannelsList(Boolean indexSort) {
         this.indexSort = indexSort;
         this.data = new ArrayList<>();
         this.pMonitor = new ProgressMonitor(0, true);

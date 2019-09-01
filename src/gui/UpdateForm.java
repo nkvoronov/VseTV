@@ -7,11 +7,11 @@ import java.awt.event.*;
 import java.util.Objects;
 
 import common.CommonTypes;
-import parser.ChannelList;
+import parser.ChannelsList;
 
 @SuppressWarnings("serial")
 public class UpdateForm extends JDialog implements ActionListener, ChangeListener {
-    private ChannelList channels;
+    private ChannelsList channels;
     private int modalResult = 0;
     private DefaultListModel<String> listModel;
     private JList<String> jltLog;
@@ -29,7 +29,7 @@ public class UpdateForm extends JDialog implements ActionListener, ChangeListene
         
         initGUI();
         
-        channels = new ChannelList(CommonTypes.INDEX_SORT);
+        channels = new ChannelsList(CommonTypes.INDEX_SORT);
         channels.setIsUpdChannels(isUpdChannels);
         channels.getMonitor().addChangeListener(this);
         

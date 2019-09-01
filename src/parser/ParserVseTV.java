@@ -16,15 +16,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import common.CategoryProgramme;
+import common.ScheduleCategory;
 import common.CommonTypes;
 import common.ProgressMonitor;
 import common.UtilStrings;
 import gui.Messages;
 
 public class ParserVseTV implements Runnable {
-    private ChannelList channels;
-    private ProgrammeList programmes;
+    private ChannelsList channels;
+    private SchedulesList schedules;
     private int countDay;
     private Boolean fullDesc;
     private String outXML;
@@ -34,17 +34,17 @@ public class ParserVseTV implements Runnable {
         this.outXML = outXML;
         this.countDay = countDay;
         this.fullDesc = fullDesc;
-        this.channels = new ChannelList(true);
-        this.programmes = new ProgrammeList();
+        this.channels = new ChannelsList(true);
+        this.schedules = new SchedulesList();
         this.pMonitor = new ProgressMonitor(0,false);
     }
 
-    public ChannelList getChannels() {
+    public ChannelsList getChannels() {
         return channels;
     }
 
-    public ProgrammeList getProgrammes() {
-        return programmes;
+    public SchedulesList getSchedules() {
+        return schedules;
     }
 
     public int getCountDay() {
@@ -81,7 +81,7 @@ public class ParserVseTV implements Runnable {
             rootElement.setAttribute("generator-info-name", "vsetv");
             document.appendChild(rootElement);
             getChannels().getXML(document, rootElement);
-            getProgrammes().getXML(document, rootElement);
+            getSchedules().getXML(document, rootElement);
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.setOutputProperty(OutputKeys.METHOD, "xml");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -106,7 +106,7 @@ public class ParserVseTV implements Runnable {
             int count = this.countDay * getChannels().getData().size();
             pMonitor.setTotal(count);
         }
-        this.programmes.getData().clear();
+        getSchedules().getData().clear();
         for (Channel channel : getChannels().getData()) {
             cur.setTime(dt);
             while (!cur.getTime().equals(last.getTime())) {
@@ -181,11 +181,11 @@ public class ParserVseTV implements Runnable {
                 e.printStackTrace();
                 System.out.println(e.getMessage());
             }
-            Programme programme = new Programme(channel.getIndex(), startDate, endDate, string_title);            
-            programme.setCorrectionTime(channel.getCorrection());
-            setCategory(programme);
-            setDescription(programme, string_description, string_description_head, string_full_description_url);
-            getProgrammes().add(programme);
+            Schedule schedule = new Schedule(channel.getIndex(), startDate, endDate, string_title);            
+            schedule.setCorrectionTime(channel.getCorrection());
+            setCategory(schedule);
+            setDescription(schedule, string_description, string_description_head, string_full_description_url);
+            getSchedules().add(schedule);
         }
 
     }
@@ -199,12 +199,12 @@ public class ParserVseTV implements Runnable {
         return res;
     }
 
-    private void setCategory(Programme programme) {
+    private void setCategory(Schedule schedule) {
         try {
-            String ctitle = new String(programme.getTitle().getBytes(), "UTF-8").toLowerCase(); 
-        	for (CategoryProgramme category : CommonTypes.catList.getData()) {
+            String ctitle = new String(schedule.getTitle().getBytes(), "UTF-8").toLowerCase(); 
+        	for (ScheduleCategory category : CommonTypes.catList.getData()) {
         		if (category.getId() != 0 && titleContainsDictWorlds(ctitle, category.getDictionary())) {
-        			programme.setCategory(category.getId());
+        			schedule.setCategory(category.getId());
         			break;
         		}
         	}
@@ -214,35 +214,37 @@ public class ParserVseTV implements Runnable {
         }
     }
 
-    private void setDescription(Programme programme, String description, String head_description, String url_description) {
+    private void setDescription(Schedule schedule, String description, String head_description, String url_description) {
     	
         if (description.length() > 0 && !description.equals("") && !CommonTypes.FULL_DESC) {
             if (head_description.length() > 0 && !head_description.equals("")) {
                 String[] list = head_description.split(",");
-                programme.setCountry(list[0].trim());
-                programme.setYear(list[1].trim());
-                programme.setGenres(list[2].trim().replace(" / ", ", "));
+                schedule.setCountry(list[0].trim());
+                schedule.setYear(list[1].trim());
+                schedule.setGenres(list[2].trim().replace(" / ", ", "));
             }
 
-            programme.setDescription(description.replaceFirst("<br>", ""));
+            String[] list_desc = description.replaceFirst("<br>", "").split(" <br> <br>");
+            schedule.setActors(list_desc[0]);
+            schedule.setDescription(list_desc[1]);
         }        
         if (url_description.length() > 0 && !url_description.equals("")) {
             //Parse url
         	//String link = UtilStrings.HOST + url_description;
             String[] list_url = url_description.replace(".html", "").split("_");
             String type = list_url[0].trim();
-            programme.setType(type);
+            schedule.setType(type);
             String catalog = list_url[1].trim();
-            programme.setCatalog(Integer.parseInt(catalog));
-            if (programme.getCategory() == 0) {
+            schedule.setCatalog(Integer.parseInt(catalog));
+            if (schedule.getCategory() == 0) {
                 if (type.equals("film")) {
-                	programme.setCategory(1);
+                	schedule.setCategory(1);
                 }
                 if (type.equals("series")) {
-                	programme.setCategory(2);
+                	schedule.setCategory(2);
                 }
                 if (type.equals("show")) {
-                	programme.setCategory(7);
+                	schedule.setCategory(7);
                 }
             }
             if (CommonTypes.FULL_DESC) {
@@ -253,15 +255,16 @@ public class ParserVseTV implements Runnable {
 
     public void runParser() {
         getChannels().loadFromDB();
-        getContent(false);
-        getProgrammes().setProgrammeStop();
-        try {
-        	saveXML();
-        } catch (TransformerConfigurationException e) {
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-		}
-        		
+        if (getChannels().size() > 0) {
+	        getContent(false);
+	        getSchedules().setScheduleStop();
+	        try {
+	        	saveXML();
+	        } catch (TransformerConfigurationException e) {
+				e.printStackTrace();
+				System.out.println(e.getMessage());
+			}
+        }        		
     }
 
     public void runParserGUI() throws InterruptedException {
@@ -269,17 +272,22 @@ public class ParserVseTV implements Runnable {
         pMonitor.setIndeterminate(true);
         pMonitor.setCurrent(Messages.getString("StrLoadChanels"), 0);
         getChannels().loadFromDB();
-        getProgrammes().clearDBSchedule();
-        Thread.sleep(100);
-        pMonitor.setIndeterminate(false);
-        getContent(true);
-        pMonitor.setIndeterminate(true);
-        pMonitor.setCurrent(Messages.getString("StrProcessShelude"), 0);
-        getProgrammes().setProgrammeStop();
-        Thread.sleep(100);
-        pMonitor.setIndeterminate(false);
-        getProgrammes().saveToDB(pMonitor);
-        pMonitor.setCurrent("", -2);
+        if (getChannels().size() > 0) {
+	        getSchedules().clearDBSchedule();
+	        Thread.sleep(100);
+	        pMonitor.setIndeterminate(false);
+	        getContent(true);
+	        pMonitor.setIndeterminate(true);
+	        pMonitor.setCurrent(Messages.getString("StrProcessShelude"), 0);
+	        getSchedules().setScheduleStop();
+	        Thread.sleep(100);
+	        pMonitor.setIndeterminate(false);
+	        getSchedules().saveToDB(pMonitor);
+	        pMonitor.setCurrent("", -2);
+        } else {
+	        pMonitor.setIndeterminate(false);
+        	pMonitor.setCurrent("", -2);
+        }
     }
 
     @Override

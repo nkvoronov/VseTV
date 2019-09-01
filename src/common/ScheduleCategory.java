@@ -1,6 +1,6 @@
 package common;
 
-public class CategoryProgramme {
+public class ScheduleCategory {
     private int id;
     private String nameEN;
     private String nameRU;
@@ -47,7 +47,7 @@ public class CategoryProgramme {
         this.color = color;
     }
 
-    public CategoryProgramme(int id, String nameEN, String nameRU, String dictionary, String color) {
+    public ScheduleCategory(int id, String nameEN, String nameRU, String dictionary, String color) {
         this.id = id;
         this.nameEN = nameEN;
         this.nameRU = nameRU;

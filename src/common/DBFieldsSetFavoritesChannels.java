@@ -2,9 +2,9 @@ package common;
 
 import gui.Messages;
 
-public class DBFieldsSetUserChannels extends DBFieldsSet {
+public class DBFieldsSetFavoritesChannels extends DBFieldsSet {
 
-    public DBFieldsSetUserChannels() {
+    public DBFieldsSetFavoritesChannels() {
         super();
         DBField fld = new DBField("uiconstr", "", 0);
         this.getFieldSet().add(fld);

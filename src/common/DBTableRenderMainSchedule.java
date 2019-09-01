@@ -8,7 +8,7 @@ public class DBTableRenderMainSchedule extends DBTableRender {
 
     private void setColorCategory(JLabel cellComponent, JTable table, int row, int column) {
     	String isOld;
-        for (CategoryProgramme cp : CommonTypes.catList.getData()) {
+        for (ScheduleCategory cp : CommonTypes.catList.getData()) {
             if (cp.getId() != 0) {
             	isOld = (String) table.getModel().getValueAt(row, DBUtils.INDEX_ASCHELUDE_TIMETYPE);
                 if (cp.getNameRU().equals(table.getModel().getValueAt(row, DBUtils.INDEX_ASCHELUDE_CAT_RU))&&(column == DBUtils.INDEX_ASCHELUDE_TITLE)&&(!isOld.equals("OLD"))) {

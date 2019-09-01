@@ -7,7 +7,7 @@ import java.awt.*;
 public class DBTableRenderOtherSchedule extends DBTableRender {
 	
     private void setColorCategory(JLabel cellComponent, JTable table, int row, int column) {
-        for (CategoryProgramme cp : CommonTypes.catList.getData()) {
+        for (ScheduleCategory cp : CommonTypes.catList.getData()) {
             if (cp.getId() != 0) {
                 if (cp.getNameRU().equals(table.getModel().getValueAt(row, DBUtils.INDEX_NSCHELUDE_CAT_RU))&&(column == DBUtils.INDEX_NSCHELUDE_TITLE)) {
                     cellComponent.setForeground(Color.decode("0x"+cp.getColor()));

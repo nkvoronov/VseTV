@@ -5,13 +5,13 @@ import java.awt.*;
 import java.awt.event.*;
 
 @SuppressWarnings("serial")
-public class EdtUsrChannel extends JDialog implements ActionListener {
+public class EdtFavChannel extends JDialog implements ActionListener {
     private int modalResult = 0;
     private JTextField jtfName;
     private JTextField jtfIcon;
     private JTextField jtfCorrection;
 
-    public EdtUsrChannel(Dialog owner) {
+    public EdtFavChannel(Dialog owner) {
         super(owner);
         initGUI();
     }
@@ -27,7 +27,7 @@ public class EdtUsrChannel extends JDialog implements ActionListener {
         JLabel jlbName = new JLabel();
         jlbName.setHorizontalAlignment(SwingConstants.RIGHT);
         jlbName.setLabelFor(jtfName);
-        jlbName.setText(Messages.getString("StrlbName"));
+        jlbName.setText(Messages.getString("StrLbName")); //$NON-NLS-1$
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -50,7 +50,7 @@ public class EdtUsrChannel extends JDialog implements ActionListener {
         JLabel jlbCorrection = new JLabel();
         jlbCorrection.setHorizontalAlignment(SwingConstants.RIGHT);
         jlbCorrection.setLabelFor(jtfCorrection);
-        jlbCorrection.setText(Messages.getString("StrlbCorrection"));
+        jlbCorrection.setText(Messages.getString("StrLbCorrection"));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -75,7 +75,7 @@ public class EdtUsrChannel extends JDialog implements ActionListener {
         JLabel jlbIcon = new JLabel();
         jlbIcon.setHorizontalAlignment(SwingConstants.RIGHT);
         jlbIcon.setLabelFor(jtfIcon);
-        jlbIcon.setText(Messages.getString("StrlbIcon"));
+        jlbIcon.setText(Messages.getString("StrLbIcon"));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
