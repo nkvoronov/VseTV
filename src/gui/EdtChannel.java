@@ -106,13 +106,13 @@ public class EdtChannel extends JDialog implements ActionListener {
         jcbLang = new JComboBox<String>();
         jcbLang.setModel(new DefaultComboBoxModel<String>(new String[] {"rus", "ukr"}));
         jcbLang.setSelectedIndex(0);
-        GridBagConstraints gbc_jcbLang = new GridBagConstraints();
-        gbc_jcbLang.insets = new Insets(0, 0, 0, 4);
-        gbc_jcbLang.fill = GridBagConstraints.HORIZONTAL;
-        gbc_jcbLang.gridwidth = 6;
-        gbc_jcbLang.gridx = 1;
-        gbc_jcbLang.gridy = 3;
-        jpnClient.add(jcbLang, gbc_jcbLang);
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.insets = new Insets(0, 0, 0, 4);
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        jpnClient.add(jcbLang, gridBagConstraints);
 
         JPanel jpnButtons = new JPanel();
         jpnButtons.setLayout(new FlowLayout(FlowLayout.RIGHT, 4, 4));
