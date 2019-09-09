@@ -3,17 +3,22 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import common.AppConfig;
 import common.CommonTypes;
 
 
 @SuppressWarnings("serial")
 public class MainProperty extends JDialog implements ActionListener {
     private int modalResult = 0;
+    private int countDay;
+    private boolean useFullDesc;
     private JComboBox<String> jcbxCountDay;
     private JCheckBox jcbxUseFullDescription;
 
     public MainProperty(Frame owner) {
         super(owner);
+        countDay = CommonTypes.appConfig.getCoutDays();
+        useFullDesc = CommonTypes.appConfig.isFullDesc();
         initGUI();       
     }
     
@@ -44,7 +49,7 @@ public class MainProperty extends JDialog implements ActionListener {
                 
         jcbxCountDay = new JComboBox<>();
         jcbxCountDay.setModel(new DefaultComboBoxModel<String>(new String[] {"1", "2", "3", "4", "5", "6", "7"}));
-        jcbxCountDay.setSelectedIndex(CommonTypes.appConfig.getCoutDays()-1);
+        jcbxCountDay.setSelectedIndex(countDay - 1);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
@@ -55,7 +60,7 @@ public class MainProperty extends JDialog implements ActionListener {
         jcbxCountDay.addActionListener(new ActionListener () {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				CommonTypes.appConfig.setCoutDays(jcbxCountDay.getSelectedIndex() + 1);	
+				countDay = jcbxCountDay.getSelectedIndex() + 1;
 			}
 		});        
         jpnMain.add(jcbxCountDay, gridBagConstraints);
@@ -63,7 +68,7 @@ public class MainProperty extends JDialog implements ActionListener {
         jcbxUseFullDescription = new JCheckBox();
         jcbxUseFullDescription.setHorizontalAlignment(SwingConstants.LEFT);
         jcbxUseFullDescription.setText(Messages.getString("StrLbUseFullDescription"));
-        jcbxUseFullDescription.setSelected(CommonTypes.appConfig.isFullDesc());
+        jcbxUseFullDescription.setSelected(useFullDesc);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -75,7 +80,7 @@ public class MainProperty extends JDialog implements ActionListener {
         jcbxUseFullDescription.addActionListener(new ActionListener () {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				CommonTypes.appConfig.setFullDesc(jcbxUseFullDescription.isSelected());
+				useFullDesc = jcbxUseFullDescription.isSelected();
 			}        	
         });
         jpnMain.add(jcbxUseFullDescription, gridBagConstraints);
@@ -147,16 +152,18 @@ public class MainProperty extends JDialog implements ActionListener {
     }
 
     private void onOK() {
+    	CommonTypes.appConfig.setCoutDays(countDay);
+    	CommonTypes.appConfig.setFullDesc(useFullDesc);
         modalResult = 1;
         setVisible(false);
         dispose();
     }
 
     private void onDefault() {
-    	jcbxCountDay.setSelectedIndex(6);
-    	jcbxUseFullDescription.setSelected(false);
-    	CommonTypes.appConfig.setCoutDays(7);
-    	CommonTypes.appConfig.setFullDesc(false);
+    	countDay = AppConfig.COUNT_DAY;
+    	useFullDesc = AppConfig.FULL_DESC;
+    	jcbxCountDay.setSelectedIndex(countDay - 1);
+    	jcbxUseFullDescription.setSelected(useFullDesc);
     }
 
 }

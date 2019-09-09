@@ -11,9 +11,7 @@ import java.util.Date;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-public class CommonTypes {        
-    public static int COUNT_DAY = 3;
-    public static boolean FULL_DESC = false;
+public class CommonTypes {
     public static String OUT_XML = "vsetv.xml";
     public static boolean INDEX_SORT = true;
     

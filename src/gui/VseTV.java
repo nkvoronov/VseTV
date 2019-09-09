@@ -63,7 +63,7 @@ public class VseTV  extends JFrame implements ChangeListener {
 	}
 
     public VseTV() {
-        parser = new ParserVseTV(CommonTypes.ICON_FOLDER, CommonTypes.COUNT_DAY, CommonTypes.FULL_DESC);
+        parser = new ParserVseTV(CommonTypes.ICON_FOLDER, CommonTypes.appConfig.getCoutDays(), CommonTypes.appConfig.isFullDesc());
         parser.getMonitor().addChangeListener(this);
         
         initActions();

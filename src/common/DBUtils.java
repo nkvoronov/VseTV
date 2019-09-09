@@ -66,7 +66,13 @@ public class DBUtils {
 	public static final String CLASS_NAME = "org.sqlite.JDBC";
     public static final String URL_PRE = "jdbc:sqlite:";
     public static final String DB_DEST = "vsetv.db";
-
+    
+    public static final String SQL_CONFIG = "select id, count_days, full_desc from configs";
+    public static final String SQL_UPD_CONFIG =
+            "update configs " +
+            "set count_days=?, full_desc=? " +
+            "where id=?";
+    
     public static final String SQL_CATEGORY = "select * from categorys";
     public static final String SQL_CATEGORY_ID = "select id from categorys where name_en=? and name_ru=?";
     public static final String SQL_CATEGORY_INSERT = "insert into categorys (name_en,name_ru) values(?,?)";

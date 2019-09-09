@@ -26,11 +26,11 @@ public class ParserVseTV implements Runnable {
     private ChannelsList channels;
     private SchedulesList schedules;
     private int countDay;
-    private Boolean fullDesc;
+    private boolean fullDesc;
     private String outXML;
     private ProgressMonitor pMonitor;
 
-    public ParserVseTV(String outXML, int countDay, Boolean fullDesc) {
+    public ParserVseTV(String outXML, int countDay, boolean fullDesc) {
         this.outXML = outXML;
         this.countDay = countDay;
         this.fullDesc = fullDesc;
@@ -168,7 +168,7 @@ public class ParserVseTV implements Runnable {
             try {
             	if (element_description != null) {
             		Elements elements_description = element_description.select(UtilStrings.STR_ELMDOCDESC);
-	                if (elements_description != null && !CommonTypes.FULL_DESC) {
+	                if (elements_description != null && !CommonTypes.appConfig.isFullDesc()) {
 	                	string_description = elements_description.html();
                         string_description_head = elements_description.select("b").text();
                         string_description = Jsoup.parse(string_description.replaceAll("<br>", ";")
@@ -216,7 +216,7 @@ public class ParserVseTV implements Runnable {
 
     private void setDescription(Schedule schedule, String description, String head_description, String url_description) {
     	
-        if (description.length() > 0 && !description.equals("") && !CommonTypes.FULL_DESC) {
+        if (description.length() > 0 && !description.equals("") && !CommonTypes.appConfig.isFullDesc()) {
             if (head_description.length() > 0 && !head_description.equals("")) {
                 String[] list = head_description.split(",");
                 schedule.setCountry(list[0].trim());
@@ -247,7 +247,7 @@ public class ParserVseTV implements Runnable {
                 	schedule.setCategory(7);
                 }
             }
-            if (CommonTypes.FULL_DESC) {
+            if (CommonTypes.appConfig.isFullDesc()) {
                 //
             }
         }
