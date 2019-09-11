@@ -121,7 +121,7 @@ public class DBTableModel extends AbstractTableModel {
     public Object getIconObject(Object obj) {
         String iconPatch = (String) obj;
         if (iconPatch.indexOf(CommonTypes.TYPE_SOURCE_IMAGE_FILE) != -1) {
-        	iconPatch = CommonTypes.getIconsPatch() + iconPatch.substring(iconPatch.lastIndexOf(File.separator) + 1);
+        	iconPatch = CommonTypes.getIconsPath() + iconPatch.substring(iconPatch.lastIndexOf(File.separator) + 1);
             File file = new File(iconPatch);
             if (file.exists()) {
                 ImageIcon icon = new ImageIcon(iconPatch);
@@ -129,7 +129,7 @@ public class DBTableModel extends AbstractTableModel {
             } else return null;
         }
         if (iconPatch.indexOf(CommonTypes.TYPE_SOURCE_IMAGE_WEB) != -1) {
-        	iconPatch = CommonTypes.getIconsPatch() + iconPatch.substring(iconPatch.lastIndexOf('/') + 1);
+        	iconPatch = CommonTypes.getIconsPath() + iconPatch.substring(iconPatch.lastIndexOf('/') + 1);
             File file = new File(iconPatch);
             if (file.exists()) {
                 ImageIcon icon = new ImageIcon(iconPatch);

@@ -197,12 +197,11 @@ public class DBUtils {
     
     public static final String SQL_SCHEDULE_DESCRIPTION_INSERT = "insert into schedule_description (schedule_id, description_id) values (?,?)";
     
-    public static final String SQL_DESCRIPTION_ID_ALT = "select id from description where description=?";
     public static final String SQL_DESCRIPTION_ID = "select id from description where (type=?) and (catalog=?)";
     public static final String SQL_DESCRIPTION_INSERT =
             "insert into description " +
-            "(description, image, genres, directors, actors, country, year, rating, type, catalog) " +
-            "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            "(title, description, image, genres, directors, actors, country, year, rating, type, catalog) " +
+            "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     public static final String SQL_FINDINCHANNELS_INDEX = "select * from channels where channel=?";
 
@@ -220,12 +219,12 @@ public class DBUtils {
 
     public static final String SQL_ADD_CHANNEL =
             "insert into favorites_channels (channel_index, name, icon) " +
-            "select channel, name, '" + CommonTypes.getIconsPatch() + "' || channel || '.gif' as sicon from channels " +
+            "select channel, name, '" + CommonTypes.getIconsPath() + "' || channel || '.gif' as sicon from channels " +
             "where channel=? and (select fav.id from favorites_channels fav where fav.channel_index=?) is null";
 
     public static final String SQL_ADD_ALLCHANNELS =
             "insert into favorites_channels (channel_index, name, icon) " +
-            "select channel, name, '" + CommonTypes.getIconsPatch() + "' || channel || '.gif' as sicon from channels " +
+            "select channel, name, '" + CommonTypes.getIconsPath() + "' || channel || '.gif' as sicon from channels " +
             "where channel not in (select fav.channel_index from favorites_channels fav)";
 
     public static final String SQL_INS_CHANNEL =

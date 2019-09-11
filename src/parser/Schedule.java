@@ -16,6 +16,7 @@ public class Schedule {
     private Date stop;
     private String correctionTime;
     private String title;
+    private String org_title;
     private String description;
     private int category;
     private String genres;
@@ -34,6 +35,7 @@ public class Schedule {
         this.stop = stop;
         this.correctionTime = null;
         this.title = title;
+        this.org_title = null;
         this.description = null;
         this.category = 0;
         this.genres = null;
@@ -165,10 +167,19 @@ public class Schedule {
 
 	public void setCatalog(int catalog) {
 		this.catalog = catalog;
+	}	
+
+	public String getTitle_org() {
+		return org_title;
+	}
+
+	public void setTitle_org(String org_title) {
+		this.org_title = org_title;
 	}
 
 	public void copyFullDesc(Schedule schedule) {
         if (schedule != null) {
+        	this.org_title = schedule.getTitle_org();
             this.description = schedule.getDescription();
             this.category = schedule.getCategory();
             this.genres = schedule.getGenres();
@@ -198,7 +209,7 @@ public class Schedule {
         }
         return res;
     }
-
+    
     public void getXML(Document document, Element element){
         Element eprogramme = document.createElement("programme");
         eprogramme.setAttribute("start", getDateToFormat(this.getStart()));

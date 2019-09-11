@@ -229,17 +229,17 @@ public class ChannelsList implements Runnable{
     public void saveChannelIcon(Channel channel, int index) {
         String logMsg;
         String cicon = channel.getIcon();
-        String fileName = CommonTypes.getIconsPatch() + Integer.toString(channel.getIndex()) + ".gif";
+        String fileName = CommonTypes.getIconsPath() + String.format(UtilStrings.STR_ICON_NAME, channel.getIndex());
         try {
-            BufferedImage img = ImageIO.read(new URL(cicon));
-            File file = new File(fileName);
-            if (!file.exists()) {
-                file.createNewFile();
-                logMsg = "Добавление иконки - " + channel.getIndex() + ".gif";
-            } else {
-                logMsg = "Обновление иконки - " + channel.getIndex() + ".gif";
-            }
-            ImageIO.write(img, "gif", file);
+        	File file = new File(fileName);
+        	if (!file.exists()) {
+        		file.createNewFile();
+        		BufferedImage img = ImageIO.read(new URL(cicon));
+        		ImageIO.write(img, "gif", file);
+        		logMsg = "Добавление иконки - " + String.format(UtilStrings.STR_ICON_NAME, channel.getIndex());
+        	} else {
+        		logMsg = "Обновление иконки - " + String.format(UtilStrings.STR_ICON_NAME, channel.getIndex());
+        	}            
         } catch (FileNotFoundException e) {
             logMsg = "Ошибка записи - " + channel.getIcon();
         } catch (IOException e) {

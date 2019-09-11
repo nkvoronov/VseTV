@@ -20,7 +20,6 @@ public class AppConfig {
     private void initConfig() {
         this.coutDays = COUNT_DAY;
         this.fullDesc = FULL_DESC;
-        int id;
         Connection connection = DBUtils.getConnection(DBUtils.DB_DEST);
         if (connection != null) {
             try {
@@ -28,10 +27,10 @@ public class AppConfig {
                 ResultSet rs = pstmt.executeQuery();
                 try {
                 	while (rs.next()) {
-                		id = rs.getInt(1);
-	            		this.coutDays = rs.getInt(2);
-	            		this.fullDesc = rs.getInt(3) == 1; 
-	            		if (id == DEF_ID) {
+                		int id = rs.getInt(1);
+                		if (id == DEF_ID) {
+                			this.coutDays = rs.getInt(2);
+                			this.fullDesc = rs.getInt(3) == 1; 	            		
 	            			break;
 	            		}
                 	}

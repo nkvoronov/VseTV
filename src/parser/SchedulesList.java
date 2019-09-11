@@ -1,7 +1,13 @@
 package parser;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
 import common.CommonTypes;
 import common.DBParams;
 import common.DBUtils;
@@ -66,49 +72,54 @@ public class SchedulesList {
         if (schedule.getDescription() != null) {
             descriptionID = getDescriptionID(schedule);
             if (descriptionID == -1) {
-                DBParams[] aParams = new DBParams[10];
-                aParams[0] = new DBParams(1, schedule.getDescription(), CommonTypes.DBType.STRING);
-                if (schedule.getImage() != null) {
-                    aParams[1] = new DBParams(2, schedule.getImage(), CommonTypes.DBType.STRING);
+                DBParams[] aParams = new DBParams[11];
+                if (schedule.getTitle_org() != null) {
+                    aParams[0] = new DBParams(1, schedule.getTitle_org(), CommonTypes.DBType.STRING);
                 } else {
-                    aParams[1] = new DBParams(2, "", CommonTypes.DBType.STRING);
-                }
-                if (schedule.getGenres() != null) {
-                    aParams[2] = new DBParams(3, schedule.getGenres(), CommonTypes.DBType.STRING);
+                    aParams[0] = new DBParams(1, "", CommonTypes.DBType.STRING);
+                }                
+                aParams[1] = new DBParams(2, schedule.getDescription(), CommonTypes.DBType.STRING);
+                if (schedule.getImage() != null) {
+                    aParams[2] = new DBParams(3, schedule.getImage(), CommonTypes.DBType.STRING);
                 } else {
                     aParams[2] = new DBParams(3, "", CommonTypes.DBType.STRING);
                 }
-                if (schedule.getDirectors() != null) {
-                    aParams[3] = new DBParams(4, schedule.getDirectors(), CommonTypes.DBType.STRING);
+                if (schedule.getGenres() != null) {
+                    aParams[3] = new DBParams(4, schedule.getGenres(), CommonTypes.DBType.STRING);
                 } else {
                     aParams[3] = new DBParams(4, "", CommonTypes.DBType.STRING);
-                }  
-                if (schedule.getActors() != null) {
-                    aParams[4] = new DBParams(5, schedule.getActors(), CommonTypes.DBType.STRING);
+                }
+                if (schedule.getDirectors() != null) {
+                    aParams[4] = new DBParams(5, schedule.getDirectors(), CommonTypes.DBType.STRING);
                 } else {
                     aParams[4] = new DBParams(5, "", CommonTypes.DBType.STRING);
-                }                 
-                if (schedule.getCountry() != null) {
-                    aParams[5] = new DBParams(6, schedule.getCountry(), CommonTypes.DBType.STRING);
+                }  
+                if (schedule.getActors() != null) {
+                    aParams[5] = new DBParams(6, schedule.getActors(), CommonTypes.DBType.STRING);
                 } else {
                     aParams[5] = new DBParams(6, "", CommonTypes.DBType.STRING);
-                }
-                if (schedule.getYear() != null) {
-                    aParams[6] = new DBParams(7, schedule.getYear(), CommonTypes.DBType.STRING);
+                }                 
+                if (schedule.getCountry() != null) {
+                    aParams[6] = new DBParams(7, schedule.getCountry(), CommonTypes.DBType.STRING);
                 } else {
                     aParams[6] = new DBParams(7, "", CommonTypes.DBType.STRING);
                 }
-                if (schedule.getRating() != null) {
-                    aParams[7] = new DBParams(8, schedule.getRating(), CommonTypes.DBType.STRING);
+                if (schedule.getYear() != null) {
+                    aParams[7] = new DBParams(8, schedule.getYear(), CommonTypes.DBType.STRING);
                 } else {
                     aParams[7] = new DBParams(8, "", CommonTypes.DBType.STRING);
                 }
-                if (schedule.getType() != null) {
-                    aParams[8] = new DBParams(9, schedule.getType(), CommonTypes.DBType.STRING);
+                if (schedule.getRating() != null) {
+                    aParams[8] = new DBParams(9, schedule.getRating(), CommonTypes.DBType.STRING);
                 } else {
                     aParams[8] = new DBParams(9, "", CommonTypes.DBType.STRING);
+                }
+                if (schedule.getType() != null) {
+                    aParams[9] = new DBParams(10, schedule.getType(), CommonTypes.DBType.STRING);
+                } else {
+                    aParams[9] = new DBParams(10, "", CommonTypes.DBType.STRING);
                 }               
-                aParams[9] = new DBParams(10, schedule.getCatalog(), CommonTypes.DBType.INTEGER);
+                aParams[10] = new DBParams(11, schedule.getCatalog(), CommonTypes.DBType.INTEGER);
                 DBUtils.getExecutePreparedUpdate(DBUtils.SQL_DESCRIPTION_INSERT, aParams);
                 descriptionID = getDescriptionID(schedule);
             }
@@ -148,13 +159,13 @@ public class SchedulesList {
 
     public Schedule getScheduleForType(String type, int catalog) {
         for (Schedule schedule : getData()) {
-            if (schedule.getType().equals(type) && schedule.getCatalog() == catalog) {
-                return schedule;
+            if (schedule.getType() != null && schedule.getType().equals(type) && schedule.getCatalog() != 0 && schedule.getCatalog() == catalog) {
+            	return schedule;
             }
         }
         return null;
     }
-
+    
     public void print() {
         for (Schedule schedule : getData()) {
         	schedule.print();
@@ -164,6 +175,26 @@ public class SchedulesList {
     public void getXML(org.w3c.dom.Document document, org.w3c.dom.Element element) {
         for (Schedule schedule : getData()) {
         	schedule.getXML(document, element);
+        }
+    }
+    
+    public void saveScheduleImage(Schedule schedule) {
+        String cimage = schedule.getImage();
+        String fileName = CommonTypes.getImagesPath() + String.format(UtilStrings.STR_IMAGE_NAME, schedule.getType(), schedule.getCatalog());
+        try {
+        	File file = new File(fileName);
+        	if (!file.exists()) {
+        		file.createNewFile();
+        		BufferedImage img = ImageIO.read(new URL(cimage));
+        		ImageIO.write(img, "jpg", file);                
+            }
+            
+        } catch (FileNotFoundException e) {
+        	e.printStackTrace();
+        	System.out.println(e.getMessage());
+        } catch (IOException e) {
+        	e.printStackTrace();
+        	System.out.println(e.getMessage());
         }
     }
 }

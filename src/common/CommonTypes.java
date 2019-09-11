@@ -12,10 +12,10 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 public class CommonTypes {
-    public static String OUT_XML = "vsetv.xml";
-    public static boolean INDEX_SORT = true;
-    
+	public static final String OUT_XML = "vsetv.xml";
+	public static final boolean INDEX_SORT = true;    
     public static final String ICON_FOLDER = "icons";
+    public static final String IMAGES_FOLDER = "images";
     public static final String TYPE_SOURCE_IMAGE_WEB = "http:";
     public static final String TYPE_SOURCE_IMAGE_FILE = "file:";
     public static final String TYPE_SOURCE_IMAGE_RES = "res:";    
@@ -27,11 +27,15 @@ public class CommonTypes {
     public static final ScheduleCategorysList catList = new ScheduleCategorysList();
     public static final AppConfig appConfig = new AppConfig();
 
-    public static String getIconsPatch() {
-        return getCurrentPatch() + File.separator + ICON_FOLDER + File.separator;
+    public static String getIconsPath() {
+        return getCurrentPath() + File.separator + ICON_FOLDER + File.separator;
+    }
+    
+    public static String getImagesPath() {
+        return getCurrentPath() + File.separator + IMAGES_FOLDER + File.separator;
     }
 
-    public static String getCurrentPatch() {
+    public static String getCurrentPath() {
         return Paths.get(".").toAbsolutePath().normalize().toString();
     }
 
@@ -41,6 +45,26 @@ public class CommonTypes {
 
     public static void saveConfigs() {
         catList.saveToDB();
+    }
+    
+    public static String parseString(String source, String begin, String end) {
+    	String res = "";
+    	try {	    	
+	    	int beginIndex = source.indexOf(begin);
+	    	if (beginIndex == -1) {
+	    		return res;
+	    	}
+	        int endIndex = source.indexOf(end);
+	    	if (endIndex == -1) {
+	    		return res;
+	    	}        
+	    	return source.substring(beginIndex, endIndex); 
+    	} catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            return res;
+        }
+    	
     }
 
     public static String addZero(int aValue) {

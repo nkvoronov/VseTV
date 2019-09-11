@@ -11,7 +11,7 @@ public class HttpContent {
 
     public HttpContent(String direction) {
         this.direction = direction;
-        Connection conn = Jsoup.connect(common.UtilStrings.HOST + this.direction);
+        Connection conn = Jsoup.connect(this.direction);
         conn.userAgent(common.UtilStrings.USER_AGENT);
         try {
             this.document = conn.get();
