@@ -51,17 +51,18 @@ public class DBUtils {
 	public static final int INDEX_FAVORITES_ISDESC = 7;
 	public static final int INDEX_FAVORITES_CAT_EN = 8;
 	public static final int INDEX_FAVORITES_CAT_RU = 9;
-	
-	public static final int INDEX_DESCRIPTION_DESCRIPTION = 1;
-	public static final int INDEX_DESCRIPTION_IMAGE = 2;
-	public static final int INDEX_DESCRIPTION_GENRES = 3;
-	public static final int INDEX_DESCRIPTION_DIRECTORS = 4;
-	public static final int INDEX_DESCRIPTION_ACTORS = 5;
-	public static final int INDEX_DESCRIPTION_COUNTRY = 6;
-	public static final int INDEX_DESCRIPTION_YEAR = 7;
-	public static final int INDEX_DESCRIPTION_RATING = 8;
-	public static final int INDEX_DESCRIPTION_TYPE = 9;
-	public static final int INDEX_DESCRIPTION_CATALOG = 10;
+
+	public static final int INDEX_DESCRIPTION_TITLE = 1;
+	public static final int INDEX_DESCRIPTION_DESCRIPTION = 2;
+	public static final int INDEX_DESCRIPTION_IMAGE = 3;
+	public static final int INDEX_DESCRIPTION_GENRES = 4;
+	public static final int INDEX_DESCRIPTION_DIRECTORS = 5;
+	public static final int INDEX_DESCRIPTION_ACTORS = 6;
+	public static final int INDEX_DESCRIPTION_COUNTRY = 7;
+	public static final int INDEX_DESCRIPTION_YEAR = 8;
+	public static final int INDEX_DESCRIPTION_RATING = 9;
+	public static final int INDEX_DESCRIPTION_TYPE = 10;
+	public static final int INDEX_DESCRIPTION_CATALOG = 11;
 	
 	public static final String CLASS_NAME = "org.sqlite.JDBC";
     public static final String URL_PRE = "jdbc:sqlite:";
@@ -187,7 +188,7 @@ public class DBUtils {
     public static final String SQL_DEL_ALL_FAVORITES_SCHEDULE = "delete from favorites_schedule";
     
     public static final String SQL_MAINSCHEDULE_DESCRIPTION =
-            "select desc.description, desc.image, desc.genres, desc.directors, desc.actors, desc.country, desc.year, desc.rating from description desc " +
+            "select desc.title, desc.description, desc.image, desc.genres, desc.directors, desc.actors, desc.country, desc.year, desc.rating, desc.type, desc.catalog from description desc " +
             "where desc.id=(select sd.description_id from schedule_description sd where sd.schedule_id=? )";
 
     public static final String SQL_SCHEDULE_INSERT =

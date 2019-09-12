@@ -1,12 +1,16 @@
 package gui;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+
 import javax.swing.table.TableModel;
 import java.sql.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 import common.CommonTypes;
 import common.DBParams;
@@ -20,6 +24,7 @@ import common.DBTableRenderOtherSchedule;
 import common.DBTableModel;
 import common.DBTableModelFavorites;
 import common.DBUtils;
+import common.UtilStrings;
 import parser.ParserVseTV;
 
 @SuppressWarnings("serial")
@@ -50,6 +55,7 @@ public class VseTV  extends JFrame implements ChangeListener {
     private JLabel jlbStatus;    
     private JSplitPane jslMain;
     private JSplitPane jslDescription;
+    private JLabel jlbImage;
     
 	public static void main(String[] args) {
         try {
@@ -364,6 +370,10 @@ public class VseTV  extends JFrame implements ChangeListener {
         jpnImage.setLayout(new BorderLayout());
         jslDescription.setLeftComponent(jpnImage);
         
+        jlbImage = new JLabel();
+        jlbImage.setHorizontalAlignment(SwingConstants.CENTER);
+        jpnImage.add(jlbImage, BorderLayout.CENTER);
+        
         JScrollPane jspDescription = new JScrollPane();
         
         jepDescription = new JEditorPane();
@@ -485,41 +495,66 @@ public class VseTV  extends JFrame implements ChangeListener {
     }
     
     private void updateDescription(DBParams[] aParams) throws SQLException {
+    	jlbImage.setIcon(null);
+    	jepDescription.setText("");
         Connection conn = DBUtils.getConnection(DBUtils.DB_DEST);
         if (conn != null) {
             try {
                 PreparedStatement pstmt = conn.prepareStatement(DBUtils.SQL_MAINSCHEDULE_DESCRIPTION);
                 DBUtils.setParams(pstmt, aParams);
                 ResultSet rs = pstmt.executeQuery();
-                if (rs.next()) { 
+                jlbImage.setIcon(null);
+                if (rs.next()) {
+                	
+                	String image = "";
+                	String title = "";
+                	String description = "";
                 	String genres = "";
                 	String directors = "";
                 	String actors = "";
                 	String country = "";
                     String year = "";
-                    String description = "";
+                    String rating = ""; 
                     
-                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_GENRES) != null) {
+                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_IMAGE).length() > 0) {
+                		String type = rs.getString(DBUtils.INDEX_DESCRIPTION_TYPE);
+                		int catalog = rs.getInt(DBUtils.INDEX_DESCRIPTION_CATALOG);
+                		image = CommonTypes.getImagesPath() + String.format(UtilStrings.STR_IMAGE_NAME, type, catalog);
+                		BufferedImage img = ImageIO.read(new File(image));
+                		ImageIcon icon = new ImageIcon(img);                		
+                		jlbImage.setIcon(icon);
+                	}                    
+                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_TITLE).length() > 0) {
+                		title = "<b>" + "Title: " + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_TITLE) + "<br>";
+                	} 
+                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_DESCRIPTION).length() > 0) {
+                		description = "<br>" + rs.getString(DBUtils.INDEX_DESCRIPTION_DESCRIPTION);
+                	}                 	
+                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_GENRES).length() > 0) {
                 		genres = "<b>" + Messages.getString("StrLbGenres") + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_GENRES) + "<br>";
                 	}
-                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_DIRECTORS) != null) {
+                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_DIRECTORS).length() > 0) {
                 		directors = "<b>" + Messages.getString("StrLbDirectors") + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_DIRECTORS) + "<br>";
                 	}
-                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_ACTORS) != null) {
+                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_ACTORS).length() > 0) {
                 		actors = "<b>" + Messages.getString("StrLbCast") + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_ACTORS) + "<br>";
                 	}                	                	
-                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_COUNTRY) != null) {
+                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_COUNTRY).length() > 0) {
                 		country = "<b>" + Messages.getString("StrLbCountry") + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_COUNTRY) + "<br>";
                 	}   
-                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_YEAR) != null) {
+                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_YEAR).length() > 0) {
                 		year = "<b>" + Messages.getString("StrLbYear") + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_YEAR) + "<br>";
                 	}                   	
-                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_DESCRIPTION) != null) {
-                		description = "<br>" + rs.getString(DBUtils.INDEX_DESCRIPTION_DESCRIPTION);
-                	} 
-                	jepDescription.setText(genres + country + year + directors + actors + description);
-                } else jepDescription.setText("");
-            } finally {
+                	if (rs.getString(DBUtils.INDEX_DESCRIPTION_RATING).length() > 0) {
+                		rating = "<b>" + "Rating: " + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_RATING) + "<br>";
+                	}                	
+                	jepDescription.setText(title + genres + country + year + directors + actors + rating + description);
+                	jepDescription.setCaretPosition(0);
+                }
+            } catch (IOException e) {
+				e.printStackTrace();
+				System.out.println(e.getMessage());
+			} finally {
                 conn.close();
             }
         }    	

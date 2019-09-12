@@ -168,7 +168,7 @@ public class ParserVseTV implements Runnable {
             try {
             	if (element_description != null) {
             		Elements elements_description = element_description.select(UtilStrings.STR_ELMDOCDESC);
-	                if (elements_description != null && !isFullDesc()) {
+	                if (elements_description != null) {
 	                	string_description = elements_description.html();
                         string_description_head = elements_description.select("b").text();
                         string_description = Jsoup.parse(string_description.replaceAll("<br>", ";")
@@ -215,7 +215,7 @@ public class ParserVseTV implements Runnable {
     }
 
     private void setDescription(Schedule schedule, String description, String head_description, String url_description) {   	
-        if (description.length() > 0 && !description.equals("") && !isFullDesc()) {
+        if (description.length() > 0 && !description.equals("")) {
             if (head_description.length() > 0 && !head_description.equals("")) {
                 String[] list = head_description.split(",");
                 schedule.setCountry(list[0].trim());
@@ -261,8 +261,7 @@ public class ParserVseTV implements Runnable {
 	            		Elements elements_showname = doc.select(UtilStrings.STR_ELMSHOWNAME);
 	            		if (elements_showname != null) {
 	            			string_showname = elements_showname.html();
-	            			//Title
-	            			string_showname_genre = elements_showname.select("strong").text();       			
+	            			//Title	            			       			
 //	            			string_showname = CommonTypes.parseString(string_showname, "</h2>", "<strong>");
 //	            			string_showname = string_showname
 //	            					.replace("</h2>", "")
@@ -276,11 +275,11 @@ public class ParserVseTV implements Runnable {
 //	            			schedule.setCountry(string_showname.split(";")[1].split(",")[0]);
 //	            			//Year
 //	            			schedule.setYear(string_showname.split(";")[1].split(",")[1]);
-	            			//Genres	            			
-	            			schedule.setGenres(string_showname_genre.replace(" / ", ", "));
+	            			//Genres
+	            			string_showname_genre = elements_showname.select("strong").text().replace(" / ", ", ");
+	            			schedule.setGenres(string_showname_genre);
 	            			System.out.println("GENRES");
-	            			System.out.println(string_showname_genre);
-	            			System.out.println(); 	            			
+	            			System.out.println(string_showname_genre); 	            			
 	            		}
 	                } catch (Exception e) {
 	                    e.printStackTrace();
