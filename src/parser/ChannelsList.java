@@ -15,6 +15,7 @@ import common.DBParams;
 import common.ProgressMonitor;
 import common.DBUtils;
 import common.UtilStrings;
+import gui.Messages;
 
 public class ChannelsList implements Runnable{
     private Boolean indexSort;
@@ -71,16 +72,11 @@ public class ChannelsList implements Runnable{
         Elements items = doc.select("option[value^=channel_]");
         for (org.jsoup.nodes.Element item : items){
         	String cname = item.text();
-        	try {
-	        	if (new String(cname.getBytes(), "UTF-8").endsWith("(на укр.)")) {
-	                lang = "ukr";
-	            } else {
-	                lang = "rus";
-	            }
-        	} catch (UnsupportedEncodingException e) {
-        		e.printStackTrace();
-        		System.out.println(e.getMessage());
-			}
+        	if (cname.endsWith("(на укр.)")) {
+                lang = "ukr";
+            } else {
+                lang = "rus";
+            }
         	String clink = item.attr("value");
         	String cindex = clink.split("_")[1];
         	String cicon = UtilStrings.ICONS_PRE + cindex + ".gif";
@@ -198,7 +194,7 @@ public class ChannelsList implements Runnable{
                 aParams = new DBParams[1];
                 aParams[0] = new DBParams(1, channel.getIndex(), CommonTypes.DBType.INTEGER);
                 if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_UPD_CHANNELDATE, aParams) != -1) {
-                    logMsg = "Канал " + oldName + " - присутствует";
+                    logMsg = String.format(Messages.getString("StrExtChannel"), oldName);
                 }
             } else if (typeUpdate == 1) {
                 aParams = new DBParams[4];
@@ -207,7 +203,7 @@ public class ChannelsList implements Runnable{
                 aParams[2] = new DBParams(3, channel.getLang(), CommonTypes.DBType.STRING);
                 aParams[3] = new DBParams(4, channel.getIndex(), CommonTypes.DBType.INTEGER);
                 if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_UPD_CHANNELNAME, aParams) != -1) {
-                    logMsg = "Обновлен канал - " + oldName + " на " + channel.getoName();
+                    logMsg = String.format(Messages.getString("StrUpdChannel"), oldName, channel.getoName());
                 }
             } else {
                 aParams = new DBParams[4];
@@ -216,7 +212,7 @@ public class ChannelsList implements Runnable{
                 aParams[2] = new DBParams(3, channel.getIcon(), CommonTypes.DBType.STRING);
                 aParams[3] = new DBParams(4, channel.getLang(), CommonTypes.DBType.STRING);
                 if (DBUtils.getExecutePreparedUpdate(DBUtils.SQL_INS_CHANNEL, aParams) != -1) {
-                    logMsg = "Добавлен новый канал - " + channel.getoName();
+                	logMsg = String.format(Messages.getString("StrAddChannel"), channel.getoName());
                 }
             }
             pMonitor.setCurrent(logMsg, index);
@@ -236,14 +232,18 @@ public class ChannelsList implements Runnable{
         		file.createNewFile();
         		BufferedImage img = ImageIO.read(new URL(cicon));
         		ImageIO.write(img, "gif", file);
-        		logMsg = "Добавление иконки - " + String.format(UtilStrings.STR_ICON_NAME, channel.getIndex());
+        		logMsg = Messages.getString("StrAddIcon") + " - " + String.format(UtilStrings.STR_ICON_NAME, channel.getIndex());
         	} else {
-        		logMsg = "Обновление иконки - " + String.format(UtilStrings.STR_ICON_NAME, channel.getIndex());
+        		logMsg = Messages.getString("StrUpdIcon") + " - " + String.format(UtilStrings.STR_ICON_NAME, channel.getIndex());
         	}            
         } catch (FileNotFoundException e) {
-            logMsg = "Ошибка записи - " + channel.getIcon();
+        	e.printStackTrace();
+        	System.out.println(e.getMessage());
+            logMsg = Messages.getString("StrErrWrite") + " - " + channel.getIcon();
         } catch (IOException e) {
-            logMsg = "Ошибка загрузки - " + channel.getIcon();
+        	e.printStackTrace();
+        	System.out.println(e.getMessage());
+            logMsg = Messages.getString("StrErrLoad") + " - " + channel.getIcon();
         }
         pMonitor.setCurrent(logMsg, index);
     }
@@ -274,7 +274,7 @@ public class ChannelsList implements Runnable{
             }
             resupd = DBUtils.getExecuteUpdate(DBUtils.SQL_DEL_CHANNELDATE_NULL);
             if (resupd != 0) {
-                pMonitor.setCurrent("Удалено - " + resupd, i);
+                pMonitor.setCurrent(Messages.getString("StrDeleted") + " - " + resupd, i);
             }
         } else {
             for (Channel channel : this.data) {

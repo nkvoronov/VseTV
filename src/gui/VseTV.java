@@ -525,7 +525,7 @@ public class VseTV  extends JFrame implements ChangeListener {
                 		jlbImage.setIcon(icon);
                 	}                    
                 	if (rs.getString(DBUtils.INDEX_DESCRIPTION_TITLE).length() > 0) {
-                		title = "<b>" + "Title: " + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_TITLE) + "<br>";
+                		title = "<b>" + Messages.getString("StrLbTitle") + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_TITLE) + "<br>";
                 	} 
                 	if (rs.getString(DBUtils.INDEX_DESCRIPTION_DESCRIPTION).length() > 0) {
                 		description = "<br>" + rs.getString(DBUtils.INDEX_DESCRIPTION_DESCRIPTION);
@@ -537,7 +537,7 @@ public class VseTV  extends JFrame implements ChangeListener {
                 		directors = "<b>" + Messages.getString("StrLbDirectors") + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_DIRECTORS) + "<br>";
                 	}
                 	if (rs.getString(DBUtils.INDEX_DESCRIPTION_ACTORS).length() > 0) {
-                		actors = "<b>" + Messages.getString("StrLbCast") + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_ACTORS) + "<br>";
+                		actors = "<b>" + Messages.getString("StrLbActors") + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_ACTORS) + "<br>";
                 	}                	                	
                 	if (rs.getString(DBUtils.INDEX_DESCRIPTION_COUNTRY).length() > 0) {
                 		country = "<b>" + Messages.getString("StrLbCountry") + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_COUNTRY) + "<br>";
@@ -546,7 +546,7 @@ public class VseTV  extends JFrame implements ChangeListener {
                 		year = "<b>" + Messages.getString("StrLbYear") + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_YEAR) + "<br>";
                 	}                   	
                 	if (rs.getString(DBUtils.INDEX_DESCRIPTION_RATING).length() > 0) {
-                		rating = "<b>" + "Rating: " + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_RATING) + "<br>";
+                		rating = "<b>" + Messages.getString("StrLbRating") + "</b> " + rs.getString(DBUtils.INDEX_DESCRIPTION_RATING) + "<br>";
                 	}                	
                 	jepDescription.setText(title + genres + country + year + directors + actors + rating + description);
                 	jepDescription.setCaretPosition(0);
@@ -655,6 +655,8 @@ public class VseTV  extends JFrame implements ChangeListener {
             int returnVal = fc.showSaveDialog(parent);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 parser.setOutXML(fc.getSelectedFile().getAbsolutePath());
+                parser.setCountDay(CommonTypes.appConfig.getCoutDays());
+                parser.setFullDesc(CommonTypes.appConfig.isFullDesc());
                 parser.runParser();
             }
     	}
@@ -767,6 +769,8 @@ public class VseTV  extends JFrame implements ChangeListener {
     	
        	public void onExecute() {
             jpbUpdate.setVisible(true);
+            parser.setCountDay(CommonTypes.appConfig.getCoutDays());
+            parser.setFullDesc(CommonTypes.appConfig.isFullDesc());
             new Thread(parser).start();
     	} 
     }

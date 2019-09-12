@@ -11,7 +11,6 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -200,18 +199,13 @@ public class ParserVseTV implements Runnable {
     }
 
     private void setCategory(Schedule schedule) {
-        try {
-            String ctitle = new String(schedule.getTitle().getBytes(), "UTF-8").toLowerCase(); 
-        	for (ScheduleCategory category : CommonTypes.catList.getData()) {
-        		if (category.getId() != 0 && titleContainsDictWorlds(ctitle, category.getDictionary())) {
-        			schedule.setCategory(category.getId());
-        			break;
-        		}
-        	}
-        } catch (UnsupportedEncodingException e) {
-        	e.printStackTrace();
-        	System.out.println(e.getMessage());
-        }
+        String ctitle = schedule.getTitle().toLowerCase(); 
+    	for (ScheduleCategory category : CommonTypes.catList.getData()) {
+    		if (category.getId() != 0 && titleContainsDictWorlds(ctitle, category.getDictionary())) {
+    			schedule.setCategory(category.getId());
+    			break;
+    		}
+    	}
     }
 
     private void setDescription(Schedule schedule, String description, String head_description, String url_description) {   	
