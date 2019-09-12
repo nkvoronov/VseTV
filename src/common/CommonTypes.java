@@ -47,26 +47,6 @@ public class CommonTypes {
         catList.saveToDB();
     }
     
-    public static String parseString(String source, String begin, String end) {
-    	String res = "";
-    	try {	    	
-	    	int beginIndex = source.indexOf(begin);
-	    	if (beginIndex == -1) {
-	    		return res;
-	    	}
-	        int endIndex = source.indexOf(end);
-	    	if (endIndex == -1) {
-	    		return res;
-	    	}        
-	    	return source.substring(beginIndex, endIndex); 
-    	} catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-            return res;
-        }
-    	
-    }
-
     public static String addZero(int aValue) {
         if (aValue < 10) {
             return "0" + Integer.toString(aValue);

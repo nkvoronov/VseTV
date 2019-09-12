@@ -18,8 +18,32 @@ public class UtilStrings {
     public static final String STR_ELMDOCSELECT    = "div[class~=(?:pasttime|onair|time)]";
     public static final String STR_ELMDOCTITLE     = "div[class~=(?:pastprname2|prname2)]";
     public static final String STR_ELMDOCDESC      = "div[class~=(?:pastdesc|prdesc)]";
-    public static final String STR_ELMSHOWNAME      = "td[class=showname]";
-    public static final String STR_ELMSHOWMAIN      = "td[class=showmain]";    
+    
+    public static final String STR_SEPDIRECTORS    = "Режиссер(ы):";
+    public static final String STR_SEPACTORS       = "Актеры:";
+    public static final String STR_SEPVENDORS      = "Ведущие:";
+    public static final String STR_SEPBR           = "<br>";
+    public static final String STR_SEPDIV           = "<div>";
+    
+    public static String parseString(String source, String begin, String end) {
+    	String res = "";
+    	try {	    	
+	    	int beginIndex = source.indexOf(begin);
+	    	if (beginIndex == -1) {
+	    		return res;
+	    	}
+	        int endIndex = source.indexOf(end);
+	    	if (endIndex == -1) {
+	    		return res;
+	    	}        
+	    	return source.substring(beginIndex, endIndex); 
+    	} catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            return res;
+        }
+    	
+    }
 
     private UtilStrings() {
     	// do not instantiate

@@ -159,7 +159,7 @@ public class SchedulesList {
 
     public Schedule getScheduleForType(String type, int catalog) {
         for (Schedule schedule : getData()) {
-            if (schedule.getType() != null && schedule.getType().equals(type) && schedule.getCatalog() != 0 && schedule.getCatalog() == catalog) {
+            if (schedule.getType() != null && schedule.getType().equals(type) && schedule.getCatalog() == catalog) {
             	return schedule;
             }
         }

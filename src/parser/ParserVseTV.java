@@ -247,38 +247,104 @@ public class ParserVseTV implements Runnable {
             		schedule.copyFullDesc(copy_schedule); 
             	} else {            		
                 	String direction = String.format(UtilStrings.STR_SCHEDULEDESCRIPTION, type_desc, catalog_desc);
-                    System.out.println("DIRECTIONS: " + direction);
                     org.jsoup.nodes.Document doc = new HttpContent(direction).getDocument();
                     String string_showname = "";
-                    String string_showname_genre = "";                    
+                    String string_title = "";
+                    String string_genre = "";                    
 	            	try {
-	            		Elements elements_showname = doc.select(UtilStrings.STR_ELMSHOWNAME);
+	            		Elements elements_showname = doc.select("td.showname");
 	            		if (elements_showname != null) {
 	            			string_showname = elements_showname.html();
-	            			//Title	            			       			
-//	            			string_showname = CommonTypes.parseString(string_showname, "</h2>", "<strong>");
-//	            			string_showname = string_showname
-//	            					.replace("</h2>", "")
-//	            					.replace("<strong>", "")
-//	            					.replace("\"", "")
-//	            					.replace("<br><br>", ";")
-//	            					.replaceAll("<br>", "");	            					
-//	            			//TitleOrg
-//	            			schedule.setTitle_org(string_showname.split(";")[0].trim());
-//	            			//Country
-//	            			schedule.setCountry(string_showname.split(";")[1].split(",")[0]);
-//	            			//Year
-//	            			schedule.setYear(string_showname.split(";")[1].split(",")[1]);
+	            			//Title
+	            			if (string_showname.indexOf("<strong>") != -1) {
+	            				string_showname = UtilStrings.parseString(string_showname, "</h2>", "<strong>")
+	            						.replace("</h2>", "")
+	            						.trim();
+	            			} else {
+	            				string_showname = UtilStrings.parseString(string_showname, "</h2>", "<!--")
+	            						.replace("</h2>", "")
+	            						.replace("&nbsp;", "")
+	            						.trim();
+	            			}
+	            			if (string_showname.length() > 0) {
+	            				if (string_showname.endsWith(",")) {
+	            					string_showname = string_showname.substring(0, string_showname.length() - 1).trim();
+	            				}
+	            				if (string_showname.endsWith("-")) {
+	            					string_showname = string_showname.substring(0, string_showname.length() - 1);
+	            				}
+	            				string_showname = string_showname.replaceFirst("<br>", ";");
+	            				//TitleOrg
+	            				string_title = string_showname.split(";")[0].trim();
+	            				if (string_title.length() > 0) {
+	            					schedule.setTitle_org(string_title);
+	            				}
+	            				string_showname = string_showname.split(";")[1]
+	            						.replaceAll("<br>", "")
+	            						.trim();
+	            				String[] list_data = string_showname.split(",");
+	            				if (list_data.length == 1) {
+	            					//Year
+	            					schedule.setYear(list_data[0].trim());
+	            				} else {
+	            					//Country
+	            					schedule.setCountry(list_data[0].trim());
+	            					//Year
+	            					schedule.setYear(list_data[1].trim());
+	            				}        				
+	            			}
 	            			//Genres
-	            			string_showname_genre = elements_showname.select("strong").text().replace(" / ", ", ");
-	            			schedule.setGenres(string_showname_genre);
-	            			System.out.println("GENRES");
-	            			System.out.println(string_showname_genre); 	            			
+	            			string_genre = elements_showname.select("strong").text().replace(" / ", ", ");
+	            			schedule.setGenres(string_genre); 	            			
 	            		}
 	                } catch (Exception e) {
 	                    e.printStackTrace();
 	                    System.out.println(e.getMessage());
-	                }                                        
+	                }   
+	        		String string_showmain = "";
+	        		String string_directors = "";
+	        		String string_actors = "";
+	        		String string_vendors = "";
+	        		try {            		
+	            		Elements elements_showmain = doc.select("td.showmain");
+	            		if (elements_showmain != null) {
+	            			string_showmain = elements_showmain.html();
+	            			//Directors
+	            			string_directors = UtilStrings.parseString(string_showmain, UtilStrings.STR_SEPDIRECTORS, UtilStrings.STR_SEPBR);
+	            			if (string_directors.length() > 0) {
+	            				string_directors = Jsoup.parse(string_directors)
+	            						.text()
+	            						.replace(UtilStrings.STR_SEPDIRECTORS, "")
+	            						.trim();		            			
+	            				schedule.setDirectors(string_directors);         				
+	            			}
+	            			//Actors
+	            			string_actors = UtilStrings.parseString(string_showmain, UtilStrings.STR_SEPACTORS, UtilStrings.STR_SEPDIV);
+	            			if (string_actors.length() > 0) {
+	            				string_actors = Jsoup.parse(string_actors)
+	            						.text()
+	            						.replace(UtilStrings.STR_SEPACTORS, "")
+	            						.trim();		            			
+	            				schedule.setActors(string_actors);        				
+	            			}
+	            			//Vendors
+	            			string_vendors = UtilStrings.parseString(string_showmain, UtilStrings.STR_SEPVENDORS, UtilStrings.STR_SEPDIV);
+	            			if (string_vendors.length() > 0) {
+	            				string_vendors = Jsoup.parse(string_vendors)
+	            						.text()
+	            						.replace(UtilStrings.STR_SEPVENDORS, "")
+	            						.trim();
+	            				if (schedule.getActors().length() > 0) {
+	            					schedule.setActors(schedule.getActors() + ", " + string_vendors);
+	            				} else {
+	            					schedule.setActors(string_vendors);
+	            				}           				
+	            			}	            			
+	            		}
+			        } catch (Exception e) {
+			        	e.printStackTrace();
+			            System.out.println(e.getMessage());
+			        }	            			
         			//Image
                     String string_img = "";
                     try {
@@ -286,8 +352,6 @@ public class ParserVseTV implements Runnable {
 	        			if (string_img.length() > 0) {
 	        				string_img = UtilStrings.HOST + string_img.replaceFirst("/", "");
 	        				schedule.setImage(string_img);
-	            			System.out.println("IMAGE");
-	        				System.out.println(string_img);
 	        				//Download image
 	        				getSchedules().saveScheduleImage(schedule);
 	        			}
@@ -304,9 +368,7 @@ public class ParserVseTV implements Runnable {
 	        					.text()
 	        					.replaceAll(";", "<br>")
 	        					.trim();	            			
-	        			schedule.setDescription(string_description);
-	        			System.out.println("DESCRIPTION");
-	        			System.out.println(string_description);	        			
+	        			schedule.setDescription(string_description);	        			
 			        } catch (Exception e) {
 			            e.printStackTrace();
 			            System.out.println(e.getMessage());
@@ -316,56 +378,16 @@ public class ParserVseTV implements Runnable {
                     try {                    
 	                    Elements elements_name = doc.select("span.name");
 	                    string_rating = elements_name.get(0).text().split(":")[1].trim();
-	                    schedule.setRating(string_rating);
-	        			System.out.println("RATING");
-	        			System.out.println(string_rating);
-	        			System.out.println();
-	        			System.out.println();	        			
-			          } catch (Exception e) {
-			              e.printStackTrace();
-			              System.out.println(e.getMessage());
-			          }                    		
+	                    schedule.setRating(string_rating);        			
+                    } catch (Exception e) {
+                    	e.printStackTrace();
+                    	System.out.println(e.getMessage());
+                    }                    		
             	}
             }
         }
     }
     
-//    		String string_showmain = "";
-//    		String string_showmain_directors = "";
-//    		String string_showmain_actors = "";
-//    		String string_showmain_vendors = "";
-//    		String string_showmain_img = "";
-//    		String string_showmain_description = "";
-//    		String string_showmain_rating = "";
-//    		try {            		
-//        		Elements elements_showmain = doc.select(UtilStrings.STR_ELMSHOWMAIN);
-//        		if (elements_showmain != null) {
-//        			string_showmain = elements_showmain.html();
-//        			System.out.println(string_showmain);
-//        			System.out.println();
-        			//Directors
-//        			string_showmain_directors = CommonTypes.parseString(string_showmain, "Режиссер(ы):", "<br>");
-//        			if (string_showmain_directors.length() > 0) {
-//        				string_showmain_directors = Jsoup.parse(string_showmain_directors).text();
-//        				schedule.setDirectors(string_showmain_directors);
-//        			}
-        			//Actors
-//        			string_showmain_actors = CommonTypes.parseString(string_showmain, "Актеры:", "<br>");
-//        			string_showmain_vendors = CommonTypes.parseString(string_showmain, "Ведущие:", "<br>");
-//        			if (string_showmain_actors.length() > 0 || string_showmain_vendors.length() > 0) {
-//        				if (string_showmain_actors.length() > 0) {
-//        					string_showmain_actors = Jsoup.parse(string_showmain_actors).text();
-//        					if (string_showmain_vendors.length() > 0) {
-//        						string_showmain_actors = string_showmain_actors + ", ";
-//        					}
-//        				}
-//        				if (string_showmain_vendors.length() > 0) {
-//        					string_showmain_vendors = Jsoup.parse(string_showmain_vendors).text();
-//        					string_showmain_actors = string_showmain_actors + string_showmain_vendors;
-//        				}
-//        				schedule.setActors(string_showmain_actors);
-//        			}	            			
-
     public void runParser() {
         getChannels().loadFromDB();
         if (getChannels().size() > 0) {
