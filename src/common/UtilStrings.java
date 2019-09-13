@@ -35,8 +35,12 @@ public class UtilStrings {
 	        int endIndex = source.indexOf(end);
 	    	if (endIndex == -1) {
 	    		return res;
-	    	}        
-	    	return source.substring(beginIndex, endIndex); 
+	    	} 
+	    	if (endIndex > beginIndex) {
+	    		return source.substring(beginIndex, endIndex); 
+	    	} else {
+	    		return res;
+	    	}
     	} catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
