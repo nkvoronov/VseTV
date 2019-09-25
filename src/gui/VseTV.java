@@ -43,7 +43,6 @@ public class VseTV  extends JFrame implements ChangeListener {
     private JCheckBoxMenuItem jcmiViewToolBar;
     private JCheckBoxMenuItem jcmiViewStatuslBar;
     private JTabbedPane jtpMain;
-    private JSplitPane jslScheludeAllMain;
     private JTable jtbMainChannels;
     private JTable jtbScheludeAll;
     private JTable jtbScheludeNow;
@@ -61,7 +60,6 @@ public class VseTV  extends JFrame implements ChangeListener {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException | IllegalAccessException e) {
-            e.printStackTrace();
             System.out.println(e.getMessage());
         }
         CommonTypes.loadConfigs();
@@ -239,7 +237,7 @@ public class VseTV  extends JFrame implements ChangeListener {
         jpnScheludeAll.setLayout(new BorderLayout(4, 4));
         jtpMain.addTab(Messages.getString("StrPageProgramme"), jpnScheludeAll);
 
-        jslScheludeAllMain = new javax.swing.JSplitPane();
+        JSplitPane jslScheludeAllMain = new javax.swing.JSplitPane();
         jslScheludeAllMain.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
         jslScheludeAllMain.setBorder(null);
         jslScheludeAllMain.setDividerLocation(200);
@@ -487,7 +485,6 @@ public class VseTV  extends JFrame implements ChangeListener {
 	            try {
 	            	updateDescription(aParams);
 	            } catch (SQLException e) {
-					e.printStackTrace();
 					System.out.println(e.getMessage());
 				}
 	        }
@@ -552,7 +549,6 @@ public class VseTV  extends JFrame implements ChangeListener {
                 	jepDescription.setCaretPosition(0);
                 }
             } catch (IOException e) {
-				e.printStackTrace();
 				System.out.println(e.getMessage());
 			} finally {
                 conn.close();
@@ -571,7 +567,6 @@ public class VseTV  extends JFrame implements ChangeListener {
 	    	try {
 	    		tm.refreshContent();
 	    	} catch (SQLException e) {
-				e.printStackTrace();
 				System.out.println(e.getMessage());
 			}
 	    	table.setVisible(false);
@@ -590,23 +585,18 @@ public class VseTV  extends JFrame implements ChangeListener {
 
     private void scheludeAllSelectCurTime() {
         int rowCount = jtbScheludeAll.getRowCount();
-        Boolean find = false;
         String isOld;
         int i;
+        jtbScheludeAll.setRowSelectionInterval(0, 0);
         for (i = 0; i < rowCount; i++) {
             isOld = (String) jtbScheludeAll.getModel().getValueAt(i, DBUtils.INDEX_ASCHELUDE_TIMETYPE);
             if (isOld.equals("NOW")) {
                 jtbScheludeAll.setRowSelectionInterval(i, i);
-                find = true;
+                Rectangle rect = new Rectangle(jtbScheludeAll.getCellRect(i, 0, false));            
+                jtbScheludeAll.scrollRectToVisible(rect);
                 break;
             }
         }
-        if (find) {
-            jtbScheludeAll.setRowSelectionInterval(i, i);
-            Rectangle rect = new Rectangle(jtbScheludeAll.getCellRect(i, 0, false));            
-            jtbScheludeAll.scrollRectToVisible(rect);
-        } else jtbScheludeAll.setRowSelectionInterval(0, 0);
-
     }
 
     private void refreshTableForParams(JTable table, DBParams[] aParams) {
@@ -615,7 +605,6 @@ public class VseTV  extends JFrame implements ChangeListener {
 	    	try {
 	    		tm.refreshContentForParams(aParams);
 	    	} catch (SQLException e) {
-				e.printStackTrace();
 				System.out.println(e.getMessage());
 			}
 	        try {
