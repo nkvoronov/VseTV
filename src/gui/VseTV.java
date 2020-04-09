@@ -28,7 +28,7 @@ import common.UtilStrings;
 import parser.ParserVseTV;
 
 @SuppressWarnings("serial")
-public class VseTV  extends JFrame implements ChangeListener {
+public class VseTV extends JFrame implements ChangeListener {
     private ParserVseTV parser;
     private ActionSaveXmlTV acSaveXmlTV;    
     private ActionExit acExit;
